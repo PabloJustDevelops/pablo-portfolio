@@ -6,6 +6,9 @@ export const projects = [
     link: "https://github.com",
     image: "https://placehold.co/600x400?text=Dashboard",
     featured: true,
+    category: "WEB APP",
+    period: "Q4 2024",
+    accentColor: "bg-blue-600",
   },
   {
     title: "SaaS Landing Page",
@@ -14,6 +17,9 @@ export const projects = [
     link: "https://github.com",
     image: "https://placehold.co/600x400?text=Landing+Page",
     featured: true,
+    category: "LANDING PAGE",
+    period: "Q1 2025",
+    accentColor: "bg-purple-600",
   },
   {
     title: "Task Manager API",
@@ -22,5 +28,8 @@ export const projects = [
     link: "https://github.com",
     image: "https://placehold.co/600x400?text=API",
     featured: false,
+    category: "BACKEND",
+    period: "Q2 2025",
+    accentColor: "bg-emerald-600",
   },
 ];
