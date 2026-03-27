@@ -18,19 +18,28 @@ export async function sendEmail(data: ContactFormValues) {
 
   // Si no hay API Key configurada, simulamos el éxito (para desarrollo)
   if (!resend) {
-    console.log("⚠️ SIMULACIÓN DE ENVÍO DE EMAIL (Falta RESEND_API_KEY) ⚠️");
-    console.log("Datos:", data);
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simular delay de red
+    if (process.env.NODE_ENV === "production") {
+      return { error: "El envío de emails no está configurado." };
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 300));
     return { success: true, message: "Mensaje enviado con éxito (Simulación)" };
   }
 
   try {
     const { name, email, message } = result.data;
+    const to = process.env.CONTACT_TO_EMAIL;
+    const from =
+      process.env.CONTACT_FROM_EMAIL || "Portfolio Contact <onboarding@resend.dev>";
+
+    if (!to) {
+      return { error: "Falta configurar el email de destino (CONTACT_TO_EMAIL)." };
+    }
     
     // Enviamos el email usando Resend
     const { data: emailData, error } = await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
-      to: ["pablolopez2001@outlook.es"], 
+      from,
+      to: [to],
       subject: `Nuevo mensaje de ${name} desde el Portfolio`,
       text: `Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`,
       replyTo: email,

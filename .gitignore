@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 
+# herramientas locales
+/.claude/
+/_screenshots/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
@@ -32,13 +36,15 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
 
+# generado por next-sitemap
+/public/robots.txt
+/public/sitemap*.xml
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# screenshots
-_screenshots/*
