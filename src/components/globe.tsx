@@ -46,10 +46,12 @@ const ARCS = [
 
 interface GlobeProps {
   className?: string;
+  globeRef?: React.RefObject<any>;
 }
 
-export function Globe({ className }: GlobeProps) {
-  const globeRef = useRef<unknown>(undefined);
+export function Globe({ className, globeRef }: GlobeProps) {
+  const internalGlobeRef = useRef<unknown>(undefined);
+  const activeRef = globeRef || internalGlobeRef;
   const [mounted, setMounted] = useState(false);
   const [dimensions, setDimensions] = useState({ width: 350, height: 350 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -58,16 +60,16 @@ export function Globe({ className }: GlobeProps) {
     setMounted(true);
     
     // Auto-rotate setup
-    if (globeRef.current) {
+    if (activeRef.current) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const controls = (globeRef.current as any).controls();
+      const controls = (activeRef.current as any).controls();
       controls.autoRotate = true;
       controls.autoRotateSpeed = 0.5;
       controls.enableZoom = false;
       
       // Point the camera to Europe initially
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (globeRef.current as any).pointOfView({ lat: 45, lng: 0, altitude: 2.5 }, 1000);
+      (activeRef.current as any).pointOfView({ lat: 45, lng: 0, altitude: 2.5 }, 1000);
     }
 
     const handleResize = () => {
@@ -96,7 +98,7 @@ export function Globe({ className }: GlobeProps) {
       className={cn("relative aspect-square w-full max-w-[350px] cursor-grab active:cursor-grabbing", className)}
     >
       <ReactGlobe
-        ref={globeRef}
+        ref={activeRef}
         width={dimensions.width}
         height={dimensions.height}
         backgroundColor="rgba(0,0,0,0)"
@@ -127,7 +129,8 @@ export function Globe({ className }: GlobeProps) {
 
         // HTML Elements (Tooltips)
         htmlElementsData={LOCATIONS}
-        htmlElement={(d: Record<string, unknown>) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        htmlElement={(d: any) => {
           const el = document.createElement("div");
           el.innerHTML = `
             <div class="flex flex-col items-center group transition-transform duration-300 hover:scale-110">

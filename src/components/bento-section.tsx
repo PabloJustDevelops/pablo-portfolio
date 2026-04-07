@@ -4,7 +4,7 @@ import { stack } from "@/data/stack";
 import { profile } from "@/data/profile";
 import { Copy, Search } from "lucide-react";
 import { motion } from "framer-motion";
-import { Globe, type GlobeRef } from "@/components/globe";
+import { Globe } from "@/components/globe";
 import { StatusBento } from "@/components/status-bento";
 import ES from "country-flag-icons/react/3x2/ES";
 import GB from "country-flag-icons/react/3x2/GB";
@@ -12,7 +12,7 @@ import FR from "country-flag-icons/react/3x2/FR";
 import { useRef, type CSSProperties, type ComponentType, type ReactNode } from "react";
 
 export function BentoSection() {
-  const globeRef = useRef<GlobeRef>(null);
+  const globeRef = useRef<any>(null);
 
   const countries = [
     { name: "Spain", lat: 40.4168, lon: -3.7038, flag: ES },
@@ -166,7 +166,11 @@ export function BentoSection() {
                 {countries.map((country) => (
                   <button
                     key={country.name}
-                    onClick={() => globeRef.current?.rotate(country.lat, country.lon)}
+                    onClick={() => {
+                      if (globeRef.current) {
+                        globeRef.current.pointOfView({ lat: country.lat, lng: country.lon, altitude: 2.5 }, 1000);
+                      }
+                    }}
                     className="px-3 py-1.5 rounded-full border bg-white/5 border-white/5 text-neutral-500 hover:bg-white/10 hover:text-neutral-300 hover:border-white/10 transition-all duration-300 flex items-center gap-1.5 text-[10px] font-bold cursor-pointer group"
                   >
                     <country.flag title={country.name} className="w-3 h-3 rounded-[1px]" />
@@ -178,7 +182,7 @@ export function BentoSection() {
 
             {/* Interactive Globe - Integrado directamente */}
             <div className="flex-1 flex items-center justify-center relative overflow-visible">
-              <Globe ref={globeRef} className="scale-110" />
+              <Globe globeRef={globeRef} className="scale-110" />
               <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#0b0b0e] via-[#0b0b0e]/60 to-transparent pointer-events-none z-10" />
             </div>
 
