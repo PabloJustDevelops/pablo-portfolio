@@ -155,8 +155,9 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
             const lat = (loc.lat * PI) / 180;
             const lon = (loc.lon * PI) / 180 - PI;
 
+            // This is the correct projection math matching cobe's internal shader
             const t = Math.cos(lat);
-            const pX = -t * Math.cos(lon);
+            const pX = t * Math.cos(lon);
             const pY = Math.sin(lat);
             const pZ = t * Math.sin(lon);
 
@@ -170,7 +171,8 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
               pY * sinTheta +
               pZ * (cosPhi * cosTheta);
 
-            const aX = 0.8 * lX;
+            // cobe maps X/Y to screen space. Adjusting based on standard WebGL coordinate systems.
+            const aX = -0.8 * lX;
             const aY = 0.8 * lY;
             const aXPre = aX * (height / width);
 
