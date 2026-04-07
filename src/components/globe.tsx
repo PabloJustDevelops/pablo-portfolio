@@ -32,65 +32,7 @@ const LOCATIONS = [
 ];
 
 const PI = Math.PI;
-const PHI = 1.618033988749895;
-const SQRT5 = 2.23606797749979;
-const TT_MAGIC = 0.7202100452062783;
-const TAU = 6.283185307179586;
-const TT_OFFSET = 3.8832220774509327;
-const TT_FRAC = 0.618033988749895;
 const MAP_SAMPLES = 16000;
-
-function snapToFibonacciSample(
-  dir: { x: number; y: number; z: number },
-  mapSamples: number,
-) {
-  const _x = dir.x;
-  const _y = dir.z;
-  const _z = dir.y;
-
-  const c = 1 / mapSamples;
-  const p = Math.max(
-    2,
-    Math.floor(Math.log2(SQRT5 * mapSamples * PI * (1 - _z * _z)) * TT_MAGIC),
-  );
-  const t = Math.pow(PHI, p) / SQRT5;
-  const e0 = Math.floor(t + 0.5);
-  const e1 = Math.floor(t * PHI + 0.5);
-  const o0 = (((e0 + 1) * TT_FRAC) % 1) * TAU - TT_OFFSET;
-  const o1 = (((e1 + 1) * TT_FRAC) % 1) * TAU - TT_OFFSET;
-  const L0 = -2 * e0;
-  const L1 = -2 * e1;
-  const S0 = Math.atan2(_y, _x);
-  const S1 = _z - 1;
-  const s = o0 * L1 - L0 * o1;
-  const T0 = Math.floor((L1 * S0 - o1 * (S1 * mapSamples + 1)) / s);
-  const T1 = Math.floor((-L0 * S0 + o0 * (S1 * mapSamples + 1)) / s);
-
-  let best = PI;
-  let bestX = 0;
-  let bestY = 0;
-  let bestZ = 0;
-
-  for (let N = 0; N < 4; N++) {
-    const P = e0 * (T0 + (N % 2)) + e1 * (T1 + Math.floor(N * 0.5));
-    if (P > mapSamples) continue;
-    const d = ((P * TT_FRAC) % 1) * TAU;
-    const u = 1 - 2 * P * c;
-    const I = Math.sqrt(1 - u * u);
-    const x = Math.cos(d) * I;
-    const y = Math.sin(d) * I;
-    const z = u;
-    const h = Math.sqrt((_x - x) ** 2 + (_y - y) ** 2 + (_z - z) ** 2);
-    if (h < best) {
-      best = h;
-      bestX = x;
-      bestY = y;
-      bestZ = z;
-    }
-  }
-
-  return { x: bestX, y: bestZ, z: bestY };
-}
 
 export interface GlobeRef {
   rotate: (lat: number, lon: number) => void;
@@ -144,20 +86,23 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
       const labelPadding = 8;
 
       const globe = createGlobe(canvasRef.current, {
-        devicePixelRatio: dpr,
-        width: Math.max(1, Math.round(sizeRef.current.width * dpr)),
-        height: Math.max(1, Math.round(sizeRef.current.height * dpr)),
-        phi: phiRef.current,
-        theta: 0,
-        dark: 1,
-        diffuse: 1.2,
-        mapSamples: MAP_SAMPLES,
-        mapBrightness: 6,
-        baseColor: [1, 1, 1],
-        markerColor: [0.1, 0.8, 1],
-        glowColor: [0.2, 0.4, 0.8],
-        opacity: 0.8,
-        markers: [],
+          devicePixelRatio: dpr,
+          width: Math.max(1, Math.round(sizeRef.current.width * dpr)),
+          height: Math.max(1, Math.round(sizeRef.current.height * dpr)),
+          phi: phiRef.current,
+          theta: 0,
+          dark: 1,
+          diffuse: 1.2,
+          mapSamples: MAP_SAMPLES,
+          mapBrightness: 6,
+          baseColor: [1, 1, 1],
+          markerColor: [0.1, 0.8, 1],
+          glowColor: [0.2, 0.4, 0.8],
+          opacity: 0.8,
+          markers: LOCATIONS.map((loc) => ({
+            location: [loc.lat, loc.lon],
+            size: 0.05,
+          })),
         onRender: (state) => {
           if (targetPhiRef.current !== null) {
             const diff = targetPhiRef.current - phiRef.current;
@@ -210,21 +155,12 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
             const cosTheta = Math.cos(theta);
             const sinTheta = Math.sin(theta);
 
-            const lat = (loc.lat * PI) / 180;
-            const lon = (loc.lon * PI) / 180 - PI;
+            const phiAngle = Math.PI - (loc.lon * PI) / 180;
+            const thetaAngle = (loc.lat * PI) / 180;
 
-            const t = Math.cos(lat);
-            const rawX = -t * Math.cos(lon);
-            const rawY = Math.sin(lat);
-            const rawZ = t * Math.sin(lon);
-
-            const snapped = snapToFibonacciSample(
-              { x: rawX, y: rawY, z: rawZ },
-              MAP_SAMPLES,
-            );
-            const pX = snapped.x;
-            const pY = snapped.y;
-            const pZ = snapped.z;
+            const pX = -Math.cos(phiAngle) * Math.cos(thetaAngle);
+            const pY = Math.sin(thetaAngle);
+            const pZ = Math.sin(phiAngle) * Math.cos(thetaAngle);
 
             const lX = pX * cosPhi + pZ * sinPhi;
             const lY =
@@ -377,8 +313,16 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
             const bubble = marker.querySelector(
               "[data-bubble]",
             ) as HTMLDivElement | null;
+            const line = marker.querySelector(
+              "[data-line]",
+            ) as SVGLineElement | null;
+
             if (bubble) {
               bubble.style.transform = `translate(-50%, calc(-100% - ${labelLift}px)) translate(${current.x}px, ${current.y}px)`;
+            }
+            if (line) {
+              line.setAttribute("x2", current.x.toString());
+              line.setAttribute("y2", (current.y - labelLift).toString());
             }
           }
         },
@@ -440,7 +384,10 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
               pointerEvents: "none",
             }}
           >
-            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.8)] animate-pulse absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2"></div>
+            {/* El punto azul se renderiza de forma nativa en cobe (markers), así que eliminamos el DOM marker */}
+            <svg className="absolute left-0 top-0 overflow-visible pointer-events-none" style={{ width: 0, height: 0 }}>
+              <line data-line x1="0" y1="0" x2="0" y2="0" stroke="rgba(255,255,255,0.4)" strokeWidth="1" strokeDasharray="2 2" />
+            </svg>
             <div
               data-bubble
               className="flex items-center gap-1.5 px-2.5 py-1 bg-black/80 backdrop-blur-md rounded-full border border-white/20 shadow-lg pointer-events-auto group-hover:scale-110 transition-transform duration-300 absolute left-0 top-0"
