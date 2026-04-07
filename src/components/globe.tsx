@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
 
-const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
+const ReactGlobe = dynamic(() => import("react-globe.gl"), { ssr: false });
 
 const LOCATIONS = [
   {
@@ -95,7 +95,7 @@ export function Globe({ className }: GlobeProps) {
       ref={containerRef}
       className={cn("relative aspect-square w-full max-w-[350px] cursor-grab active:cursor-grabbing", className)}
     >
-      <Globe
+      <ReactGlobe
         ref={globeRef}
         width={dimensions.width}
         height={dimensions.height}
