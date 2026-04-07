@@ -32,7 +32,60 @@ const LOCATIONS = [
 ];
 
 const PI = Math.PI;
+const TT_FRAC = 0.618033988749895;
 const MAP_SAMPLES = 16000;
+
+function snapToFibonacciSample(
+  dir: { x: number; y: number; z: number },
+  mapSamples: number,
+) {
+  const _x = dir.x;
+  const _y = dir.z;
+  const _z = dir.y;
+
+  const c = 1 / mapSamples;
+  const p = Math.max(
+    2,
+    Math.floor(Math.log2(2.23606797749979 * mapSamples * PI * (1 - _z * _z)) * 0.7202100452062783),
+  );
+  const t = Math.pow(1.618033988749895, p) / 2.23606797749979;
+  const e0 = Math.floor(t + 0.5);
+  const e1 = Math.floor(t * 1.618033988749895 + 0.5);
+  const o0 = (((e0 + 1) * TT_FRAC) % 1) * 6.283185307179586 - 3.8832220774509327;
+  const o1 = (((e1 + 1) * TT_FRAC) % 1) * 6.283185307179586 - 3.8832220774509327;
+  const L0 = -2 * e0;
+  const L1 = -2 * e1;
+  const S0 = Math.atan2(_y, _x);
+  const S1 = _z - 1;
+  const s = o0 * L1 - L0 * o1;
+  const T0 = Math.floor((L1 * S0 - o1 * (S1 * mapSamples + 1)) / s);
+  const T1 = Math.floor((-L0 * S0 + o0 * (S1 * mapSamples + 1)) / s);
+
+  let best = PI;
+  let bestX = 0;
+  let bestY = 0;
+  let bestZ = 0;
+
+  for (let N = 0; N < 4; N++) {
+    const P = e0 * (T0 + (N % 2)) + e1 * (T1 + Math.floor(N * 0.5));
+    if (P > mapSamples) continue;
+    const d = ((P * TT_FRAC) % 1) * 6.283185307179586;
+    const u = 1 - 2 * P * c;
+    const I = Math.sqrt(1 - u * u);
+    const x = Math.cos(d) * I;
+    const y = Math.sin(d) * I;
+    const z = u;
+    const h = Math.sqrt((_x - x) ** 2 + (_y - y) ** 2 + (_z - z) ** 2);
+    if (h < best) {
+      best = h;
+      bestX = x;
+      bestY = y;
+      bestZ = z;
+    }
+  }
+
+  return { x: bestX, y: bestZ, z: bestY };
+}
 
 export interface GlobeRef {
   rotate: (lat: number, lon: number) => void;
@@ -155,24 +208,27 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
             const lat = (loc.lat * PI) / 180;
             const lon = (loc.lon * PI) / 180 - PI;
 
-            // This is the correct projection math matching cobe's internal shader
             const t = Math.cos(lat);
-            const pX = t * Math.cos(lon);
+            const pX = -t * Math.cos(lon);
             const pY = Math.sin(lat);
             const pZ = t * Math.sin(lon);
 
-            const lX = pX * cosPhi + pZ * sinPhi;
-            const lY =
-              pX * (sinPhi * sinTheta) +
-              pY * cosTheta +
-              pZ * (-cosPhi * sinTheta);
-            const lZ =
-              pX * (-sinPhi * cosTheta) +
-              pY * sinTheta +
-              pZ * (cosPhi * cosTheta);
+            const snapped = snapToFibonacciSample(
+              { x: pX, y: pY, z: pZ },
+              MAP_SAMPLES,
+            );
 
-            // cobe maps X/Y to screen space. Adjusting based on standard WebGL coordinate systems.
-            const aX = -0.8 * lX;
+            const lX = snapped.x * cosPhi + snapped.z * sinPhi;
+            const lY =
+              snapped.x * (sinPhi * sinTheta) +
+              snapped.y * cosTheta +
+              snapped.z * (-cosPhi * sinTheta);
+            const lZ =
+              snapped.x * (-sinPhi * cosTheta) +
+              snapped.y * sinTheta +
+              snapped.z * (cosPhi * cosTheta);
+
+            const aX = 0.8 * lX;
             const aY = 0.8 * lY;
             const aXPre = aX * (height / width);
 
@@ -313,8 +369,17 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
             const bubble = marker.querySelector(
               "[data-bubble]",
             ) as HTMLDivElement | null;
+            const line = marker.querySelector(
+              "[data-line]",
+            ) as SVGLineElement | null;
+
             if (bubble) {
               bubble.style.transform = `translate(-50%, calc(-100% - ${labelLift}px)) translate(${current.x}px, ${current.y}px)`;
+            }
+            if (line) {
+              // Conectamos el punto (0,0) al centro inferior de la burbuja (-50%, -100% - labelLift) desplazado por current.x y current.y
+              line.setAttribute("x2", current.x.toString());
+              line.setAttribute("y2", (current.y - labelLift).toString());
             }
           }
         },
@@ -376,6 +441,9 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
               pointerEvents: "none",
             }}
           >
+            <svg className="absolute left-0 top-0 overflow-visible pointer-events-none" style={{ width: 0, height: 0 }}>
+              <line data-line x1="0" y1="0" x2="0" y2="0" stroke="rgba(96,165,250,0.5)" strokeWidth="1.5" strokeDasharray="2 2" />
+            </svg>
             <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.8)] animate-pulse absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2"></div>
             <div
               data-bubble
