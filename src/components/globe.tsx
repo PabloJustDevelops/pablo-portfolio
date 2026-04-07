@@ -99,10 +99,7 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
           markerColor: [0.1, 0.8, 1],
           glowColor: [0.2, 0.4, 0.8],
           opacity: 0.8,
-          markers: LOCATIONS.map((loc) => ({
-            location: [loc.lat, loc.lon],
-            size: 0.05,
-          })),
+          markers: [],
         onRender: (state) => {
           if (targetPhiRef.current !== null) {
             const diff = targetPhiRef.current - phiRef.current;
@@ -155,12 +152,13 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
             const cosTheta = Math.cos(theta);
             const sinTheta = Math.sin(theta);
 
-            const phiAngle = Math.PI - (loc.lon * PI) / 180;
-            const thetaAngle = (loc.lat * PI) / 180;
+            const lat = (loc.lat * PI) / 180;
+            const lon = (loc.lon * PI) / 180 - PI;
 
-            const pX = -Math.cos(phiAngle) * Math.cos(thetaAngle);
-            const pY = Math.sin(thetaAngle);
-            const pZ = Math.sin(phiAngle) * Math.cos(thetaAngle);
+            const t = Math.cos(lat);
+            const pX = -t * Math.cos(lon);
+            const pY = Math.sin(lat);
+            const pZ = t * Math.sin(lon);
 
             const lX = pX * cosPhi + pZ * sinPhi;
             const lY =
@@ -313,16 +311,8 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
             const bubble = marker.querySelector(
               "[data-bubble]",
             ) as HTMLDivElement | null;
-            const line = marker.querySelector(
-              "[data-line]",
-            ) as SVGLineElement | null;
-
             if (bubble) {
               bubble.style.transform = `translate(-50%, calc(-100% - ${labelLift}px)) translate(${current.x}px, ${current.y}px)`;
-            }
-            if (line) {
-              line.setAttribute("x2", current.x.toString());
-              line.setAttribute("y2", (current.y - labelLift).toString());
             }
           }
         },
@@ -384,10 +374,7 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
               pointerEvents: "none",
             }}
           >
-            {/* El punto azul se renderiza de forma nativa en cobe (markers), así que eliminamos el DOM marker */}
-            <svg className="absolute left-0 top-0 overflow-visible pointer-events-none" style={{ width: 0, height: 0 }}>
-              <line data-line x1="0" y1="0" x2="0" y2="0" stroke="rgba(255,255,255,0.4)" strokeWidth="1" strokeDasharray="2 2" />
-            </svg>
+            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.8)] animate-pulse absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2"></div>
             <div
               data-bubble
               className="flex items-center gap-1.5 px-2.5 py-1 bg-black/80 backdrop-blur-md rounded-full border border-white/20 shadow-lg pointer-events-auto group-hover:scale-110 transition-transform duration-300 absolute left-0 top-0"
