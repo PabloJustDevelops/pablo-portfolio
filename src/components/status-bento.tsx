@@ -117,7 +117,7 @@ export function StatusBento() {
                 </div>
               </div>
               
-              <div className="flex-1">
+              <div className="flex-1 flex flex-col justify-end">
                 <h3 className="text-2xl md:text-3xl font-serif text-white mb-2 leading-tight">
                   Building scalable SaaS products
                 </h3>
@@ -152,23 +152,6 @@ export function StatusBento() {
                     ))}
                   </div>
                 </div>
-              </div>
-
-              <div className="flex flex-wrap gap-2 mt-7">
-                <Badge
-                  variant="outline"
-                  className="bg-white/5 border-white/10 text-neutral-200/80 backdrop-blur-md"
-                >
-                  <Code2 data-icon="inline-start" />
-                  Next.js
-                </Badge>
-                <Badge
-                  variant="outline"
-                  className="bg-white/5 border-white/10 text-neutral-200/80 backdrop-blur-md"
-                >
-                  <Terminal data-icon="inline-start" />
-                  TypeScript
-                </Badge>
               </div>
             </div>
           </div>
