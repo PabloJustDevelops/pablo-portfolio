@@ -21,6 +21,26 @@ export function StatusBento() {
   const [bars, setBars] = useState([1, 2, 1, 3]);
   const [nowPlaying, setNowPlaying] = useState<NowPlayingData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Estado para el reloj en vivo
+  const [time, setTime] = useState<string>("");
+  
+  // Datos simulados para el gráfico de actividad
+  const activityData = useMemo(() => {
+    return Array.from({ length: 18 }).map(() => 
+      Array.from({ length: 4 }).map(() => Math.random())
+    );
+  }, []);
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTime(now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
   const fallbackCover = useMemo(
     () =>
       "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=200&auto=format&fit=crop",
@@ -70,17 +90,17 @@ export function StatusBento() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="md:col-span-2"
+        className="md:col-span-2 h-full"
       >
-        <div className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent">
-          <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-white/10 p-8 flex flex-col justify-between min-h-[220px] shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_20px_60px_-35px_rgba(124,58,237,0.45)] transition-all duration-500 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_90px_-45px_rgba(59,130,246,0.35)]">
+        <div className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent h-full">
+          <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-white/10 p-8 flex flex-col justify-between min-h-[220px] h-full shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_20px_60px_-35px_rgba(124,58,237,0.45)] transition-all duration-500 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_90px_-45px_rgba(59,130,246,0.35)]">
             <div className="absolute inset-0">
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-500/20 via-transparent to-transparent opacity-70" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-blue-500/15 via-transparent to-transparent opacity-70" />
               <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.06] [mask-image:radial-gradient(ellipse_at_center,black_55%,transparent_100%)]" />
             </div>
         
-            <div className="relative">
+            <div className="relative flex flex-col h-full">
               <div className="flex items-center justify-between gap-6 mb-6">
                 <div className="flex items-center gap-2">
                   <span className="relative flex h-3 w-3">
@@ -89,42 +109,50 @@ export function StatusBento() {
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-400 shadow-[0_0_0_3px_rgba(16,185,129,0.15)]"></span>
                   </span>
                   <span className="text-xs font-mono text-neutral-300/80 uppercase tracking-wider">
-                    Current Focus
+                    Codificando
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-[10px] text-neutral-500 font-medium">
-                  <span className="px-2 py-1 rounded-full bg-white/5 border border-white/10">
-                    Disponible
-                  </span>
-                  <span className="px-2 py-1 rounded-full bg-white/5 border border-white/10">
-                    Remoto
-                  </span>
+                <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/10 shadow-inner">
+                  <span className="text-emerald-400 animate-pulse">●</span> {time ? `${time} LOCAL` : '00:00:00 LOCAL'}
                 </div>
               </div>
               
-              <h3 className="text-2xl md:text-3xl font-serif text-white mb-2 leading-tight">
-                Building scalable SaaS products
-              </h3>
-              <p className="text-neutral-400 text-sm max-w-md leading-relaxed">
-                Actualmente enfocado en desarrollo full-stack, optimización de rendimiento y arquitecturas modernas.
-              </p>
-            </div>
+              <div className="flex-1 flex flex-col justify-end">
+                <h3 className="text-2xl md:text-3xl font-serif text-white mb-2 leading-tight">
+                  Building scalable SaaS products
+                </h3>
+                <p className="text-neutral-400 text-sm max-w-md leading-relaxed mb-6">
+                  Actualmente enfocado en desarrollo full-stack, optimización de rendimiento y arquitecturas modernas.
+                </p>
 
-            <div className="flex flex-wrap gap-2 mt-7">
-              <Badge
-                variant="outline"
-                className="bg-white/5 border-white/10 text-neutral-200/80 backdrop-blur-md"
-              >
-                <Code2 data-icon="inline-start" />
-                Next.js
-              </Badge>
-              <Badge
-                variant="outline"
-                className="bg-white/5 border-white/10 text-neutral-200/80 backdrop-blur-md"
-              >
-                <Terminal data-icon="inline-start" />
-                TypeScript
-              </Badge>
+                {/* Gráfico de actividad tipo GitHub */}
+                <div className="flex flex-col gap-2.5 opacity-80 hover:opacity-100 transition-opacity duration-300">
+                  <span className="text-[10px] text-neutral-500 font-mono uppercase tracking-wider flex items-center gap-2">
+                    Actividad Reciente
+                  </span>
+                  <div className="flex gap-1.5 flex-wrap sm:flex-nowrap overflow-hidden">
+                    {activityData.map((col, colIndex) => (
+                      <div key={colIndex} className="flex flex-col gap-1.5">
+                        {col.map((intensity, rowIndex) => {
+                          let bgClass = "bg-white/5"; // sin actividad
+                          if (intensity > 0.8) bgClass = "bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.4)]";
+                          else if (intensity > 0.5) bgClass = "bg-emerald-500/80";
+                          else if (intensity > 0.3) bgClass = "bg-emerald-600/60";
+                          else if (intensity > 0.1) bgClass = "bg-emerald-800/40";
+                          
+                          return (
+                            <div 
+                              key={rowIndex} 
+                              className={`w-3 h-3 rounded-[3px] transition-all duration-300 hover:scale-150 cursor-crosshair ${bgClass}`}
+                              title={`Actividad: ${Math.round(intensity * 100)}%`}
+                            />
+                          )
+                        })}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -135,9 +163,9 @@ export function StatusBento() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent"
+        className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent h-full"
       >
-        <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-white/10 p-6 flex flex-col justify-between min-h-[220px] shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_20px_60px_-35px_rgba(59,130,246,0.35)] transition-all duration-500 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_90px_-45px_rgba(59,130,246,0.45)]">
+        <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-white/10 p-6 flex flex-col justify-between min-h-[220px] h-full shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_20px_60px_-35px_rgba(59,130,246,0.35)] transition-all duration-500 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_90px_-45px_rgba(59,130,246,0.45)]">
           <div
             className="absolute -inset-8 opacity-30 blur-2xl scale-110"
             style={{
@@ -175,8 +203,8 @@ export function StatusBento() {
             </div>
           </div>
 
-          <div className="relative flex gap-4 items-center mt-auto">
-            <div className="relative w-16 h-16 rounded-2xl overflow-hidden shrink-0 ring-1 ring-white/10 bg-neutral-900">
+          <div className="relative flex flex-col items-center justify-center flex-1 gap-5 mt-4 mb-2">
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden shrink-0 ring-1 ring-white/10 bg-neutral-900 shadow-2xl transition-transform duration-500 group-hover:scale-105 group-hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.5)]">
               <div className="absolute inset-0 bg-white/10" />
               {isLoading ? (
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -187,16 +215,16 @@ export function StatusBento() {
                   <Image
                     src={coverSrc}
                     alt={nowPlaying?.title || "Portada"}
-                    width={64}
-                    height={64}
+                    width={128}
+                    height={128}
                     className="h-full w-full object-cover"
                     onError={() => setCoverSrc(fallbackCover)}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                   {nowPlaying?.isPlaying && (
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-7 h-7 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center ring-1 ring-white/10 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.8)]">
-                        <Play size={11} className="text-white ml-0.5" />
+                      <div className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center ring-1 ring-white/10 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.8)]">
+                        <Play size={16} className="text-white ml-1" />
                       </div>
                     </div>
                   )}
@@ -204,33 +232,34 @@ export function StatusBento() {
               )}
             </div>
 
-            <div className="flex flex-col overflow-hidden w-full">
+            <div className="flex flex-col items-center text-center overflow-hidden w-full px-2">
             {isLoading ? (
               <>
-                <div className="h-4 bg-white/10 rounded w-3/4 animate-pulse mb-2"></div>
-                <div className="h-3 bg-white/5 rounded w-1/2 animate-pulse"></div>
+                <div className="h-5 bg-white/10 rounded w-3/4 animate-pulse mb-3"></div>
+                <div className="h-3 bg-white/5 rounded w-1/2 animate-pulse mb-3"></div>
+                <div className="h-5 bg-white/5 rounded-full w-1/3 animate-pulse mt-1"></div>
               </>
             ) : (
               <>
                 <Link 
                   href={nowPlaying?.url || "#"} 
                   target="_blank"
-                  className="text-sm font-medium text-white hover:text-blue-200 transition-colors truncate"
+                  className="text-base sm:text-lg font-semibold text-white hover:text-blue-200 transition-colors truncate w-full"
                   title={nowPlaying?.title}
                 >
                   {nowPlaying?.title || "Sin reproducción"}
                 </Link>
-                <span className="text-xs text-neutral-300/70 mt-1 truncate" title={nowPlaying?.artist}>
+                <span className="text-sm text-neutral-300/70 mt-1 truncate w-full" title={nowPlaying?.artist}>
                   {nowPlaying?.artist || "Desconocido"}
                 </span>
                 
                 {nowPlaying?.isPlaying ? (
-                  <span className="text-[10px] text-neutral-200/70 mt-1 flex items-center gap-1">
+                  <span className="text-[11px] text-neutral-200/80 mt-3 flex items-center justify-center gap-1.5 font-medium px-3 py-1 rounded-full bg-white/10 border border-white/10 backdrop-blur-md">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.6)]"></span>
                     EN VIVO · YouTube
                   </span>
                 ) : (
-                  <span className="text-[10px] text-neutral-200/60 mt-1">
+                  <span className="text-[11px] text-neutral-200/60 mt-3 font-medium px-3 py-1 rounded-full bg-white/5 border border-white/5 backdrop-blur-md">
                     Última escuchada
                   </span>
                 )}
