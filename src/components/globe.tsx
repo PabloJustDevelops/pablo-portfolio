@@ -190,11 +190,11 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
           diffuse: 1.2,
           mapSamples: MAP_SAMPLES,
           mapBrightness: 6,
-          baseColor: [1, 1, 1],
-          markerColor: [0.1, 0.8, 1],
-          glowColor: [0.2, 0.4, 0.8],
-          opacity: 0.8,
-          markers: [],
+        baseColor: [1, 1, 1],
+        markerColor: [0.1, 0.8, 1],
+        glowColor: [0.2, 0.4, 0.8],
+        opacity: 0.8,
+        markers: LOCATIONS.map((loc) => ({ location: [loc.lat, loc.lon], size: 0.05 })),
         onRender: (state) => {
           if (targetPhiRef.current !== null) {
             const diff = targetPhiRef.current - phiRef.current;
@@ -529,10 +529,9 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
               key={i}
               ref={(el) => { pathsRef.current[i] = el; }}
               fill="none"
-              stroke="rgba(59,130,246,0.6)"
-              strokeWidth="1.5"
-              strokeDasharray="4 4"
-              className="transition-opacity duration-300"
+              stroke="rgba(255,255,255,1)"
+              strokeWidth="2"
+              className="transition-opacity duration-300 z-50"
             />
           ))}
         </svg>
