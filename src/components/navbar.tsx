@@ -8,8 +8,8 @@ import { ChevronDown } from "lucide-react";
 
 const navItems = [
   { name: "Home", href: "/" },
-  { name: "About", href: "#about" },
-  { name: "Work", href: "#work" },
+  { name: "About", href: "/#about" },
+  { name: "Work", href: "/#work" },
 ];
 
 export function Navbar() {

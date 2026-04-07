@@ -6,19 +6,10 @@ import { Copy, Search } from "lucide-react";
 import { motion } from "framer-motion";
 import { Globe } from "@/components/globe";
 import { StatusBento } from "@/components/status-bento";
-import ES from "country-flag-icons/react/3x2/ES";
-import GB from "country-flag-icons/react/3x2/GB";
-import FR from "country-flag-icons/react/3x2/FR";
 import { useRef, type CSSProperties, type ComponentType, type ReactNode } from "react";
 
 export function BentoSection() {
-  const globeRef = useRef<any>(null);
-
-  const countries = [
-    { name: "Spain", lat: 40.4168, lon: -3.7038, flag: ES },
-    { name: "UK", lat: 51.5074, lon: -0.1278, flag: GB },
-    { name: "France", lat: 48.8566, lon: 2.3522, flag: FR },
-  ];
+  const globeRef = useRef<unknown>(null);
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-8">

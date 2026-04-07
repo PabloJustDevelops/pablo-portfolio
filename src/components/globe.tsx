@@ -46,7 +46,7 @@ const ARCS = [
 
 interface GlobeProps {
   className?: string;
-  globeRef?: React.RefObject<any>;
+  globeRef?: React.RefObject<unknown>;
 }
 
 export function Globe({ className, globeRef }: GlobeProps) {
@@ -57,8 +57,12 @@ export function Globe({ className, globeRef }: GlobeProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setMounted(true);
-    
+    const timer = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     // Auto-rotate setup
     if (activeRef.current) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -82,7 +86,7 @@ export function Globe({ className, globeRef }: GlobeProps) {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [mounted, activeRef]);
 
   if (!mounted) {
     return (
@@ -98,6 +102,7 @@ export function Globe({ className, globeRef }: GlobeProps) {
       className={cn("relative aspect-square w-full max-w-[350px] cursor-grab active:cursor-grabbing", className)}
     >
       <ReactGlobe
+        // @ts-expect-error
         ref={activeRef}
         width={dimensions.width}
         height={dimensions.height}

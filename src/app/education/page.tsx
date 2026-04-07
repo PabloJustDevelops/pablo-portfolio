@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, GraduationCap, BookOpen, Trophy, Compass } from "lucide-react";
+import { GraduationCap, BookOpen, Trophy, Compass } from "lucide-react";
 import { profile } from "@/data/profile";
 
 export const metadata: Metadata = {
@@ -20,15 +19,7 @@ export default function EducationPage() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-24 relative z-10">
         {/* Header Section */}
-        <header className="mb-20 space-y-8">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-neutral-400 hover:text-white transition-colors group"
-          >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            Back to Home
-          </Link>
-          
+        <header className="mb-20 space-y-8 mt-12">
           <div className="space-y-4">
             <h1 className="text-4xl md:text-6xl font-serif tracking-tight">
               Academic <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 italic">Journey</span>
@@ -59,7 +50,7 @@ export default function EducationPage() {
               
               <div className="space-y-4 mt-12">
                 <p className="text-neutral-400 leading-relaxed max-w-lg">
-                  Focused on software engineering, algorithms, and web technologies. Graduated with honors and led the university's web development club.
+                  Focused on software engineering, algorithms, and web technologies. Graduated with honors and led the university&apos;s web development club.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {["Data Structures", "Web Dev", "Software Architecture", "AI Basics"].map(tag => (

@@ -72,7 +72,7 @@ export function AboutMe() {
               embracing every part of it.
             </p>
             <p className="text-indigo-200 font-medium italic border-l-2 border-indigo-500/50 pl-4 py-1">
-              "I believe in waking up each day eager to make a difference!"
+              &quot;I believe in waking up each day eager to make a difference!&quot;
             </p>
           </motion.div>
 
@@ -110,7 +110,7 @@ export function AboutMe() {
 
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <Link
-                href="#work"
+                href="/experience"
                 className="group flex items-center justify-between sm:justify-start gap-3 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300 uppercase tracking-widest"
               >
                 <span>Work Experience</span>
