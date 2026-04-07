@@ -54,25 +54,29 @@ function CaseStudyItem({
     offset: ["start start", "end start"]
   });
 
+  // Escalar y desvanecer la tarjeta (lado izquierdo)
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.5]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
+  
+  // Desvanecer el texto rápidamente para evitar superposiciones (lado derecho)
+  const textOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
 
   return (
     <div 
       ref={containerRef} 
-      className="min-h-screen flex items-center justify-center sticky top-0 pb-10"
+      className="min-h-screen flex items-start justify-center sticky pb-10 pt-24 md:pt-32"
+      style={{ top: `${index * 40}px` }}
     >
-      <motion.div
-        style={shouldReduceMotion ? {} : { 
-          scale, 
-          opacity, 
-          // Slight vertical offset for stacked look
-          y: useTransform(scrollYProgress, [0, 1], [0, index * 20])
-        }}
-        className="w-full flex flex-col lg:flex-row gap-12 lg:gap-16 relative"
-      >
+      <div className="w-full flex flex-col lg:flex-row gap-12 lg:gap-16 relative">
         {/* Left Side: The Card */}
-        <div className="w-full lg:w-[55%] xl:w-[60%] flex flex-col relative">
+        <motion.div
+          style={shouldReduceMotion ? {} : { 
+            scale, 
+            opacity: cardOpacity, 
+            transformOrigin: "top center"
+          }}
+          className="w-full lg:w-[55%] xl:w-[60%] flex flex-col relative"
+        >
           {/* Period/Category Info - Desktop visible above card, Mobile visible inline */}
           <div className="hidden lg:flex items-center justify-between text-xs font-mono text-neutral-500 mb-4 px-2">
             <div className="flex items-center gap-4">
@@ -109,10 +113,13 @@ function CaseStudyItem({
               </div>
             </div>
           </Link>
-        </div>
+        </motion.div>
 
         {/* Right Side: The Info */}
-        <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col justify-center gap-6 lg:gap-8 lg:py-8">
+        <motion.div 
+          style={shouldReduceMotion ? {} : { opacity: textOpacity }}
+          className="w-full lg:w-[45%] xl:w-[40%] flex flex-col justify-center gap-6 lg:gap-8 lg:py-8 lg:pt-12"
+        >
           {/* Mobile Period/Category Info */}
           <div className="flex lg:hidden items-center justify-between text-xs font-mono text-neutral-500">
             <div className="flex items-center gap-4">
@@ -152,8 +159,8 @@ function CaseStudyItem({
               </Badge>
             ))}
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </div>
   );
 }
