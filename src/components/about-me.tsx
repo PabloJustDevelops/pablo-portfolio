@@ -1,31 +1,66 @@
 "use client";
 
-import { ArrowRight, Github, Linkedin, Twitter } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Twitter, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { profile } from "@/data/profile";
+import { motion } from "framer-motion";
 
 export function AboutMe() {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 relative overflow-hidden">
+      {/* Background ambient light */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-500/5 rounded-full blur-[120px] -z-10 pointer-events-none" />
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         {/* Left Column: Text Content */}
-        <div className="space-y-8">
-          <div className="space-y-4">
-            <span className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-500">
-              Know About Me
-            </span>
-            <h2 className="text-4xl md:text-5xl font-serif text-white leading-tight">
+        <motion.div 
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="space-y-10"
+        >
+          <div className="space-y-6">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="inline-flex items-center gap-3 px-3 py-1 rounded-full bg-white/5 border border-white/10"
+            >
+              <div className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
+              <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-neutral-300">
+                Know About Me
+              </span>
+            </motion.div>
+            
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-5xl md:text-6xl lg:text-7xl font-serif text-white leading-[1.1] tracking-tight"
+            >
               Full-Stack Developer and <br />
               a little bit of{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 italic">
-                everything
+              <span className="relative inline-block">
+                <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 italic pr-2">
+                  everything
+                </span>
+                <span className="absolute bottom-2 left-0 w-full h-3 bg-indigo-500/20 -z-10 -rotate-2" />
               </span>
-            </h2>
+            </motion.h2>
           </div>
 
-          <div className="space-y-6 text-neutral-400 text-lg leading-relaxed font-light">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="space-y-6 text-neutral-400 text-lg leading-relaxed font-light max-w-xl"
+          >
             <p>
-              I&apos;m {profile.name}, a proactive full-stack developer
+              I&apos;m <span className="text-white font-medium">{profile.name}</span>, a proactive full-stack developer
               passionate about creating dynamic web experiences. From frontend
               to backend, I thrive on solving complex problems with clean,
               efficient code. My expertise spans React, Next.js, and Node.js,
@@ -36,86 +71,144 @@ export function AboutMe() {
               and staying curious. Life&apos;s about balance, and I love
               embracing every part of it.
             </p>
-            <p className="text-white font-medium">
-              I believe in waking up each day eager to make a difference!
+            <p className="text-indigo-200 font-medium italic border-l-2 border-indigo-500/50 pl-4 py-1">
+              "I believe in waking up each day eager to make a difference!"
             </p>
-          </div>
+          </motion.div>
 
-          <div className="flex items-center gap-6 pt-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-wrap items-center gap-6 pt-4"
+          >
             <div className="flex gap-4">
               <Link
                 href={profile.social.linkedin}
                 target="_blank"
-                className="text-neutral-500 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:scale-110"
               >
-                <Linkedin size={20} />
+                <Linkedin size={18} />
               </Link>
               <Link
                 href={profile.social.github}
                 target="_blank"
-                className="text-neutral-500 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:scale-110"
               >
-                <Github size={20} />
+                <Github size={18} />
               </Link>
-              {/* Using Twitter icon for X as it's common replacement, or could use a custom X icon */}
               <Link
                 href="#"
-                className="text-neutral-500 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:scale-110"
               >
-                <Twitter size={20} />
+                <Twitter size={18} />
               </Link>
             </div>
 
-            <Link
-              href="#work"
-              className="group flex items-center gap-2 text-sm font-medium text-white hover:text-neutral-300 transition-colors uppercase tracking-wider"
-            >
-              Work Experience
-              <div className="p-1 rounded-full border border-white/20 group-hover:border-white/40 transition-colors">
-                <ArrowRight size={12} className="-rotate-45 group-hover:rotate-0 transition-transform duration-300" />
-              </div>
-            </Link>
-          </div>
-        </div>
+            <div className="h-8 w-px bg-white/10 hidden sm:block" />
+
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+              <Link
+                href="#work"
+                className="group flex items-center justify-between sm:justify-start gap-3 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300 uppercase tracking-widest"
+              >
+                <span>Work Experience</span>
+                <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
+                  <ArrowRight size={12} className="-rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+                </div>
+              </Link>
+
+              <Link
+                href="/education"
+                className="group flex items-center justify-between sm:justify-start gap-3 px-5 py-2.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-medium text-indigo-200 hover:bg-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 uppercase tracking-widest"
+              >
+                <span className="flex items-center gap-2">
+                  <GraduationCap size={14} className="text-indigo-400" />
+                  Education
+                </span>
+                <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center group-hover:bg-indigo-500/40 transition-colors">
+                  <ArrowRight size={12} className="-rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+                </div>
+              </Link>
+            </div>
+          </motion.div>
+        </motion.div>
 
         {/* Right Column: Visual Card */}
-        <div className="relative group">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9, rotateY: 10 }}
+          whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+          className="relative group perspective-[1000px] w-full max-w-md mx-auto lg:max-w-none"
+        >
           {/* Card Container */}
-          <div className="relative aspect-square md:aspect-[4/3] rounded-[2.5rem] bg-neutral-900 overflow-hidden border border-white/10 shadow-2xl">
+          <div className="relative aspect-[4/5] sm:aspect-square md:aspect-[4/3] lg:aspect-[4/5] rounded-[2rem] bg-[#0A0A0A] overflow-hidden border border-white/10 shadow-2xl transform-gpu transition-all duration-700 group-hover:rotate-y-[-5deg] group-hover:rotate-x-[5deg]">
             
-            {/* Background Grid */}
+            {/* Background Grid & Patterns */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-20" />
-            
-            {/* Radial Gradient Glow */}
-            <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-blue-500/10 via-transparent to-transparent opacity-50" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-500/20 via-transparent to-transparent opacity-60" />
             
             {/* Inner Border Effect */}
-            <div className="absolute inset-0 rounded-[2.5rem] border border-white/5 pointer-events-none" />
+            <div className="absolute inset-0 rounded-[2rem] border border-white/5 pointer-events-none" />
             
+            {/* Animated Floating Elements */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <motion.div 
+                animate={{ y: [0, -20, 0], opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-[10%] right-[10%] w-32 h-32 bg-purple-500/10 rounded-full blur-2xl" 
+              />
+              <motion.div 
+                animate={{ x: [0, 20, 0], opacity: [0.2, 0.5, 0.2] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute bottom-[20%] left-[10%] w-40 h-40 bg-blue-500/10 rounded-full blur-2xl" 
+              />
+            </div>
+
             {/* Logo Content */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-48 h-48 md:w-64 md:h-64">
-                {/* Logo Background Shape */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-[2rem] border border-white/10 backdrop-blur-sm transform rotate-6 group-hover:rotate-3 transition-transform duration-500 ease-out" />
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-[2rem] border border-white/5 transform -rotate-3 group-hover:rotate-0 transition-transform duration-500 ease-out" />
+              <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64">
+                {/* 3D Layered Cards */}
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-3xl border border-white/10 backdrop-blur-md z-10"
+                  whileHover={{ rotateZ: -5, scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                />
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-tl from-indigo-600/30 to-purple-600/30 rounded-3xl border border-white/5 z-0"
+                  whileHover={{ rotateZ: 5, scale: 0.95, x: 10, y: 10 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  style={{ transform: "rotate(-3deg)" }}
+                />
                 
                 {/* The Logo Text */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-[8rem] md:text-[10rem] font-bold tracking-tighter text-white/90 font-serif" style={{ textShadow: '0 0 40px rgba(255,255,255,0.1)' }}>
-                        {profile.name.charAt(0)}
-                    </span>
+                <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                  <span className="text-[8rem] md:text-[10rem] font-bold tracking-tighter text-white font-serif drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                      {profile.name.charAt(0)}
+                  </span>
                 </div>
               </div>
             </div>
 
-            {/* Decorative Corner Lines */}
-            <div className="absolute top-8 right-8 w-16 h-16 border-t-2 border-r-2 border-white/10 rounded-tr-3xl" />
-            <div className="absolute bottom-8 left-8 w-16 h-16 border-b-2 border-l-2 border-white/10 rounded-bl-3xl" />
+            {/* Decorative Tech Corner Marks */}
+            <div className="absolute top-6 right-6 flex gap-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+              <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+            </div>
+            <div className="absolute bottom-6 left-6 text-[10px] font-mono text-white/20 tracking-widest">
+              SYS.READY
+            </div>
+            <div className="absolute bottom-6 right-6 w-12 h-[1px] bg-white/20" />
+            <div className="absolute bottom-6 right-6 w-[1px] h-12 bg-white/20" />
+            <div className="absolute top-6 left-6 w-12 h-[1px] bg-white/20" />
+            <div className="absolute top-6 left-6 w-[1px] h-12 bg-white/20" />
           </div>
 
           {/* Background Glow behind the card */}
-          <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl -z-10 opacity-30 rounded-[3rem]" />
-        </div>
+          <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 blur-3xl -z-20 opacity-0 group-hover:opacity-40 transition-opacity duration-700 rounded-[3rem]" />
+        </motion.div>
       </div>
     </section>
   );
