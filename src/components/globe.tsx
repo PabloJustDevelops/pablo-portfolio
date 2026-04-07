@@ -102,7 +102,7 @@ export function Globe({ className, globeRef }: GlobeProps) {
       className={cn("relative aspect-square w-full max-w-[350px] cursor-grab active:cursor-grabbing", className)}
     >
       <ReactGlobe
-        // @ts-expect-error
+        // @ts-expect-error - ReactGlobe ref types are incomplete
         ref={activeRef}
         width={dimensions.width}
         height={dimensions.height}
