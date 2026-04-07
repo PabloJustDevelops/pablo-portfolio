@@ -59,7 +59,8 @@ export function AboutMe() {
               </Link>
               {/* Using Twitter icon for X as it's common replacement, or could use a custom X icon */}
               <Link
-                href="#"
+                href={profile.social.twitter}
+                target="_blank"
                 className="text-neutral-500 hover:text-white transition-colors"
               >
                 <Twitter size={20} />
