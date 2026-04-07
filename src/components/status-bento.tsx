@@ -70,10 +70,10 @@ export function StatusBento() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="md:col-span-2"
+        className="md:col-span-2 h-full"
       >
-        <div className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent">
-          <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-white/10 p-8 flex flex-col justify-between min-h-[220px] shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_20px_60px_-35px_rgba(124,58,237,0.45)] transition-all duration-500 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_90px_-45px_rgba(59,130,246,0.35)]">
+        <div className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent h-full">
+          <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-white/10 p-8 flex flex-col justify-between min-h-[220px] h-full shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_20px_60px_-35px_rgba(124,58,237,0.45)] transition-all duration-500 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_90px_-45px_rgba(59,130,246,0.35)]">
             <div className="absolute inset-0">
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-500/20 via-transparent to-transparent opacity-70" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-blue-500/15 via-transparent to-transparent opacity-70" />
@@ -135,9 +135,9 @@ export function StatusBento() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent"
+        className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent h-full"
       >
-        <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-white/10 p-6 flex flex-col justify-between min-h-[220px] shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_20px_60px_-35px_rgba(59,130,246,0.35)] transition-all duration-500 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_90px_-45px_rgba(59,130,246,0.45)]">
+        <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-white/10 p-6 flex flex-col justify-between min-h-[220px] h-full shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_20px_60px_-35px_rgba(59,130,246,0.35)] transition-all duration-500 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_90px_-45px_rgba(59,130,246,0.45)]">
           <div
             className="absolute -inset-8 opacity-30 blur-2xl scale-110"
             style={{
