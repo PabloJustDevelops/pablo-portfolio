@@ -3,9 +3,6 @@
 import createGlobe from "cobe";
 import { useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import { cn } from "@/lib/utils";
-import ES from "country-flag-icons/react/3x2/ES";
-import GB from "country-flag-icons/react/3x2/GB";
-import FR from "country-flag-icons/react/3x2/FR";
 
 const LOCATIONS = [
   {
@@ -13,27 +10,69 @@ const LOCATIONS = [
     lat: 40.4168,
     lon: -3.7038,
     id: "spain",
-    Flag: ES,
   },
   {
     name: "UK",
     lat: 51.5074,
     lon: -0.1278,
     id: "uk",
-    Flag: GB,
   },
   {
     name: "FRANCIA",
     lat: 48.8566,
     lon: 2.3522,
     id: "france",
-    Flag: FR,
   },
 ];
 
 const PI = Math.PI;
 const TT_FRAC = 0.618033988749895;
 const MAP_SAMPLES = 16000;
+
+function getArcPoints(loc1: typeof LOCATIONS[0], loc2: typeof LOCATIONS[0], maxAlt = 0.15, segments = 30) {
+  const getV = (loc: typeof LOCATIONS[0]) => {
+    const lat = (loc.lat * PI) / 180;
+    const lon = (loc.lon * PI) / 180 - PI;
+    const t = Math.cos(lat);
+    return {
+      x: -t * Math.cos(lon),
+      y: Math.sin(lat),
+      z: t * Math.sin(lon)
+    };
+  };
+
+  const v1 = getV(loc1);
+  const v2 = getV(loc2);
+
+  const dot = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+  const omega = Math.acos(Math.max(-1, Math.min(1, dot)));
+
+  const points = [];
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const alt = Math.sin(t * PI) * maxAlt;
+    
+    let x, y, z;
+    if (Math.abs(omega) < 1e-6) {
+      x = v1.x; y = v1.y; z = v1.z;
+    } else {
+      const s0 = Math.sin((1 - t) * omega) / Math.sin(omega);
+      const s1 = Math.sin(t * omega) / Math.sin(omega);
+      x = v1.x * s0 + v2.x * s1;
+      y = v1.y * s0 + v2.y * s1;
+      z = v1.z * s0 + v2.z * s1;
+    }
+
+    const r = 1 + alt;
+    points.push({ x: x * r, y: y * r, z: z * r });
+  }
+  return points;
+}
+
+const ARC_POINTS = [
+  getArcPoints(LOCATIONS[0], LOCATIONS[2]), // ESPAÑA -> FRANCIA
+  getArcPoints(LOCATIONS[2], LOCATIONS[1])  // FRANCIA -> UK
+];
 
 function snapToFibonacciSample(
   dir: { x: number; y: number; z: number },
@@ -101,6 +140,9 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
     const markersRef = useRef<(HTMLDivElement | null)[]>(
       new Array(LOCATIONS.length).fill(null),
     );
+    const pathsRef = useRef<(SVGPathElement | null)[]>(
+      new Array(ARC_POINTS.length).fill(null),
+    );
     const sizeRef = useRef({ width: 350, height: 350 });
     const labelOffsetsRef = useRef(
       Array.from({ length: LOCATIONS.length }, () => ({ x: 0, y: 0 })),
@@ -131,12 +173,12 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
     useEffect(() => {
       if (!canvasRef.current) return;
 
-      const dpr =
-        typeof window !== "undefined"
-          ? Math.min(window.devicePixelRatio, 2)
-          : 1;
-      const labelLift = 10;
-      const labelPadding = 8;
+          const dpr =
+            typeof window !== "undefined"
+              ? Math.min(window.devicePixelRatio, 2)
+              : 1;
+          const labelLift = 2; // Ajustado para que el tooltip (y su triángulo) quede justo encima del punto
+          const labelPadding = 8;
 
       const globe = createGlobe(canvasRef.current, {
           devicePixelRatio: dpr,
@@ -369,17 +411,69 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
             const bubble = marker.querySelector(
               "[data-bubble]",
             ) as HTMLDivElement | null;
-            const line = marker.querySelector(
-              "[data-line]",
-            ) as SVGLineElement | null;
 
             if (bubble) {
+              // El triángulo de la caja apunta hacia abajo (hacia el punto (0,0)).
+              // Movemos el contenedor hacia arriba para que el vértice inferior del triángulo toque el punto.
               bubble.style.transform = `translate(-50%, calc(-100% - ${labelLift}px)) translate(${current.x}px, ${current.y}px)`;
             }
-            if (line) {
-              // Conectamos el punto (0,0) al centro inferior de la burbuja (-50%, -100% - labelLift) desplazado por current.x y current.y
-              line.setAttribute("x2", current.x.toString());
-              line.setAttribute("y2", (current.y - labelLift).toString());
+          }
+
+          // Dibujar los arcos SVG
+          for (let i = 0; i < ARC_POINTS.length; i++) {
+            const points = ARC_POINTS[i];
+            let d = "";
+            let isVisible = false;
+
+            const scale = (state.scale as number | undefined) ?? 1;
+            const offset = (state.offset as [number, number] | undefined) ?? [0, 0];
+            const phi = state.phi as number;
+            const theta = (state.theta as number | undefined) ?? 0;
+            const cosPhi = Math.cos(phi);
+            const sinPhi = Math.sin(phi);
+            const cosTheta = Math.cos(theta);
+            const sinTheta = Math.sin(theta);
+
+            for (let j = 0; j < points.length; j++) {
+              const p = points[j];
+
+              const lX = p.x * cosPhi + p.z * sinPhi;
+              const lY =
+                p.x * (sinPhi * sinTheta) +
+                p.y * cosTheta +
+                p.z * (-cosPhi * sinTheta);
+              const lZ =
+                p.x * (-sinPhi * cosTheta) +
+                p.y * sinTheta +
+                p.z * (cosPhi * cosTheta);
+
+              const aX = 0.8 * lX;
+              const aY = 0.8 * lY;
+              const aXPre = aX * (height / width);
+
+              const nX = scale * (aXPre + offset[0] / width);
+              const nY = scale * (aY - offset[1] / height);
+
+              const pixelX = (nX + 1) * 0.5 * width;
+              const pixelY = (nY + 1) * 0.5 * height;
+
+              const screenX = pixelX / dpr;
+              const screenY = (height - pixelY) / dpr;
+
+              if (lZ > 0) isVisible = true;
+
+              if (j === 0) d += `M ${screenX} ${screenY} `;
+              else d += `L ${screenX} ${screenY} `;
+            }
+
+            const path = pathsRef.current[i];
+            if (path) {
+              if (isVisible) {
+                path.setAttribute("d", d);
+                path.style.opacity = "1";
+              } else {
+                path.style.opacity = "0";
+              }
             }
           }
         },
@@ -428,6 +522,21 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
           }}
         />
 
+        {/* SVG overlay for arcs */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" style={{ width: "100%", height: "100%" }}>
+          {ARC_POINTS.map((_, i) => (
+            <path
+              key={i}
+              ref={(el) => { pathsRef.current[i] = el; }}
+              fill="none"
+              stroke="rgba(59,130,246,0.6)"
+              strokeWidth="1.5"
+              strokeDasharray="4 4"
+              className="transition-opacity duration-300"
+            />
+          ))}
+        </svg>
+
         {/* Badges posicionados con refs */}
         {LOCATIONS.map((loc, index) => (
           <div
@@ -435,24 +544,24 @@ export const Globe = forwardRef<GlobeRef, { className?: string }>(
             ref={(el) => {
               markersRef.current[index] = el;
             }}
-            className="absolute left-0 top-0 group"
+            className="absolute left-0 top-0 group z-10"
             style={{
               opacity: 0,
               pointerEvents: "none",
             }}
           >
-            <svg className="absolute left-0 top-0 overflow-visible pointer-events-none" style={{ width: 0, height: 0 }}>
-              <line data-line x1="0" y1="0" x2="0" y2="0" stroke="rgba(96,165,250,0.5)" strokeWidth="1.5" strokeDasharray="2 2" />
-            </svg>
-            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.8)] animate-pulse absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2"></div>
+            {/* The blue dot on the map */}
+            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,1)] absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2"></div>
+            
+            {/* The Label */}
             <div
               data-bubble
-              className="flex items-center gap-1.5 px-2.5 py-1 bg-black/80 backdrop-blur-md rounded-full border border-white/20 shadow-lg pointer-events-auto group-hover:scale-110 transition-transform duration-300 absolute left-0 top-0"
+              className="flex flex-col items-center pointer-events-auto absolute left-0 top-0 transition-transform duration-300 group-hover:scale-110"
             >
-              <loc.Flag title={loc.name} className="w-3 h-3 rounded-[1px]" />
-              <span className="text-[10px] font-semibold text-white">
+              <div className="bg-white text-black px-2 py-1 text-[10px] font-mono font-bold uppercase tracking-wider whitespace-nowrap shadow-lg">
                 {loc.name}
-              </span>
+              </div>
+              <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[4px] border-t-white"></div>
             </div>
           </div>
         ))}
