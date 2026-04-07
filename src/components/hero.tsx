@@ -121,7 +121,8 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="flex flex-col sm:flex-row items-center gap-6 mt-12"
         >
-          <button
+          <a
+            href="mailto:pabloroga6@gmail.com"
             onClick={handleConfetti}
             className="group relative px-8 py-4 rounded-full bg-white text-black font-semibold text-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.5)]"
           >
@@ -133,19 +134,19 @@ export function Hero() {
                 className="transition-transform group-hover:translate-x-1"
               />
             </span>
-          </button>
+          </a>
 
           <button
             className="group flex items-center gap-2 text-neutral-400 hover:text-white text-sm font-medium transition-colors px-4 py-2 rounded-full hover:bg-white/5"
             onClick={() => {
-              navigator.clipboard.writeText("hello@example.com");
+              navigator.clipboard.writeText("pabloroga6@gmail.com");
             }}
           >
             <Copy
               size={14}
               className="group-hover:text-blue-400 transition-colors"
             />
-            <span>hello@example.com</span>
+            <span>pabloroga6@gmail.com</span>
           </button>
         </motion.div>
       </div>
