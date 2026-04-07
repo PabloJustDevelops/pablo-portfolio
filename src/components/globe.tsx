@@ -134,11 +134,11 @@ export function Globe({ className, globeRef }: GlobeProps) {
           const el = document.createElement("div");
           el.innerHTML = `
             <div class="flex flex-col items-center group transition-transform duration-300 hover:scale-110">
-              <div class="bg-white text-black px-2 py-1 text-[10px] font-mono font-bold uppercase tracking-wider whitespace-nowrap shadow-lg rounded-sm">
+              <div class="bg-white/90 backdrop-blur-sm text-black px-1.5 py-0.5 text-[8px] font-mono font-bold uppercase tracking-wider whitespace-nowrap shadow-lg rounded-sm border border-white/20">
                 ${d.name}
               </div>
-              <div class="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[4px] border-t-white"></div>
-              <div class="w-2 h-2 mt-1 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,1)]"></div>
+              <div class="w-0 h-0 border-l-[3px] border-l-transparent border-r-[3px] border-r-transparent border-t-[3px] border-t-white/90"></div>
+              <div class="w-1.5 h-1.5 mt-0.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,1)]"></div>
             </div>
           `;
           el.style.pointerEvents = "auto";

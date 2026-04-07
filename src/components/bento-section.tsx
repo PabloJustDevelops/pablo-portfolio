@@ -161,23 +161,6 @@ export function BentoSection() {
               <h3 className="text-base font-serif font font-light text-transparent bg-clip-text bg-gradient-to-b from-neutral-200 to-neutral-400 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)] mb-3 leading-tight">
                 Flexible with time zone communications
               </h3>
-
-              <div className="flex gap-2">
-                {countries.map((country) => (
-                  <button
-                    key={country.name}
-                    onClick={() => {
-                      if (globeRef.current) {
-                        globeRef.current.pointOfView({ lat: country.lat, lng: country.lon, altitude: 2.5 }, 1000);
-                      }
-                    }}
-                    className="px-3 py-1.5 rounded-full border bg-white/5 border-white/5 text-neutral-500 hover:bg-white/10 hover:text-neutral-300 hover:border-white/10 transition-all duration-300 flex items-center gap-1.5 text-[10px] font-bold cursor-pointer group"
-                  >
-                    <country.flag title={country.name} className="w-3 h-3 rounded-[1px]" />
-                    {country.name}
-                  </button>
-                ))}
-              </div>
             </div>
 
             {/* Interactive Globe - Integrado directamente */}
