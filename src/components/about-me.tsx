@@ -4,6 +4,7 @@ import { ArrowRight, Github, Linkedin, Twitter, GraduationCap } from "lucide-rea
 import Link from "next/link";
 import { profile } from "@/data/profile";
 import { motion } from "framer-motion";
+import { Logo } from "@/components/logo";
 
 export function AboutMe() {
   return (
@@ -183,11 +184,9 @@ export function AboutMe() {
                   style={{ transform: "rotate(-3deg)" }}
                 />
                 
-                {/* The Logo Text */}
+                {/* The Logo Text / SVG */}
                 <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-                  <span className="text-[8rem] md:text-[10rem] font-bold tracking-tighter text-white font-serif drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                      {profile.name.charAt(0)}
-                  </span>
+                  <Logo className="w-40 h-40 text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]" />
                 </div>
               </div>
             </div>

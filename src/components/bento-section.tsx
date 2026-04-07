@@ -112,7 +112,7 @@ export function BentoSection() {
                   </div>
                   <div className="w-full flex justify-center">
                     <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-black/40 border border-white/5 text-[9px] text-neutral-500 font-medium transition-all duration-500 group-hover/tech:bg-black/60 group-hover/tech:text-neutral-400 group-hover/tech:border-white/10 group-hover/tech:px-6">
-                      <span className="opacity-50">🔒</span> pablo.dev
+                      <span className="opacity-50">🔒</span> pabloroga.dev
                     </div>
                   </div>
                 </div>

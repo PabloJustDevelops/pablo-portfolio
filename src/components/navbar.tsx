@@ -4,23 +4,33 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Command } from "lucide-react";
+import { Logo } from "./logo";
 
 const navItems = [
   { name: "Home", href: "/" },
   { name: "About", href: "/#about" },
   { name: "Work", href: "/#work" },
+  { name: "Blog", href: "/#blog" },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed top-6 inset-x-0 max-w-fit mx-auto z-50 px-4">
-      <div className="relative flex items-center gap-1 p-1.5 rounded-full bg-neutral-900/90 backdrop-blur-xl border border-white/10 shadow-2xl">
+    <header className="fixed top-0 inset-x-0 z-50 px-6 py-4 flex items-center justify-between pointer-events-none">
+      {/* Left: Logo */}
+      <div className="flex-1 flex items-center pointer-events-auto">
+        <Link href="/" className="hover:opacity-80 transition-opacity">
+          <Logo className="w-8 h-8 text-white" />
+        </Link>
+      </div>
+
+      {/* Center: Pill Navigation */}
+      <div className="relative flex items-center gap-1 p-1.5 rounded-full bg-neutral-900/80 backdrop-blur-xl border border-white/10 shadow-2xl pointer-events-auto">
         <nav className="flex items-center gap-1">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
             return (
               <Link
                 key={item.name}
@@ -53,12 +63,22 @@ export function Navbar() {
         <div className="w-[1px] h-6 bg-white/10 mx-2" />
 
         <Link
-          href="mailto:hello@example.com"
+          href="mailto:pabloroga6@gmail.com"
           className="px-5 py-2 rounded-full bg-white/10 border border-white/5 text-white text-sm font-medium hover:bg-white/20 transition-all shadow-[0_0_10px_-5px_rgba(255,255,255,0.3)]"
         >
           Book a Call
         </Link>
       </div>
-    </div>
+
+      {/* Right: Command Menu Trigger */}
+      <div className="flex-1 flex items-center justify-end pointer-events-auto">
+        <button 
+          className="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-white/10 transition-colors border border-transparent hover:border-white/10"
+          aria-label="Search or Command Menu"
+        >
+          <Command size={20} />
+        </button>
+      </div>
+    </header>
   );
 }

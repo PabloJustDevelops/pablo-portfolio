@@ -17,8 +17,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Pablo | Full Stack Developer",
-  description: "Portafolio profesional de Pablo, Full Stack Developer.",
+  title: "Pablo Rodríguez Garijo | Full Stack Developer",
+  description: "Portafolio profesional de Pablo Rodríguez Garijo, Full Stack Developer.",
 };
 
 export default function RootLayout({
