@@ -4,21 +4,12 @@ import { stack } from "@/data/stack";
 import { profile } from "@/data/profile";
 import { Copy, Search } from "lucide-react";
 import { motion } from "framer-motion";
-import { Globe, type GlobeRef } from "@/components/globe";
+import { Globe } from "@/components/globe";
 import { StatusBento } from "@/components/status-bento";
-import ES from "country-flag-icons/react/3x2/ES";
-import GB from "country-flag-icons/react/3x2/GB";
-import FR from "country-flag-icons/react/3x2/FR";
 import { useRef, type CSSProperties, type ComponentType, type ReactNode } from "react";
 
 export function BentoSection() {
-  const globeRef = useRef<GlobeRef>(null);
-
-  const countries = [
-    { name: "Spain", lat: 40.4168, lon: -3.7038, flag: ES },
-    { name: "UK", lat: 51.5074, lon: -0.1278, flag: GB },
-    { name: "France", lat: 48.8566, lon: 2.3522, flag: FR },
-  ];
+  const globeRef = useRef<unknown>(null);
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-8">
@@ -161,24 +152,11 @@ export function BentoSection() {
               <h3 className="text-base font-serif font font-light text-transparent bg-clip-text bg-gradient-to-b from-neutral-200 to-neutral-400 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)] mb-3 leading-tight">
                 Flexible with time zone communications
               </h3>
-
-              <div className="flex gap-2">
-                {countries.map((country) => (
-                  <button
-                    key={country.name}
-                    onClick={() => globeRef.current?.rotate(country.lat, country.lon)}
-                    className="px-3 py-1.5 rounded-full border bg-white/5 border-white/5 text-neutral-500 hover:bg-white/10 hover:text-neutral-300 hover:border-white/10 transition-all duration-300 flex items-center gap-1.5 text-[10px] font-bold cursor-pointer group"
-                  >
-                    <country.flag title={country.name} className="w-3 h-3 rounded-[1px]" />
-                    {country.name}
-                  </button>
-                ))}
-              </div>
             </div>
 
             {/* Interactive Globe - Integrado directamente */}
             <div className="flex-1 flex items-center justify-center relative overflow-visible">
-              <Globe ref={globeRef} className="scale-110" />
+              <Globe globeRef={globeRef} className="scale-110" />
               <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#0b0b0e] via-[#0b0b0e]/60 to-transparent pointer-events-none z-10" />
             </div>
 
