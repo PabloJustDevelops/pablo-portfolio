@@ -21,6 +21,26 @@ export function StatusBento() {
   const [bars, setBars] = useState([1, 2, 1, 3]);
   const [nowPlaying, setNowPlaying] = useState<NowPlayingData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Estado para el reloj en vivo
+  const [time, setTime] = useState<string>("");
+  
+  // Datos simulados para el gráfico de actividad
+  const activityData = useMemo(() => {
+    return Array.from({ length: 18 }).map(() => 
+      Array.from({ length: 4 }).map(() => Math.random())
+    );
+  }, []);
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTime(now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
   const fallbackCover = useMemo(
     () =>
       "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=200&auto=format&fit=crop",
@@ -80,7 +100,7 @@ export function StatusBento() {
               <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.06] [mask-image:radial-gradient(ellipse_at_center,black_55%,transparent_100%)]" />
             </div>
         
-            <div className="relative">
+            <div className="relative flex flex-col h-full">
               <div className="flex items-center justify-between gap-6 mb-6">
                 <div className="flex items-center gap-2">
                   <span className="relative flex h-3 w-3">
@@ -89,42 +109,67 @@ export function StatusBento() {
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-400 shadow-[0_0_0_3px_rgba(16,185,129,0.15)]"></span>
                   </span>
                   <span className="text-xs font-mono text-neutral-300/80 uppercase tracking-wider">
-                    Current Focus
+                    Codificando
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-[10px] text-neutral-500 font-medium">
-                  <span className="px-2 py-1 rounded-full bg-white/5 border border-white/10">
-                    Disponible
-                  </span>
-                  <span className="px-2 py-1 rounded-full bg-white/5 border border-white/10">
-                    Remoto
-                  </span>
+                <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/10 shadow-inner">
+                  <span className="text-emerald-400 animate-pulse">●</span> {time ? `${time} LOCAL` : '00:00:00 LOCAL'}
                 </div>
               </div>
               
-              <h3 className="text-2xl md:text-3xl font-serif text-white mb-2 leading-tight">
-                Building scalable SaaS products
-              </h3>
-              <p className="text-neutral-400 text-sm max-w-md leading-relaxed">
-                Actualmente enfocado en desarrollo full-stack, optimización de rendimiento y arquitecturas modernas.
-              </p>
-            </div>
+              <div className="flex-1">
+                <h3 className="text-2xl md:text-3xl font-serif text-white mb-2 leading-tight">
+                  Building scalable SaaS products
+                </h3>
+                <p className="text-neutral-400 text-sm max-w-md leading-relaxed mb-6">
+                  Actualmente enfocado en desarrollo full-stack, optimización de rendimiento y arquitecturas modernas.
+                </p>
 
-            <div className="flex flex-wrap gap-2 mt-7">
-              <Badge
-                variant="outline"
-                className="bg-white/5 border-white/10 text-neutral-200/80 backdrop-blur-md"
-              >
-                <Code2 data-icon="inline-start" />
-                Next.js
-              </Badge>
-              <Badge
-                variant="outline"
-                className="bg-white/5 border-white/10 text-neutral-200/80 backdrop-blur-md"
-              >
-                <Terminal data-icon="inline-start" />
-                TypeScript
-              </Badge>
+                {/* Gráfico de actividad tipo GitHub */}
+                <div className="flex flex-col gap-2.5 opacity-80 hover:opacity-100 transition-opacity duration-300">
+                  <span className="text-[10px] text-neutral-500 font-mono uppercase tracking-wider flex items-center gap-2">
+                    Actividad Reciente
+                  </span>
+                  <div className="flex gap-1.5 flex-wrap sm:flex-nowrap overflow-hidden">
+                    {activityData.map((col, colIndex) => (
+                      <div key={colIndex} className="flex flex-col gap-1.5">
+                        {col.map((intensity, rowIndex) => {
+                          let bgClass = "bg-white/5"; // sin actividad
+                          if (intensity > 0.8) bgClass = "bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.4)]";
+                          else if (intensity > 0.5) bgClass = "bg-emerald-500/80";
+                          else if (intensity > 0.3) bgClass = "bg-emerald-600/60";
+                          else if (intensity > 0.1) bgClass = "bg-emerald-800/40";
+                          
+                          return (
+                            <div 
+                              key={rowIndex} 
+                              className={`w-3 h-3 rounded-[3px] transition-all duration-300 hover:scale-150 cursor-crosshair ${bgClass}`}
+                              title={`Actividad: ${Math.round(intensity * 100)}%`}
+                            />
+                          )
+                        })}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mt-7">
+                <Badge
+                  variant="outline"
+                  className="bg-white/5 border-white/10 text-neutral-200/80 backdrop-blur-md"
+                >
+                  <Code2 data-icon="inline-start" />
+                  Next.js
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className="bg-white/5 border-white/10 text-neutral-200/80 backdrop-blur-md"
+                >
+                  <Terminal data-icon="inline-start" />
+                  TypeScript
+                </Badge>
+              </div>
             </div>
           </div>
         </div>
