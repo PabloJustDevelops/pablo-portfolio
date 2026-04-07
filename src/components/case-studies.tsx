@@ -20,7 +20,7 @@ export function CaseStudiesSection() {
         </h2>
       </div>
       
-      <div className="flex flex-col">
+      <div className="flex flex-col relative">
         {projects.map((project, i) => {
           const targetScale = 1 - ((projects.length - i) * 0.05);
           return (
@@ -29,6 +29,7 @@ export function CaseStudiesSection() {
               project={project} 
               index={i} 
               targetScale={targetScale}
+              totalProjects={projects.length}
             />
           );
         })}
@@ -40,43 +41,47 @@ export function CaseStudiesSection() {
 function CaseStudyItem({ 
   project, 
   index,
-  targetScale
+  targetScale,
+  totalProjects
 }: { 
   project: typeof projects[number]; 
   index: number;
   targetScale: number;
+  totalProjects: number;
 }) {
   const shouldReduceMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
+    offset: ["start end", "end start"]
   });
 
   // Escalar y desvanecer la tarjeta (lado izquierdo)
-  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
-  const cardOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
+  // Empieza a escalar cuando la siguiente tarjeta empieza a empujar (scrollYProgress > 0.5 aprox)
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, targetScale]);
   
-  // Cambiamos la animación del texto para que no se superponga
-  // Al hacer scroll, el texto se desvanecerá antes de que el siguiente lo cubra
-  const textOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0, 0]);
+  // Opacidad del texto (lado derecho)
+  // Desaparece antes de que la siguiente tarjeta llegue arriba
+  const textOpacity = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [1, 1, 0, 0]);
+
+  // Calculamos el z-index de forma que las tarjetas de abajo tengan mayor z-index
+  const zIndex = totalProjects - index;
 
   return (
     <div 
       ref={containerRef} 
-      className="min-h-screen flex items-start justify-center sticky pb-10 pt-24 md:pt-32"
-      style={{ top: `${index * 40}px` }} // Offset para el apilamiento de las tarjetas
+      className="min-h-screen w-full flex items-center justify-center sticky top-0 pb-10 pt-20"
+      style={{ zIndex }}
     >
       <div className="w-full flex flex-col lg:flex-row gap-12 lg:gap-16 relative">
         {/* Left Side: The Card */}
         <motion.div
           style={shouldReduceMotion ? {} : { 
             scale, 
-            opacity: cardOpacity, 
             transformOrigin: "top center"
           }}
-          className="w-full lg:w-[55%] xl:w-[60%] flex flex-col relative z-10"
+          className="w-full lg:w-[55%] xl:w-[60%] flex flex-col relative"
         >
           {/* Period/Category Info - Desktop visible above card, Mobile visible inline */}
           <div className="hidden lg:flex items-center justify-between text-xs font-mono text-neutral-500 mb-4 px-2">
@@ -93,7 +98,7 @@ function CaseStudyItem({
           <Link 
             href={project.link} 
             target="_blank" 
-            className="group block w-full h-full"
+            className="group block w-full h-full shadow-[0_-20px_40px_rgba(0,0,0,0.8)]"
           >
             <div className={`relative overflow-hidden rounded-[2rem] pt-8 px-8 md:pt-12 md:px-12 ${project.accentColor} transition-transform duration-300 ring-1 ring-white/10 h-[50vh] lg:h-[70vh] flex flex-col bg-background`}>
               <div className="flex justify-between items-start mb-8 lg:mb-12">
@@ -117,12 +122,12 @@ function CaseStudyItem({
         </motion.div>
 
         {/* Right Side: The Info */}
-        <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col justify-center lg:py-8 lg:pt-12 z-0">
+        <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col justify-center lg:py-8 lg:pt-12 relative">
           <motion.div 
             style={shouldReduceMotion ? {} : { 
               opacity: textOpacity,
             }}
-            className="w-full flex flex-col gap-6 lg:gap-8 bg-background p-4 rounded-xl lg:p-0 lg:rounded-none"
+            className="w-full flex flex-col gap-6 lg:gap-8 bg-background p-6 rounded-xl lg:p-0 lg:rounded-none lg:bg-transparent shadow-[0_-20px_40px_rgba(0,0,0,0.8)] lg:shadow-none"
           >
             {/* Mobile Period/Category Info */}
             <div className="flex lg:hidden items-center justify-between text-xs font-mono text-neutral-500">
