@@ -175,8 +175,8 @@ export function StatusBento() {
             </div>
           </div>
 
-          <div className="relative flex gap-4 items-center mt-auto">
-            <div className="relative w-16 h-16 rounded-2xl overflow-hidden shrink-0 ring-1 ring-white/10 bg-neutral-900">
+          <div className="relative flex flex-col items-center justify-center flex-1 gap-5 mt-4 mb-2">
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden shrink-0 ring-1 ring-white/10 bg-neutral-900 shadow-2xl transition-transform duration-500 group-hover:scale-105 group-hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.5)]">
               <div className="absolute inset-0 bg-white/10" />
               {isLoading ? (
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -187,16 +187,16 @@ export function StatusBento() {
                   <Image
                     src={coverSrc}
                     alt={nowPlaying?.title || "Portada"}
-                    width={64}
-                    height={64}
+                    width={128}
+                    height={128}
                     className="h-full w-full object-cover"
                     onError={() => setCoverSrc(fallbackCover)}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                   {nowPlaying?.isPlaying && (
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-7 h-7 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center ring-1 ring-white/10 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.8)]">
-                        <Play size={11} className="text-white ml-0.5" />
+                      <div className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center ring-1 ring-white/10 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.8)]">
+                        <Play size={16} className="text-white ml-1" />
                       </div>
                     </div>
                   )}
@@ -204,33 +204,34 @@ export function StatusBento() {
               )}
             </div>
 
-            <div className="flex flex-col overflow-hidden w-full">
+            <div className="flex flex-col items-center text-center overflow-hidden w-full px-2">
             {isLoading ? (
               <>
-                <div className="h-4 bg-white/10 rounded w-3/4 animate-pulse mb-2"></div>
-                <div className="h-3 bg-white/5 rounded w-1/2 animate-pulse"></div>
+                <div className="h-5 bg-white/10 rounded w-3/4 animate-pulse mb-3"></div>
+                <div className="h-3 bg-white/5 rounded w-1/2 animate-pulse mb-3"></div>
+                <div className="h-5 bg-white/5 rounded-full w-1/3 animate-pulse mt-1"></div>
               </>
             ) : (
               <>
                 <Link 
                   href={nowPlaying?.url || "#"} 
                   target="_blank"
-                  className="text-sm font-medium text-white hover:text-blue-200 transition-colors truncate"
+                  className="text-base sm:text-lg font-semibold text-white hover:text-blue-200 transition-colors truncate w-full"
                   title={nowPlaying?.title}
                 >
                   {nowPlaying?.title || "Sin reproducción"}
                 </Link>
-                <span className="text-xs text-neutral-300/70 mt-1 truncate" title={nowPlaying?.artist}>
+                <span className="text-sm text-neutral-300/70 mt-1 truncate w-full" title={nowPlaying?.artist}>
                   {nowPlaying?.artist || "Desconocido"}
                 </span>
                 
                 {nowPlaying?.isPlaying ? (
-                  <span className="text-[10px] text-neutral-200/70 mt-1 flex items-center gap-1">
+                  <span className="text-[11px] text-neutral-200/80 mt-3 flex items-center justify-center gap-1.5 font-medium px-3 py-1 rounded-full bg-white/10 border border-white/10 backdrop-blur-md">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.6)]"></span>
                     EN VIVO · YouTube
                   </span>
                 ) : (
-                  <span className="text-[10px] text-neutral-200/60 mt-1">
+                  <span className="text-[11px] text-neutral-200/60 mt-3 font-medium px-3 py-1 rounded-full bg-white/5 border border-white/5 backdrop-blur-md">
                     Última escuchada
                   </span>
                 )}
