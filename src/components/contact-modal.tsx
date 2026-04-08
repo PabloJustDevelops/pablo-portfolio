@@ -104,7 +104,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           {/* Header */}
           <div className="flex items-center justify-between border-b border-white/5 p-6">
             <div className="space-y-1">
-              <h2 className="font-serif text-3xl text-white">
+              <h2 className="font-sans text-2xl font-semibold text-white tracking-tight">
                 {viewState === "menu" ? "Reach out" : "Drop a note"}
               </h2>
               <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">
@@ -136,16 +136,16 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 {/* Send Message Card */}
                 <button
                   onClick={() => switchView("form")}
-                  className="group relative flex w-full flex-col justify-between overflow-hidden rounded-2xl border border-white/5 bg-white/5 p-6 text-left transition-all hover:border-white/10 hover:bg-white/10"
+                  className="group relative flex w-full flex-col justify-between overflow-hidden rounded-2xl border border-white/5 bg-white/5 p-6 text-left transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className="mb-8 flex w-full flex-col gap-3">
-                    <div className="flex w-fit items-center gap-2 rounded-full bg-blue-500/20 px-3 py-1.5 text-sm text-blue-300">
+                    <div className="flex w-fit items-center gap-2 rounded-full bg-blue-500/10 px-3 py-1.5 text-sm text-blue-300 transition-transform duration-300 group-hover:-translate-y-1">
                       <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/20 text-[10px]">
                         You
                       </span>
                       Hey, I have a project idea!
                     </div>
-                    <div className="flex w-fit items-center gap-2 self-end rounded-full bg-white/10 px-3 py-1.5 text-sm text-neutral-300">
+                    <div className="flex w-fit items-center gap-2 self-end rounded-full bg-white/5 px-3 py-1.5 text-sm text-neutral-300 transition-transform duration-300 delay-75 group-hover:-translate-y-1">
                       Sounds great, tell me more...
                       <div className="flex h-5 w-5 items-center justify-center rounded-full bg-neutral-800 text-[10px] font-bold text-white overflow-hidden">
                         {profile.name.charAt(0)}
@@ -155,11 +155,11 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   
                   <div className="flex items-end justify-between">
                     <div>
-                      <h3 className="text-lg font-semibold text-white">Project, role, or just a hey</h3>
+                      <h3 className="text-base font-medium text-white">Project, role, or just a hey</h3>
                       <p className="text-sm text-neutral-400">Start a conversation</p>
                     </div>
-                    <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white transition-colors group-hover:bg-white/10">
-                      Send message <ArrowRight size={14} />
+                    <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white transition-all duration-300 group-hover:bg-white/10 group-hover:pr-3">
+                      Send message <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
                     </div>
                   </div>
                 </button>
@@ -167,23 +167,23 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 {/* Email Card */}
                 <a
                   href={`mailto:${profile.social.email.replace("mailto:", "")}`}
-                  className="group flex flex-col items-center justify-center rounded-2xl border border-white/5 bg-white/5 p-8 text-center transition-all hover:border-white/10 hover:bg-white/10"
+                  className="group flex flex-col items-center justify-center rounded-2xl border border-white/5 bg-white/5 p-8 text-center transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:-translate-y-1 hover:shadow-xl"
                 >
-                  <Mail size={32} strokeWidth={1.5} className="mb-4 text-neutral-400 group-hover:text-white transition-colors" />
-                  <h3 className="text-lg font-semibold text-white">Email me</h3>
-                  <p className="font-mono text-xs text-neutral-500">{profile.social.email.replace("mailto:", "")}</p>
+                  <Mail size={32} strokeWidth={1.5} className="mb-4 text-neutral-400 transition-all duration-300 group-hover:scale-110 group-hover:text-white" />
+                  <h3 className="text-base font-medium text-white">Email me</h3>
+                  <p className="text-sm text-neutral-500">{profile.social.email.replace("mailto:", "")}</p>
                 </a>
 
                 {/* Social Links Footer */}
                 <div className="mt-2 grid grid-cols-3 gap-2">
-                  <a href={profile.social.linkedin} target="_blank" className="flex items-center justify-center gap-2 rounded-xl border border-white/5 bg-white/5 py-3 text-sm text-neutral-400 transition-colors hover:bg-white/10 hover:text-white">
-                    <Linkedin size={16} /> LinkedIn
+                  <a href={profile.social.linkedin} target="_blank" className="group flex items-center justify-center gap-2 rounded-xl border border-white/5 bg-white/5 py-3 text-sm text-neutral-400 transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:text-white hover:-translate-y-0.5">
+                    <Linkedin size={16} className="transition-transform duration-300 group-hover:scale-110 group-hover:text-blue-400" /> LinkedIn
                   </a>
-                  <a href="#" target="_blank" className="flex items-center justify-center gap-2 rounded-xl border border-white/5 bg-white/5 py-3 text-sm text-neutral-400 transition-colors hover:bg-white/10 hover:text-white">
-                    <Twitter size={16} /> Twitter
+                  <a href="#" target="_blank" className="group flex items-center justify-center gap-2 rounded-xl border border-white/5 bg-white/5 py-3 text-sm text-neutral-400 transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:text-white hover:-translate-y-0.5">
+                    <Twitter size={16} className="transition-transform duration-300 group-hover:scale-110 group-hover:text-sky-400" /> Twitter
                   </a>
-                  <a href={profile.social.github} target="_blank" className="flex items-center justify-center gap-2 rounded-xl border border-white/5 bg-white/5 py-3 text-sm text-neutral-400 transition-colors hover:bg-white/10 hover:text-white">
-                    <Github size={16} /> GitHub
+                  <a href={profile.social.github} target="_blank" className="group flex items-center justify-center gap-2 rounded-xl border border-white/5 bg-white/5 py-3 text-sm text-neutral-400 transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:text-white hover:-translate-y-0.5">
+                    <Github size={16} className="transition-transform duration-300 group-hover:scale-110" /> GitHub
                   </a>
                 </div>
               </div>
