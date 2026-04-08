@@ -8,7 +8,7 @@ const ReactGlobe = dynamic(() => import("react-globe.gl"), { ssr: false });
 
 const LOCATIONS = [
   {
-    name: "ESPAÑA",
+    name: "SPAIN",
     lat: 40.4168,
     lng: -3.7038, // Note: react-globe.gl uses lng instead of lon
     id: "spain",
