@@ -134,6 +134,8 @@ export function Globe({ className, globeRef }: GlobeProps) {
 
         // HTML Elements (Tooltips)
         htmlElementsData={LOCATIONS}
+        htmlLat="lat"
+        htmlLng="lng"
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         htmlElement={(d: any) => {
           const el = document.createElement("div");
@@ -143,11 +145,9 @@ export function Globe({ className, globeRef }: GlobeProps) {
                 ${d.name}
               </div>
               <div class="w-0 h-0 border-l-[3px] border-l-transparent border-r-[3px] border-r-transparent border-t-[3px] border-t-white/90"></div>
-              <div class="w-1.5 h-1.5 mt-0.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,1)]"></div>
             </div>
           `;
           el.style.pointerEvents = "auto";
-          el.style.transform = "translate(-50%, -100%)";
           return el;
         }}
       />
