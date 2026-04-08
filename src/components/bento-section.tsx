@@ -308,7 +308,7 @@ function TechBadge({
   color,
 }: {
   name: string;
-  icon: ComponentType<{ size?: number; style?: CSSProperties }>;
+  icon: ComponentType<{ size?: number; style?: CSSProperties; className?: string }>;
   color?: string;
 }) {
     return (
