@@ -130,6 +130,13 @@
   html {
     @apply font-sans;
   }
+  
+  /* Hide cursor only on devices that support hover/fine pointing */
+  @media (pointer: fine) {
+    body, a, button, [role="button"], input, textarea, select {
+      cursor: none !important;
+    }
+  }
 }
 
 @layer utilities {
