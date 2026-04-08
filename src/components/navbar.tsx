@@ -18,7 +18,7 @@ const navItems = [
 export function Navbar() {
   const pathname = usePathname();
   const [pillStyle, setPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalState, setModalState] = useState<"closed" | "contact" | "navigation">("closed");
   const navRef = useRef<HTMLElement>(null);
 
   // Update pill position when pathname changes
@@ -94,7 +94,7 @@ export function Navbar() {
         <div className="w-[1px] h-6 bg-white/10 mx-2" />
 
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => setModalState("contact")}
           className="px-5 py-2 rounded-full bg-white/10 border border-white/5 text-white text-sm font-medium hover:bg-white/20 transition-all shadow-[0_0_10px_-5px_rgba(255,255,255,0.3)]"
         >
           Book a Call
@@ -104,6 +104,7 @@ export function Navbar() {
       {/* Right: Command Menu Trigger */}
       <div className="flex-1 flex items-center justify-end pointer-events-auto">
         <button 
+          onClick={() => setModalState("navigation")}
           className="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-white/10 transition-colors border border-transparent hover:border-white/10"
           aria-label="Search or Command Menu"
         >
@@ -111,7 +112,11 @@ export function Navbar() {
         </button>
       </div>
 
-      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ContactModal 
+        isOpen={modalState !== "closed"} 
+        initialView={modalState === "closed" ? "contact" : modalState}
+        onClose={() => setModalState("closed")} 
+      />
     </header>
   );
 }

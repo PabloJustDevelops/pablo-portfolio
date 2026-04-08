@@ -12,12 +12,13 @@ import { profile } from "@/data/profile";
 type ContactModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  initialView?: ModalState;
 };
 
 type ModalState = "navigation" | "contact" | "form";
 
-export function ContactModal({ isOpen, onClose }: ContactModalProps) {
-  const [viewState, setViewState] = useState<ModalState>("contact");
+export function ContactModal({ isOpen, onClose, initialView = "contact" }: ContactModalProps) {
+  const [viewState, setViewState] = useState<ModalState>(initialView);
   const overlayRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -35,7 +36,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden"; // Prevent scrolling
-      setViewState("contact"); // Default to contact view
+      setViewState(initialView); // Reset to initial view when opened
       
       gsap.to(overlayRef.current, {
         opacity: 1,
