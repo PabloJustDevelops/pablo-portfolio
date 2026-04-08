@@ -142,7 +142,7 @@ export function Globe({ className, globeRef }: GlobeProps) {
         labelColor={() => "rgba(255, 255, 255, 0.9)"}
         labelResolution={2}
         labelAltitude={0.01}
-        labelTypeFace="https://unpkg.com/three-globe/example/fonts/helvetiker_regular.typeface.json"
+        labelTypeface="https://unpkg.com/three-globe/example/fonts/helvetiker_regular.typeface.json"
       />
     </div>
   );
