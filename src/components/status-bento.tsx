@@ -92,19 +92,26 @@ export function StatusBento() {
   const rightCardRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    const cards = [leftCardRef.current, rightCardRef.current].filter(Boolean);
+    // Check for reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const cards = [leftCardRef.current, rightCardRef.current].filter((el): el is HTMLDivElement => el !== null);
     
-    gsap.from(cards, {
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 85%",
-      },
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: "power3.out",
-    });
+    if (cards.length > 0 && containerRef.current) {
+      gsap.from(cards, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 85%",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out",
+        clearProps: "all" // Very important for flex/grid layouts after animation!
+      });
+    }
   }, { scope: containerRef });
 
   return (

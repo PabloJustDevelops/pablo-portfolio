@@ -18,19 +18,27 @@ export function BentoSection() {
   const bentoItemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useGSAP(() => {
-    const items = bentoItemsRef.current.filter(Boolean);
+    // Only animate if items exist and match media queries for safe animation
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    // Filter out null refs and make sure we have DOM nodes
+    const items = bentoItemsRef.current.filter((el): el is HTMLDivElement => el !== null);
     
-    gsap.from(items, {
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 80%",
-      },
-      y: 50,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: "power3.out",
-    });
+    if (items.length > 0 && containerRef.current) {
+      gsap.from(items, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out",
+        clearProps: "all", // This is crucial! It removes GSAP inline styles after animation so hover states can work
+      });
+    }
   }, { scope: containerRef });
 
   return (
