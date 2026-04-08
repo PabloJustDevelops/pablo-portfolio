@@ -132,24 +132,16 @@ export function Globe({ className, globeRef }: GlobeProps) {
         arcAltitudeAutoScale={0.2}
         arcStroke={1}
 
-        // HTML Elements (Tooltips)
-        htmlElementsData={LOCATIONS}
-        htmlLat="lat"
-        htmlLng="lng"
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        htmlElement={(d: any) => {
-          const el = document.createElement("div");
-          el.innerHTML = `
-            <div class="flex flex-col items-center group transition-transform duration-300 hover:scale-110">
-              <div class="bg-white/90 backdrop-blur-sm text-black px-1.5 py-0.5 text-[8px] font-mono font-bold uppercase tracking-wider whitespace-nowrap shadow-lg rounded-sm border border-white/20">
-                ${d.name}
-              </div>
-              <div class="w-0 h-0 border-l-[3px] border-l-transparent border-r-[3px] border-r-transparent border-t-[3px] border-t-white/90"></div>
-            </div>
-          `;
-          el.style.pointerEvents = "auto";
-          return el;
-        }}
+        // Labels instead of HTML Elements for better 3D performance and z-indexing
+        labelsData={LOCATIONS}
+        labelLat="lat"
+        labelLng="lng"
+        labelText="name"
+        labelSize={1.5}
+        labelDotRadius={0.5}
+        labelColor={() => "rgba(255, 255, 255, 0.9)"}
+        labelResolution={2}
+        labelAltitude={0.01}
       />
     </div>
   );
