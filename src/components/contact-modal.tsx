@@ -136,16 +136,16 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 {/* Send Message Card */}
                 <button
                   onClick={() => switchView("form")}
-                  className="group relative flex w-full flex-col justify-between overflow-hidden rounded-2xl border border-white/5 bg-white/5 p-6 text-left transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:-translate-y-1 hover:shadow-xl"
+                  className="group relative flex w-full flex-col justify-between overflow-hidden rounded-3xl border border-white/5 bg-transparent p-6 text-left transition-all duration-300 hover:bg-[#1a1a1c]"
                 >
-                  <div className="mb-8 flex w-full flex-col gap-3">
-                    <div className="flex w-fit items-center gap-2 rounded-full bg-blue-500/10 px-3 py-1.5 text-sm text-blue-300 transition-transform duration-300 group-hover:-translate-y-1">
+                  <div className="mb-10 flex w-full flex-col gap-3">
+                    <div className="flex w-fit items-center gap-2 rounded-full bg-blue-500/10 px-4 py-2 text-[13px] text-blue-300">
                       <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/20 text-[10px]">
                         You
                       </span>
                       Hey, I have a project idea!
                     </div>
-                    <div className="flex w-fit items-center gap-2 self-end rounded-full bg-white/5 px-3 py-1.5 text-sm text-neutral-300 transition-transform duration-300 delay-75 group-hover:-translate-y-1">
+                    <div className="flex w-fit items-center gap-2 self-end rounded-full bg-[#1a1a1c] px-4 py-2 text-[13px] text-neutral-300">
                       Sounds great, tell me more...
                       <div className="flex h-5 w-5 items-center justify-center rounded-full bg-neutral-800 text-[10px] font-bold text-white overflow-hidden">
                         {profile.name.charAt(0)}
@@ -154,56 +154,36 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   </div>
                   
                   <div className="flex items-end justify-between">
-                    <div>
-                      <h3 className="text-base font-medium text-white">Project, role, or just a hey</h3>
-                      <p className="text-sm text-neutral-400">Start a conversation</p>
+                    <div className="space-y-1">
+                      <h3 className="text-lg font-bold text-white tracking-tight">Project, role, or just a hey</h3>
+                      <p className="text-sm text-neutral-500">Start a conversation</p>
                     </div>
-                    <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white transition-all duration-300 group-hover:bg-white/10 group-hover:pr-3">
-                      Send message <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+                    <div className="flex items-center gap-2 rounded-full border border-white/10 bg-transparent px-4 py-2 text-[13px] font-medium text-white transition-colors duration-300 group-hover:bg-white/10">
+                      Send message <ArrowRight size={14} className="opacity-70" />
                     </div>
                   </div>
                 </button>
 
-                {/* 2-Column Layout for Book Call & Email */}
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Book a Call Card */}
-                  <a
-                    href="mailto:pabloroga6@gmail.com?subject=Book a call inquiry"
-                    className="group flex flex-col items-center justify-center rounded-[20px] border border-white/5 bg-white/5 p-6 text-center transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:-translate-y-1 hover:shadow-xl"
-                  >
-                    <div className="mb-4 flex items-center justify-center -space-x-2">
-                      <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#0f0f11] bg-neutral-800 text-sm font-bold text-white overflow-hidden transition-transform duration-300 group-hover:scale-110 group-hover:-translate-x-1">
-                        {profile.name.charAt(0)}
-                      </div>
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#0f0f11] bg-neutral-700/50 text-[10px] font-medium text-neutral-300 transition-transform duration-300 group-hover:translate-x-1">
-                        You
-                      </div>
-                    </div>
-                    <h3 className="text-base font-semibold text-white">Book a call</h3>
-                    <p className="mt-1 text-[11px] text-neutral-400">30 min • no strings</p>
-                  </a>
-
-                  {/* Email Card */}
-                  <a
-                    href={`mailto:${profile.social.email.replace("mailto:", "")}`}
-                    className="group flex flex-col items-center justify-center rounded-[20px] border border-white/5 bg-white/5 p-6 text-center transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:-translate-y-1 hover:shadow-xl"
-                  >
-                    <Mail size={28} strokeWidth={1.5} className="mb-4 text-neutral-400 transition-all duration-300 group-hover:scale-110 group-hover:text-white" />
-                    <h3 className="text-base font-semibold text-white">Email me</h3>
-                    <p className="mt-1 text-[10px] text-neutral-500 truncate w-full px-2">{profile.social.email.replace("mailto:", "")}</p>
-                  </a>
-                </div>
+                {/* Email Card (Full Width Now) */}
+                <a
+                  href={`mailto:${profile.social.email.replace("mailto:", "")}`}
+                  className="group flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-transparent p-8 text-center transition-all duration-300 hover:bg-[#1a1a1c]"
+                >
+                  <Mail size={32} strokeWidth={1.5} className="mb-4 text-neutral-500" />
+                  <h3 className="text-lg font-bold text-white tracking-tight">Email me</h3>
+                  <p className="mt-1 text-sm text-neutral-500">{profile.social.email.replace("mailto:", "")}</p>
+                </a>
 
                 {/* Social Links Footer */}
                 <div className="mt-2 grid grid-cols-3 gap-2">
-                  <a href={profile.social.linkedin} target="_blank" className="group flex items-center justify-center gap-2 rounded-xl border border-white/5 bg-white/5 py-3 text-sm text-neutral-400 transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:text-white hover:-translate-y-0.5">
-                    <Linkedin size={16} className="transition-transform duration-300 group-hover:scale-110 group-hover:text-blue-400" /> LinkedIn
+                  <a href={profile.social.linkedin} target="_blank" className="flex items-center justify-center gap-2 rounded-2xl border border-white/5 bg-transparent py-3.5 text-[13px] font-medium text-neutral-400 transition-all duration-300 hover:bg-[#1a1a1c] hover:text-white">
+                    <Linkedin size={16} className="opacity-70" /> LinkedIn
                   </a>
-                  <a href="#" target="_blank" className="group flex items-center justify-center gap-2 rounded-xl border border-white/5 bg-white/5 py-3 text-sm text-neutral-400 transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:text-white hover:-translate-y-0.5">
-                    <Twitter size={16} className="transition-transform duration-300 group-hover:scale-110 group-hover:text-sky-400" /> Twitter
+                  <a href="#" target="_blank" className="flex items-center justify-center gap-2 rounded-2xl border border-white/5 bg-transparent py-3.5 text-[13px] font-medium text-neutral-400 transition-all duration-300 hover:bg-[#1a1a1c] hover:text-white">
+                    <Twitter size={16} className="opacity-70" /> X / Twitter
                   </a>
-                  <a href={profile.social.github} target="_blank" className="group flex items-center justify-center gap-2 rounded-xl border border-white/5 bg-white/5 py-3 text-sm text-neutral-400 transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:text-white hover:-translate-y-0.5">
-                    <Github size={16} className="transition-transform duration-300 group-hover:scale-110" /> GitHub
+                  <a href={profile.social.github} target="_blank" className="flex items-center justify-center gap-2 rounded-2xl border border-white/5 bg-transparent py-3.5 text-[13px] font-medium text-neutral-400 transition-all duration-300 hover:bg-[#1a1a1c] hover:text-white">
+                    <Github size={16} className="opacity-70" /> GitHub
                   </a>
                 </div>
               </div>
