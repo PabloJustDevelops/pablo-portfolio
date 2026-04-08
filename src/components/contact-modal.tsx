@@ -102,9 +102,9 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           className="relative w-full max-w-[500px] overflow-hidden rounded-3xl border border-white/10 bg-[#0f0f11] shadow-[0_0_40px_rgba(0,0,0,0.5)]"
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-white/5 p-6">
+          <div className="flex items-center justify-between border-b border-white/5 p-6 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImEiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTAgNDBMNDAgMEg0ME00MCA0MEwwIDBIMFoiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAyKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2EpIi8+PC9zdmc+')]">
             <div className="space-y-1">
-              <h2 className="font-sans text-2xl font-semibold text-white tracking-tight">
+              <h2 className="font-serif text-3xl font-medium text-white tracking-tight">
                 {viewState === "menu" ? "Reach out" : "Drop a note"}
               </h2>
               <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">
@@ -164,15 +164,35 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   </div>
                 </button>
 
-                {/* Email Card */}
-                <a
-                  href={`mailto:${profile.social.email.replace("mailto:", "")}`}
-                  className="group flex flex-col items-center justify-center rounded-2xl border border-white/5 bg-white/5 p-8 text-center transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:-translate-y-1 hover:shadow-xl"
-                >
-                  <Mail size={32} strokeWidth={1.5} className="mb-4 text-neutral-400 transition-all duration-300 group-hover:scale-110 group-hover:text-white" />
-                  <h3 className="text-base font-medium text-white">Email me</h3>
-                  <p className="text-sm text-neutral-500">{profile.social.email.replace("mailto:", "")}</p>
-                </a>
+                {/* 2-Column Layout for Book Call & Email */}
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Book a Call Card */}
+                  <a
+                    href="mailto:pabloroga6@gmail.com?subject=Book a call inquiry"
+                    className="group flex flex-col items-center justify-center rounded-[20px] border border-white/5 bg-white/5 p-6 text-center transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:-translate-y-1 hover:shadow-xl"
+                  >
+                    <div className="mb-4 flex items-center justify-center -space-x-2">
+                      <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#0f0f11] bg-neutral-800 text-sm font-bold text-white overflow-hidden transition-transform duration-300 group-hover:scale-110 group-hover:-translate-x-1">
+                        {profile.name.charAt(0)}
+                      </div>
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#0f0f11] bg-neutral-700/50 text-[10px] font-medium text-neutral-300 transition-transform duration-300 group-hover:translate-x-1">
+                        You
+                      </div>
+                    </div>
+                    <h3 className="text-base font-semibold text-white">Book a call</h3>
+                    <p className="mt-1 text-[11px] text-neutral-400">30 min • no strings</p>
+                  </a>
+
+                  {/* Email Card */}
+                  <a
+                    href={`mailto:${profile.social.email.replace("mailto:", "")}`}
+                    className="group flex flex-col items-center justify-center rounded-[20px] border border-white/5 bg-white/5 p-6 text-center transition-all duration-300 hover:border-white/10 hover:bg-white/10 hover:-translate-y-1 hover:shadow-xl"
+                  >
+                    <Mail size={28} strokeWidth={1.5} className="mb-4 text-neutral-400 transition-all duration-300 group-hover:scale-110 group-hover:text-white" />
+                    <h3 className="text-base font-semibold text-white">Email me</h3>
+                    <p className="mt-1 text-[10px] text-neutral-500 truncate w-full px-2">{profile.social.email.replace("mailto:", "")}</p>
+                  </a>
+                </div>
 
                 {/* Social Links Footer */}
                 <div className="mt-2 grid grid-cols-3 gap-2">
