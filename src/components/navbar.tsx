@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { ChevronDown, Command } from "lucide-react";
 import { Logo } from "./logo";
 import { useEffect, useRef, useState } from "react";
+import { ContactModal } from "./contact-modal";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -17,6 +18,7 @@ const navItems = [
 export function Navbar() {
   const pathname = usePathname();
   const [pillStyle, setPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
   // Update pill position when pathname changes
@@ -91,12 +93,12 @@ export function Navbar() {
 
         <div className="w-[1px] h-6 bg-white/10 mx-2" />
 
-        <Link
-          href="mailto:pabloroga6@gmail.com"
+        <button
+          onClick={() => setIsModalOpen(true)}
           className="px-5 py-2 rounded-full bg-white/10 border border-white/5 text-white text-sm font-medium hover:bg-white/20 transition-all shadow-[0_0_10px_-5px_rgba(255,255,255,0.3)]"
         >
           Book a Call
-        </Link>
+        </button>
       </div>
 
       {/* Right: Command Menu Trigger */}
@@ -108,6 +110,8 @@ export function Navbar() {
           <Command size={20} />
         </button>
       </div>
+
+      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </header>
   );
 }
