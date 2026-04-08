@@ -16,24 +16,31 @@ export function BentoSection() {
       {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(200px,auto)]">
         {/* 1. Collaboration Card (Top Left - Spans 2 Cols) */}
-        <div className="md:col-span-2 group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent transition-transform duration-500 hover:-translate-y-0.5">
-          <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-white/10 p-8 flex flex-col items-center justify-center text-center shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_20px_60px_-40px_rgba(124,58,237,0.25)] transition-all duration-500 group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_90px_-55px_rgba(59,130,246,0.25)]">
+        <div className="md:col-span-2 group rounded-3xl p-[1px] bg-gradient-to-br from-white/20 via-white/5 to-transparent transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
+          <div className="relative overflow-hidden rounded-3xl bg-[#0a0a0a] ring-1 ring-white/10 p-8 flex flex-col items-center justify-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_20px_60px_-40px_rgba(124,58,237,0.25)] transition-all duration-500 group-hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_30px_90px_-55px_rgba(59,130,246,0.4)]">
+            {/* Ambient Radial Glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.08)_0%,transparent_50%)] group-hover:bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.12)_0%,transparent_60%)] transition-colors duration-500" />
+            
+            {/* Noise Texture */}
+            <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
+
             <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
             {/* Diseño de círculos conectados */}
             <div className="relative z-10 mb-8 flex items-center justify-center -space-x-4 md:-space-x-8">
               {/* Círculo exterior izquierdo */}
-              <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border border-white/10 bg-white/5 opacity-20 scale-90" />
+              <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border border-white/5 bg-black/40 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] opacity-40 scale-90" />
               
               {/* Círculo interior izquierdo */}
-              <div className="w-20 h-20 md:w-28 md:h-28 rounded-full border border-white/10 bg-white/5 opacity-50 scale-95 z-10" />
+              <div className="w-20 h-20 md:w-28 md:h-28 rounded-full border border-white/10 bg-neutral-900/60 shadow-[inset_0_2px_15px_rgba(0,0,0,0.6)] backdrop-blur-sm opacity-70 scale-95 z-10" />
               
               {/* Círculo central (Principal) */}
               <div className="relative z-20">
-                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border-2 border-white/20 p-2 bg-neutral-900 shadow-2xl">
-                  <div className="w-full h-full rounded-full bg-neutral-800 overflow-hidden relative flex items-center justify-center">
+                <div className="absolute -inset-4 bg-blue-500/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border border-white/20 p-2 bg-gradient-to-b from-neutral-800 to-black shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.3)] group-hover:scale-105 transition-transform duration-500">
+                  <div className="w-full h-full rounded-full bg-gradient-to-br from-neutral-800 to-neutral-950 shadow-[inset_0_4px_10px_rgba(0,0,0,0.5)] overflow-hidden relative flex items-center justify-center">
                     {/* Avatar o Inicial */}
-                    <div className="text-neutral-500 font-bold text-3xl md:text-5xl">
+                    <div className="text-transparent bg-clip-text bg-gradient-to-b from-neutral-200 to-neutral-500 font-bold text-3xl md:text-5xl drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                       {profile.name.charAt(0)}
                     </div>
                   </div>
@@ -41,19 +48,22 @@ export function BentoSection() {
               </div>
 
               {/* Círculo interior derecho */}
-              <div className="w-20 h-20 md:w-28 md:h-28 rounded-full border border-white/10 bg-white/5 opacity-50 scale-95 z-10" />
+              <div className="w-20 h-20 md:w-28 md:h-28 rounded-full border border-white/10 bg-neutral-900/60 shadow-[inset_0_2px_15px_rgba(0,0,0,0.6)] backdrop-blur-sm opacity-70 scale-95 z-10" />
               
               {/* Círculo exterior derecho */}
-              <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border border-white/10 bg-white/5 opacity-20 scale-90" />
+              <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border border-white/5 bg-black/40 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] opacity-40 scale-90" />
             </div>
 
-            <div className="relative z-10 space-y-2">
-              <h3 className="text-xs font-medium uppercase tracking-widest text-neutral-500">
-                Collaboration
-              </h3>
-              <p className="text-xl md:text-2xl font-serif text-white max-w-lg mx-auto leading-relaxed">
+            <div className="relative z-10 space-y-4">
+              <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-white/5 border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-md mb-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2 shadow-[0_0_5px_rgba(59,130,246,0.8)]" />
+                <h3 className="text-[10px] font-bold uppercase tracking-widest text-neutral-300">
+                  Collaboration
+                </h3>
+              </div>
+              <p className="text-xl md:text-2xl font-serif text-white max-w-lg mx-auto leading-relaxed drop-shadow-md">
                 Open communication, async updates,{" "}
-                <span className="text-neutral-400 italic">zero surprises.</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 italic">zero surprises.</span>
               </p>
             </div>
           </div>
@@ -169,14 +179,19 @@ export function BentoSection() {
         </div>
 
         {/* 4. Connect Card (Bottom Center) */}
-        <div className="md:col-span-1 group/connect rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent transition-transform duration-500 hover:-translate-y-0.5">
-          <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-white/10 p-6 flex flex-col items-center justify-center text-center h-full min-h-[300px] shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_20px_60px_-40px_rgba(59,130,246,0.18)] transition-all duration-500 group-hover/connect:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_90px_-55px_rgba(59,130,246,0.22)]">
-            {/* Background Gradient */}
+        <div className="md:col-span-1 group/connect rounded-3xl p-[1px] bg-gradient-to-br from-white/20 via-white/5 to-transparent transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
+          <div className="relative overflow-hidden rounded-3xl bg-[#0a0a0a] ring-1 ring-white/10 p-6 flex flex-col items-center justify-center text-center h-full min-h-[300px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_20px_60px_-40px_rgba(59,130,246,0.18)] transition-all duration-500 group-hover/connect:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_30px_90px_-55px_rgba(59,130,246,0.3)]">
+            
+            {/* Base Radial Glow & Noise Texture */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0%,transparent_60%)] group-hover/connect:bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_60%)] transition-colors duration-500" />
+            <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
+            
+            {/* Stronger Hover Background Gradient */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent opacity-0 group-hover/connect:opacity-100 transition-opacity duration-500" />
 
           <div className="mb-8 relative z-10 group-hover/connect:scale-110 transition-transform duration-500">
             {/* Wing-like Glow Effect */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-12 bg-blue-600/30 blur-[40px] rounded-full pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-12 bg-blue-600/30 blur-[40px] rounded-full pointer-events-none group-hover/connect:bg-blue-500/40 transition-colors duration-500" />
 
             {/* Wings SVG */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[100px] pointer-events-none mix-blend-screen">
@@ -208,23 +223,35 @@ export function BentoSection() {
 
             {/* Static Wings (Subtle version for default state) */}
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[100px] pointer-events-none">
-               <svg viewBox="0 0 280 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full opacity-20 group-hover/connect:opacity-0 transition-opacity duration-500">
-                  <path d="M120 50 C 90 45, 60 20, 10 35" stroke="white" strokeWidth="1" strokeLinecap="round" />
-                  <path d="M160 50 C 190 45, 220 20, 270 35" stroke="white" strokeWidth="1" strokeLinecap="round" />
+               <svg viewBox="0 0 280 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full opacity-30 group-hover/connect:opacity-0 transition-opacity duration-500">
+                  <defs>
+                     <linearGradient id="wing-fade-l" x1="100%" y1="50%" x2="0%" y2="50%">
+                        <stop offset="0%" stopColor="white" stopOpacity="0" />
+                        <stop offset="50%" stopColor="white" stopOpacity="1" />
+                        <stop offset="100%" stopColor="white" stopOpacity="0" />
+                     </linearGradient>
+                     <linearGradient id="wing-fade-r" x1="0%" y1="50%" x2="100%" y2="50%">
+                        <stop offset="0%" stopColor="white" stopOpacity="0" />
+                        <stop offset="50%" stopColor="white" stopOpacity="1" />
+                        <stop offset="100%" stopColor="white" stopOpacity="0" />
+                     </linearGradient>
+                  </defs>
+                  <path d="M120 50 C 90 45, 60 20, 10 35" stroke="url(#wing-fade-l)" strokeWidth="1" strokeLinecap="round" />
+                  <path d="M160 50 C 190 45, 220 20, 270 35" stroke="url(#wing-fade-r)" strokeWidth="1" strokeLinecap="round" />
                </svg>
             </div>
 
             {/* Logo Container */}
-            <div className="w-20 h-20 rounded-full bg-gradient-to-b from-neutral-800 to-black border border-white/10 flex items-center justify-center text-3xl font-serif text-white shadow-[0_0_30px_-10px_rgba(59,130,246,0.4)] relative z-10 group-hover/connect:shadow-[0_0_40px_-5px_rgba(59,130,246,0.6)] transition-all duration-300">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-b from-neutral-800 to-black border border-white/20 flex items-center justify-center text-3xl font-serif text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.3)] relative z-10 group-hover/connect:shadow-[0_20px_50px_-5px_rgba(59,130,246,0.5),inset_0_1px_1px_rgba(255,255,255,0.4)] transition-all duration-300">
               {/* Inner highlight */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
               {profile.name.charAt(0)}
             </div>
           </div>
 
-          <h3 className="text-2xl font-serif text-white mb-8 leading-tight relative z-10">
+          <h3 className="text-2xl font-serif text-white mb-8 leading-tight relative z-10 drop-shadow-lg">
             Let&apos;s work together <br />
-            <span className="text-neutral-400 text-lg">
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-neutral-300 to-neutral-500 text-lg">
               on your next project
             </span>
           </h3>
@@ -235,7 +262,7 @@ export function BentoSection() {
                 profile.social.email.replace("mailto:", ""),
               )
             }
-            className="relative z-10 flex items-center gap-2.5 px-6 py-3 rounded-xl bg-neutral-900/80 border border-white/10 hover:border-white/20 hover:bg-neutral-800 transition-all duration-300 text-sm font-medium text-neutral-300 group-hover/connect:text-white group-hover/connect:shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)]"
+            className="relative z-10 flex items-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-b from-neutral-800 to-neutral-900 border border-white/10 hover:border-white/20 hover:from-neutral-700 hover:to-neutral-800 transition-all duration-300 text-sm font-medium text-neutral-300 group-hover/connect:text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_4px_15px_rgba(0,0,0,0.5)] group-hover/connect:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_10px_20px_-5px_rgba(59,130,246,0.3)]"
           >
             <Copy size={15} />
             <span>Copy Email</span>
