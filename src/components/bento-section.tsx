@@ -3,20 +3,42 @@
 import { stack } from "@/data/stack";
 import { profile } from "@/data/profile";
 import { Copy, Search } from "lucide-react";
-import { motion } from "framer-motion";
 import { Globe } from "@/components/globe";
 import { StatusBento } from "@/components/status-bento";
-import { useRef, type CSSProperties, type ComponentType, type ReactNode } from "react";
+import { useRef, useEffect, type CSSProperties, type ComponentType, type ReactNode } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function BentoSection() {
   const globeRef = useRef<unknown>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const bentoItemsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  useGSAP(() => {
+    const items = bentoItemsRef.current.filter(Boolean);
+    
+    gsap.from(items, {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "power3.out",
+    });
+  }, { scope: containerRef });
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-8">
+    <section ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-8">
       {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(200px,auto)]">
         {/* 1. Collaboration Card (Top Left - Spans 2 Cols) */}
-        <div className="md:col-span-2 group rounded-3xl p-[1px] bg-gradient-to-br from-white/20 via-white/5 to-transparent transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
+        <div ref={el => { bentoItemsRef.current[0] = el; }} className="md:col-span-2 group rounded-3xl p-[1px] bg-gradient-to-br from-white/20 via-white/5 to-transparent transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
           <div className="relative overflow-hidden rounded-3xl bg-[#0a0a0a] ring-1 ring-white/10 p-8 flex flex-col items-center justify-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_20px_60px_-40px_rgba(124,58,237,0.25)] transition-all duration-500 group-hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_30px_90px_-55px_rgba(59,130,246,0.4)]">
             {/* Ambient Radial Glow */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.08)_0%,transparent_50%)] group-hover:bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.12)_0%,transparent_60%)] transition-colors duration-500" />
@@ -70,7 +92,7 @@ export function BentoSection() {
         </div>
 
         {/* 2. Tech Stack Card (Right - Spans 2 Rows vertically if needed, here just 1 col wide) */}
-        <div className="md:col-span-1 md:row-span-2 group/tech rounded-3xl p-[1px] bg-gradient-to-br from-white/20 via-white/5 to-transparent transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl h-full">
+        <div ref={el => { bentoItemsRef.current[1] = el; }} className="md:col-span-1 md:row-span-2 group/tech rounded-3xl p-[1px] bg-gradient-to-br from-white/20 via-white/5 to-transparent transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl h-full">
           <div className="relative overflow-hidden rounded-3xl bg-[#0a0a0a] ring-1 ring-white/10 p-6 flex flex-col shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_20px_60px_-40px_rgba(59,130,246,0.18)] transition-all duration-500 group-hover/tech:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_30px_90px_-55px_rgba(59,130,246,0.3)] h-full">
             {/* Background Elements */}
             <div className="absolute inset-0 z-0">
@@ -161,7 +183,7 @@ export function BentoSection() {
         </div>
 
         {/* 3. Time Zone Card (Bottom Left 1) */}
-        <div className="md:col-span-1 md:row-span-2 group/time rounded-3xl p-[1px] bg-gradient-to-br from-white/20 via-white/5 to-transparent transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
+        <div ref={el => { bentoItemsRef.current[2] = el; }} className="md:col-span-1 md:row-span-2 group/time rounded-3xl p-[1px] bg-gradient-to-br from-white/20 via-white/5 to-transparent transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
           <div className="relative rounded-3xl bg-[#0a0a0a] ring-1 ring-white/10 p-0 flex flex-col h-full min-h-[400px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_20px_60px_-40px_rgba(59,130,246,0.20)] transition-all duration-500 group-hover/time:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_30px_90px_-55px_rgba(59,130,246,0.3)] overflow-hidden">
             
             {/* Atmospheric Background Glow & Noise Texture */}
@@ -203,7 +225,7 @@ export function BentoSection() {
         </div>
 
         {/* 4. Connect Card (Bottom Center) */}
-        <div className="md:col-span-1 group/connect rounded-3xl p-[1px] bg-gradient-to-br from-white/20 via-white/5 to-transparent transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
+        <div ref={el => { bentoItemsRef.current[3] = el; }} className="md:col-span-1 group/connect rounded-3xl p-[1px] bg-gradient-to-br from-white/20 via-white/5 to-transparent transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
           <div className="relative overflow-hidden rounded-3xl bg-[#0a0a0a] ring-1 ring-white/10 p-6 flex flex-col items-center justify-center text-center h-full min-h-[300px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_20px_60px_-40px_rgba(59,130,246,0.18)] transition-all duration-500 group-hover/connect:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_30px_90px_-55px_rgba(59,130,246,0.3)]">
             
             {/* Base Radial Glow & Noise Texture */}
@@ -294,7 +316,7 @@ export function BentoSection() {
           </div>
         </div>
 
-        <div className="md:col-span-2">
+        <div ref={el => { bentoItemsRef.current[4] = el; }} className="md:col-span-2">
           <StatusBento />
         </div>
       </div>
@@ -328,22 +350,39 @@ function Marquee({
   reverse?: boolean;
   duration?: number;
 }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!contentRef.current) return;
+
+    // Use GSAP to animate the infinite scroll
+    const tl = gsap.to(contentRef.current, {
+      xPercent: reverse ? 0 : -33.333333,
+      ease: "none",
+      duration: duration,
+      repeat: -1,
+    });
+
+    if (reverse) {
+      gsap.set(contentRef.current, { xPercent: -33.333333 });
+    }
+
+    return () => {
+      tl.kill();
+    };
+  }, [reverse, duration]);
+
   return (
-    <div className="flex overflow-hidden w-full group mask-gradient">
-      <motion.div
-        initial={{ x: reverse ? "-100%" : "0%" }}
-        animate={{ x: reverse ? "0%" : "-100%" }}
-        transition={{
-          duration,
-          ease: "linear",
-          repeat: Infinity,
-        }}
-        className="flex gap-3 flex-shrink-0 px-1.5"
+    <div ref={containerRef} className="flex overflow-hidden w-full group mask-gradient">
+      <div
+        ref={contentRef}
+        className="flex gap-3 flex-shrink-0 px-1.5 min-w-max"
       >
         {children}
         {children}
         {children}
-      </motion.div>
+      </div>
     </div>
   );
 }

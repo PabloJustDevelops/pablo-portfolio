@@ -1,20 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import gsap from "gsap";
 
 export function CustomCursor() {
   const [mounted, setMounted] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
-  const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-
-  const mouseX = useMotionValue(-100);
-  const mouseY = useMotionValue(-100);
-
-  // Smooth springs for the outer ring
-  const springX = useSpring(mouseX, { damping: 40, stiffness: 300, mass: 0.5 });
-  const springY = useSpring(mouseY, { damping: 40, stiffness: 300, mass: 0.5 });
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Only mount on desktop/devices with fine pointers
@@ -24,23 +17,57 @@ export function CustomCursor() {
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || !dotRef.current || !ringRef.current) return;
+
+    // Create quickTo instances for high performance
+    const xDot = gsap.quickTo(dotRef.current, "x", { duration: 0, ease: "none" });
+    const yDot = gsap.quickTo(dotRef.current, "y", { duration: 0, ease: "none" });
+    
+    // Ring follows with a spring-like delay
+    const xRing = gsap.quickTo(ringRef.current, "x", { duration: 0.5, ease: "power3" });
+    const yRing = gsap.quickTo(ringRef.current, "y", { duration: 0.5, ease: "power3" });
 
     const moveCursor = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
+      xDot(e.clientX);
+      yDot(e.clientY);
+      xRing(e.clientX);
+      yRing(e.clientY);
       if (!isVisible) setIsVisible(true);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
-      // Find if we are hovering an interactive element
       const target = e.target as HTMLElement;
       const isInteractive = target.closest("a, button, [role='button'], input, textarea, select");
-      setIsHovering(!!isInteractive);
+      
+      if (isInteractive) {
+        gsap.to(dotRef.current, { scale: 0, duration: 0.2 });
+        gsap.to(ringRef.current, { 
+          scale: 1.5, 
+          backgroundColor: "rgba(255, 255, 255, 1)",
+          borderWidth: 0,
+          duration: 0.2 
+        });
+      } else {
+        gsap.to(dotRef.current, { scale: 1, duration: 0.2 });
+        gsap.to(ringRef.current, { 
+          scale: 1, 
+          backgroundColor: "rgba(255, 255, 255, 0)",
+          borderWidth: 1.5,
+          duration: 0.2 
+        });
+      }
     };
 
-    const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp = () => setIsClicking(false);
+    const handleMouseDown = () => {
+      gsap.to(dotRef.current, { scale: 0.5, duration: 0.1 });
+      gsap.to(ringRef.current, { scale: 0.8, duration: 0.1 });
+    };
+
+    const handleMouseUp = () => {
+      gsap.to(dotRef.current, { scale: 1, duration: 0.1 });
+      gsap.to(ringRef.current, { scale: 1, duration: 0.1 });
+    };
+
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
@@ -59,44 +86,32 @@ export function CustomCursor() {
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseenter", handleMouseEnter);
     };
-  }, [mounted, mouseX, mouseY, isVisible]);
+  }, [mounted, isVisible]);
 
   if (!mounted) return null;
 
   return (
     <>
       {/* Inner Dot */}
-      <motion.div
+      <div
+        ref={dotRef}
         className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
         style={{
-          x: mouseX,
-          y: mouseY,
-          translateX: "-50%",
-          translateY: "-50%",
+          transform: "translate(-50%, -50%)",
           opacity: isVisible ? 1 : 0,
+          transition: "opacity 0.3s ease"
         }}
-        animate={{
-          scale: isClicking ? 0.5 : isHovering ? 0 : 1,
-        }}
-        transition={{ duration: 0.15 }}
       />
 
       {/* Outer Ring */}
-      <motion.div
+      <div
+        ref={ringRef}
         className="fixed top-0 left-0 w-8 h-8 border-[1.5px] border-white/50 rounded-full pointer-events-none z-[9998] mix-blend-difference"
         style={{
-          x: springX,
-          y: springY,
-          translateX: "-50%",
-          translateY: "-50%",
+          transform: "translate(-50%, -50%)",
           opacity: isVisible ? 1 : 0,
+          transition: "opacity 0.3s ease"
         }}
-        animate={{
-          scale: isHovering ? 1.5 : isClicking ? 0.8 : 1,
-          backgroundColor: isHovering ? "rgba(255, 255, 255, 1)" : "rgba(255, 255, 255, 0)",
-          borderWidth: isHovering ? "0px" : "1.5px",
-        }}
-        transition={{ duration: 0.2 }}
       />
     </>
   );

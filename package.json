@@ -24,7 +24,6 @@
     "clsx": "^2.1.1",
     "cobe": "^0.6.5",
     "country-flag-icons": "^1.6.15",
-    "framer-motion": "^12.36.0",
     "gsap": "^3.14.2",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",

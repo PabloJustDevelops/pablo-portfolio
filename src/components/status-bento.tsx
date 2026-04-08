@@ -1,11 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Play, Music, Terminal, Code2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { Badge } from "@/components/ui/badge";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type NowPlayingData = {
   title: string;
@@ -83,13 +87,30 @@ export function StatusBento() {
     return () => clearInterval(interval);
   }, []);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const leftCardRef = useRef<HTMLDivElement>(null);
+  const rightCardRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const cards = [leftCardRef.current, rightCardRef.current].filter(Boolean);
+    
+    gsap.from(cards, {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 85%",
+      },
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "power3.out",
+    });
+  }, { scope: containerRef });
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+    <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div
+        ref={leftCardRef}
         className="md:col-span-2 h-full"
       >
         <div className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent h-full">
@@ -156,13 +177,10 @@ export function StatusBento() {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+      <div
+        ref={rightCardRef}
         className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent h-full"
       >
         <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-white/10 p-6 flex flex-col justify-between min-h-[220px] h-full shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_20px_60px_-35px_rgba(59,130,246,0.35)] transition-all duration-500 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_90px_-45px_rgba(59,130,246,0.45)]">
@@ -191,10 +209,9 @@ export function StatusBento() {
               {(nowPlaying?.isPlaying || isLoading) && (
                 <div className="flex items-end gap-[2px] h-3">
                   {bars.map((height, i) => (
-                    <motion.div
+                    <div
                       key={i}
-                      animate={{ height: `${height * 30}%` }}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                      style={{ height: `${height * 30}%`, transition: "height 0.4s ease-in-out" }}
                       className="w-1 bg-blue-400 rounded-t-sm shadow-[0_0_12px_rgba(59,130,246,0.55)]"
                     />
                   ))}
@@ -268,7 +285,7 @@ export function StatusBento() {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
