@@ -6,7 +6,7 @@ import { Environment, Float, MeshTransmissionMaterial } from "@react-three/drei"
 import * as THREE from "three";
 import { useTheme } from "next-themes";
 
-function TorusShape() {
+function PrismShape() {
   const meshRef = useRef<THREE.Mesh>(null);
   const { theme } = useTheme();
   
@@ -34,10 +34,11 @@ function TorusShape() {
     // Base continuous slow rotation
     meshRef.current.rotation.x += delta * 0.15;
     meshRef.current.rotation.y += delta * 0.2;
+    meshRef.current.rotation.z += delta * 0.1;
 
     // Add mouse parallax
-    targetRotation.current.x = mousePosition.y * 0.5;
-    targetRotation.current.y = mousePosition.x * 0.5;
+    targetRotation.current.x = mousePosition.y * 0.8;
+    targetRotation.current.y = mousePosition.x * 0.8;
 
     currentRotation.current.x += (targetRotation.current.x - currentRotation.current.x) * 5 * delta;
     currentRotation.current.y += (targetRotation.current.y - currentRotation.current.y) * 5 * delta;
@@ -46,26 +47,25 @@ function TorusShape() {
     meshRef.current.rotation.y += currentRotation.current.y * delta;
   });
 
-  const isDark = theme === "dark" || theme === "system"; // Assuming system is dark by default for the hero
+  const isDark = theme === "dark" || theme === "system";
 
   return (
-    <Float speed={1.5} rotationIntensity={0.5} floatIntensity={1}>
-      <mesh ref={meshRef} scale={1.8}>
-        <torusKnotGeometry args={[10, 3.5, 256, 32]} />
+    <Float speed={2} rotationIntensity={0.5} floatIntensity={1.5}>
+      <mesh ref={meshRef} scale={3.5}>
+        {/* An Icosahedron with 0 detail creates a perfect sharp 20-sided diamond/crystal shape */}
+        <icosahedronGeometry args={[1, 0]} />
         <MeshTransmissionMaterial
           backside
-          backsideThickness={2}
+          backsideThickness={1}
           thickness={1.5}
-          roughness={0.15}
-          transmission={1}
-          ior={1.4}
-          chromaticAberration={0.08}
-          anisotropy={0.2}
-          distortion={0.3}
-          distortionScale={0.5}
-          temporalDistortion={0.1}
-          color={isDark ? "#ffffff" : "#0a0a0a"}
-          attenuationDistance={10}
+          roughness={0.05} // Very smooth and reflective
+          transmission={1} // Fully transparent glass
+          ior={1.5} // Index of refraction for glass/crystal
+          chromaticAberration={0.15} // Splits light into RGB on the edges
+          anisotropy={0.1}
+          distortion={0} // No distortion, keep faces flat
+          color={isDark ? "#ffffff" : "#000000"}
+          attenuationDistance={5}
           attenuationColor={isDark ? "#ffffff" : "#000000"}
         />
       </mesh>
@@ -73,7 +73,7 @@ function TorusShape() {
   );
 }
 
-export function Hero3DTorus() {
+export function Hero3DPrism() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -84,17 +84,19 @@ export function Hero3DTorus() {
   if (!mounted) return null;
 
   return (
-    <div className="absolute inset-0 z-0 opacity-80 pointer-events-none">
+    <div className="absolute inset-0 z-0 opacity-90 pointer-events-none">
       <Canvas
-        camera={{ position: [0, 0, 45], fov: 40 }}
+        camera={{ position: [0, 0, 20], fov: 40 }}
         dpr={[1, 2]} // Limit pixel ratio for performance
         gl={{ antialias: true, alpha: true }}
       >
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 10]} intensity={1} />
-        <directionalLight position={[-10, -10, -10]} intensity={0.5} />
+        <ambientLight intensity={1} />
+        <directionalLight position={[10, 10, 10]} intensity={2} />
+        <directionalLight position={[-10, -10, -10]} intensity={1} />
+        
+        {/* Environment map is crucial for glass materials to have something to reflect/refract */}
         <Environment preset="city" />
-        <TorusShape />
+        <PrismShape />
       </Canvas>
     </div>
   );
