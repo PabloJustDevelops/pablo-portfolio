@@ -38,8 +38,8 @@ function Planet() {
 
     if (lightRef.current) {
       // Move light source based on mouse
-      targetLightPos.current.x = mousePosition.x * 5;
-      targetLightPos.current.y = 12 + mousePosition.y * 2;
+      targetLightPos.current.x = mousePosition.x * 8;
+      targetLightPos.current.y = 24 + mousePosition.y * 4;
 
       currentLightPos.current.x += (targetLightPos.current.x - currentLightPos.current.x) * 2 * delta;
       currentLightPos.current.y += (targetLightPos.current.y - currentLightPos.current.y) * 2 * delta;
@@ -50,29 +50,29 @@ function Planet() {
   });
 
   return (
-    <group position={[0, -20, -10]}>
+    <group position={[0, -22, -5]}>
       {/* Main Light source creating the horizon glow */}
       <pointLight
         ref={lightRef}
-        position={[0, 12, -5]}
-        intensity={isDark ? 80 : 120}
-        distance={50}
-        color={isDark ? "#8b5cf6" : "#ffffff"} // Purple-ish in dark, pure white in light
+        position={[0, 24, -2]}
+        intensity={isDark ? 200 : 300}
+        distance={60}
+        color={isDark ? "#a78bfa" : "#ffffff"} // Purple-ish in dark, pure white in light
       />
       
       {/* Secondary rim light */}
       <directionalLight 
-        position={[0, 20, -10]} 
-        intensity={isDark ? 2 : 4} 
+        position={[0, 30, -5]} 
+        intensity={isDark ? 3 : 5} 
         color={isDark ? "#ffffff" : "#f8fafc"} 
       />
 
       {/* The Planet */}
-      <Sphere ref={meshRef} args={[24, 128, 128]}>
+      <Sphere ref={meshRef} args={[24, 64, 64]}>
         <meshStandardMaterial
-          color={isDark ? "#050505" : "#f1f5f9"}
-          roughness={0.8}
-          metalness={0.2}
+          color={isDark ? "#020202" : "#e2e8f0"}
+          roughness={0.9}
+          metalness={0.1}
         />
       </Sphere>
     </group>
@@ -107,7 +107,7 @@ export function HeroHorizon() {
       />
       
       <Canvas
-        camera={{ position: [0, 0, 20], fov: 45 }}
+        camera={{ position: [0, 0, 10], fov: 60 }}
         dpr={[1, 2]} // Limit pixel ratio for performance
         gl={{ antialias: true, alpha: true }}
         className="absolute inset-0"
