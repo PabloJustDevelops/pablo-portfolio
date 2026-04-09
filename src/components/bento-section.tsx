@@ -59,10 +59,10 @@ export function BentoSection() {
             {/* Diseño de círculos conectados */}
             <div className="relative z-10 mb-8 flex items-center justify-center -space-x-4 md:-space-x-8">
               {/* Círculo exterior izquierdo */}
-              <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border border-white/5 bg-black/40 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] opacity-40 scale-90" />
+              <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border border-black/5 dark:border-white/5 bg-black/40 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] opacity-40 scale-90" />
               
               {/* Círculo interior izquierdo */}
-              <div className="w-20 h-20 md:w-28 md:h-28 rounded-full border border-white/10 bg-neutral-900/60 shadow-[inset_0_2px_15px_rgba(0,0,0,0.6)] backdrop-blur-sm opacity-70 scale-95 z-10" />
+              <div className="w-20 h-20 md:w-28 md:h-28 rounded-full border border-black/10 dark:border-white/10 bg-neutral-900/60 shadow-[inset_0_2px_15px_rgba(0,0,0,0.6)] backdrop-blur-sm opacity-70 scale-95 z-10" />
               
               {/* Círculo central (Principal) */}
               <div className="relative z-20">
@@ -78,20 +78,20 @@ export function BentoSection() {
               </div>
 
               {/* Círculo interior derecho */}
-              <div className="w-20 h-20 md:w-28 md:h-28 rounded-full border border-white/10 bg-neutral-900/60 shadow-[inset_0_2px_15px_rgba(0,0,0,0.6)] backdrop-blur-sm opacity-70 scale-95 z-10" />
+              <div className="w-20 h-20 md:w-28 md:h-28 rounded-full border border-black/10 dark:border-white/10 bg-neutral-900/60 shadow-[inset_0_2px_15px_rgba(0,0,0,0.6)] backdrop-blur-sm opacity-70 scale-95 z-10" />
               
               {/* Círculo exterior derecho */}
-              <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border border-white/5 bg-black/40 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] opacity-40 scale-90" />
+              <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border border-black/5 dark:border-white/5 bg-black/40 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] opacity-40 scale-90" />
             </div>
 
             <div className="relative z-10 space-y-4">
-              <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-white/5 border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-md mb-2">
+              <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-md mb-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2 shadow-[0_0_5px_rgba(59,130,246,0.8)]" />
                 <h3 className="text-[10px] font-bold uppercase tracking-widest text-neutral-300">
                   Collaboration
                 </h3>
               </div>
-              <p className="text-xl md:text-2xl font-serif text-white max-w-lg mx-auto leading-relaxed drop-shadow-md">
+              <p className="text-xl md:text-2xl font-serif text-black dark:text-white max-w-lg mx-auto leading-relaxed drop-shadow-md">
                 Open communication, async updates,{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 italic">zero surprises.</span>
               </p>
@@ -113,7 +113,7 @@ export function BentoSection() {
             </div>
 
             <div className="mb-6 relative z-10">
-              <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-white/5 border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-md mb-3">
+              <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-md mb-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mr-2 shadow-[0_0_5px_rgba(168,85,247,0.8)]" />
                 <h3 className="text-[10px] font-bold uppercase tracking-widest text-neutral-300">
                   Tech Stack
@@ -147,16 +147,16 @@ export function BentoSection() {
 
             {/* Browser UI Mockup */}
             <div className="relative z-20 mt-auto -mx-6 -mb-6 px-4 pb-0 pt-6 perspective-[1000px]">
-              <div className="w-full bg-gradient-to-b from-[#151515] to-[#0A0A0A] border border-white/10 rounded-t-xl overflow-hidden shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8)] translate-y-2 rotate-x-3 transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover/tech:translate-y-0 group-hover/tech:rotate-x-0 group-hover/tech:shadow-[0_-10px_40px_-15px_rgba(59,130,246,0.15),0_30px_60px_-15px_rgba(0,0,0,0.8)]">
+              <div className="w-full bg-gradient-to-b from-[#151515] to-[#0A0A0A] border border-black/10 dark:border-white/10 rounded-t-xl overflow-hidden shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8)] translate-y-2 rotate-x-3 transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover/tech:translate-y-0 group-hover/tech:rotate-x-0 group-hover/tech:shadow-[0_-10px_40px_-15px_rgba(59,130,246,0.15),0_30px_60px_-15px_rgba(0,0,0,0.8)]">
                 {/* Browser Header */}
-                <div className="h-8 bg-neutral-900/80 backdrop-blur-md border-b border-white/10 flex items-center px-3 relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                <div className="h-8 bg-neutral-900/80 backdrop-blur-md border-b border-black/10 dark:border-white/10 flex items-center px-3 relative shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
                   <div className="flex gap-1.5 absolute left-3">
                     <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] border border-[#E0443E] shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]" />
                     <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] border border-[#DEA123] shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]" />
                     <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F] border border-[#1AAB29] shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]" />
                   </div>
                   <div className="w-full flex justify-center">
-                    <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-black/60 border border-white/5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)] text-[9px] text-neutral-400 font-medium transition-all duration-500 group-hover/tech:bg-black/80 group-hover/tech:text-neutral-300 group-hover/tech:border-white/10 group-hover/tech:px-6">
+                    <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-black/60 border border-black/5 dark:border-white/5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)] text-[9px] text-neutral-500 dark:text-neutral-400 font-medium transition-all duration-500 group-hover/tech:bg-black/80 group-hover/tech:text-neutral-300 group-hover/tech:border-black/10 dark:border-white/10 group-hover/tech:px-6">
                       <span className="opacity-50">🔒</span> pabloroga.dev
                     </div>
                   </div>
@@ -169,14 +169,14 @@ export function BentoSection() {
                   {/* Inner Grid */}
                   <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
 
-                  <div className="relative z-10 p-2.5 rounded-xl bg-gradient-to-b from-white/10 to-white/5 border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_10px_rgba(0,0,0,0.5)] group-hover/tech:scale-105 group-hover/tech:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all duration-500">
+                  <div className="relative z-10 p-2.5 rounded-xl bg-gradient-to-b from-white/10 to-white/5 border border-black/10 dark:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_10px_rgba(0,0,0,0.5)] group-hover/tech:scale-105 group-hover/tech:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all duration-500">
                     <Search
                       size={16}
-                      className="text-neutral-400 group-hover/tech:text-blue-400 transition-colors"
+                      className="text-neutral-500 dark:text-neutral-400 group-hover/tech:text-blue-400 transition-colors"
                     />
                   </div>
                   <div className="relative z-10 space-y-1">
-                    <h4 className="text-white font-bold text-base tracking-tight group-hover/tech:text-transparent group-hover/tech:bg-clip-text group-hover/tech:bg-gradient-to-r group-hover/tech:from-blue-400 group-hover/tech:to-purple-400 transition-all duration-500">
+                    <h4 className="text-black dark:text-white font-bold text-base tracking-tight group-hover/tech:text-transparent group-hover/tech:bg-clip-text group-hover/tech:bg-gradient-to-r group-hover/tech:from-blue-400 group-hover/tech:to-purple-400 transition-all duration-500">
                       Built to Perform.
                     </h4>
                     <p className="text-[11px] text-neutral-500 font-medium">
@@ -199,7 +199,7 @@ export function BentoSection() {
             <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
 
             <div className="p-6 pb-2 z-20 flex flex-col items-center text-center">
-              <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-white/5 border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-md mb-4">
+              <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-md mb-4">
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2 shadow-[0_0_5px_rgba(59,130,246,0.8)] animate-pulse" />
                 <h3 className="text-[10px] font-bold uppercase tracking-widest text-neutral-300">
                   Global Reach
@@ -223,7 +223,7 @@ export function BentoSection() {
             </div>
 
             <div className="p-4 pt-0 z-20 pointer-events-none relative bg-[#0a0a0a] shadow-[0_-20px_40px_rgba(10,10,10,1)]">
-              <div className="flex items-center justify-center gap-2 text-[10px] text-neutral-400 font-medium tracking-wide text-center">
+              <div className="flex items-center justify-center gap-2 text-[10px] text-neutral-500 dark:text-neutral-400 font-medium tracking-wide text-center">
                 <span>📍 Based in Spain</span>
                 <span className="w-1 h-1 rounded-full bg-neutral-700" />
                 <span className="text-neutral-300">Available globally</span>
@@ -296,14 +296,14 @@ export function BentoSection() {
             </div>
 
             {/* Logo Container */}
-            <div className="w-20 h-20 rounded-full bg-gradient-to-b from-neutral-800 to-black border border-white/20 flex items-center justify-center text-3xl font-serif text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.3)] relative z-10 group-hover/connect:shadow-[0_20px_50px_-5px_rgba(59,130,246,0.5),inset_0_1px_1px_rgba(255,255,255,0.4)] transition-all duration-300">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-b from-neutral-800 to-black border border-white/20 flex items-center justify-center text-3xl font-serif text-black dark:text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.3)] relative z-10 group-hover/connect:shadow-[0_20px_50px_-5px_rgba(59,130,246,0.5),inset_0_1px_1px_rgba(255,255,255,0.4)] transition-all duration-300">
               {/* Inner highlight */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
               {profile.name.charAt(0)}
             </div>
           </div>
 
-          <h3 className="text-2xl font-serif text-white mb-8 leading-tight relative z-10 drop-shadow-lg">
+          <h3 className="text-2xl font-serif text-black dark:text-white mb-8 leading-tight relative z-10 drop-shadow-lg">
             Let&apos;s work together <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-b from-neutral-300 to-neutral-500 text-lg">
               on your next project
@@ -316,7 +316,7 @@ export function BentoSection() {
                 profile.social.email.replace("mailto:", ""),
               )
             }
-            className="relative z-10 flex items-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-b from-neutral-800 to-neutral-900 border border-white/10 hover:border-white/20 hover:from-neutral-700 hover:to-neutral-800 transition-all duration-300 text-sm font-medium text-neutral-300 group-hover/connect:text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_4px_15px_rgba(0,0,0,0.5)] group-hover/connect:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_10px_20px_-5px_rgba(59,130,246,0.3)]"
+            className="relative z-10 flex items-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-b from-neutral-800 to-neutral-900 border border-black/10 dark:border-white/10 hover:border-black/20 dark:hover:border-white/20 hover:from-neutral-700 hover:to-neutral-800 transition-all duration-300 text-sm font-medium text-neutral-300 group-hover/connect:text-black dark:text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_4px_15px_rgba(0,0,0,0.5)] group-hover/connect:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_10px_20px_-5px_rgba(59,130,246,0.3)]"
           >
             <Copy size={15} />
             <span>Copy Email</span>
@@ -342,9 +342,9 @@ function TechBadge({
   color?: string;
 }) {
     return (
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-b from-neutral-800/60 to-neutral-900/60 backdrop-blur-md border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_4px_10px_rgba(0,0,0,0.5)] hover:from-neutral-700/60 hover:to-neutral-800/60 hover:border-white/20 transition-all duration-300 whitespace-nowrap group/badge cursor-default">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-b from-neutral-800/60 to-neutral-900/60 backdrop-blur-md border border-black/10 dark:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_4px_10px_rgba(0,0,0,0.5)] hover:from-neutral-700/60 hover:to-neutral-800/60 hover:border-black/20 dark:hover:border-white/20 transition-all duration-300 whitespace-nowrap group/badge cursor-default">
             <Icon size={14} style={{ color }} className="drop-shadow-[0_0_5px_rgba(255,255,255,0.3)] group-hover/badge:scale-110 transition-transform duration-300" />
-            <span className="text-xs text-neutral-300 font-medium tracking-wide group-hover/badge:text-white transition-colors">{name}</span>
+            <span className="text-xs text-neutral-300 font-medium tracking-wide group-hover/badge:text-black dark:text-white transition-colors">{name}</span>
         </div>
     );
 }

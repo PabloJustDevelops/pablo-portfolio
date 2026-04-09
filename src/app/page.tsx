@@ -6,7 +6,7 @@ import { ContactSection } from "@/components/contact-section";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white font-sans antialiased selection:bg-neutral-800">
+    <main className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-sans antialiased selection:bg-neutral-800">
       {/* Hero Section Full Width */}
       <section className="w-full h-screen min-h-[600px] flex items-center justify-center border-b border-white/5">
         <Hero />

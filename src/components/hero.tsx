@@ -128,7 +128,7 @@ export function Hero() {
   };
 
   return (
-    <div ref={containerRef} className="relative flex flex-col items-center justify-center text-center w-full min-h-screen overflow-hidden bg-black selection:bg-blue-500/30 pb-40">
+    <div ref={containerRef} className="relative flex flex-col items-center justify-center text-center w-full min-h-screen overflow-hidden bg-white dark:bg-black selection:bg-blue-500/30 pb-40">
       {/* Background Effects */}
       <div ref={backgroundRef} className="absolute inset-0 z-0">
         <AuroraBloom intensity="normal" />
@@ -167,7 +167,7 @@ export function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif tracking-tight text-white leading-[1.1] flex flex-col items-center" style={{ perspective: "1000px" }}>
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif tracking-tight text-black dark:text-white leading-[1.1] flex flex-col items-center" style={{ perspective: "1000px" }}>
           {/* We wrap text in overflow-hidden containers to create a mask reveal effect */}
           <div className="overflow-hidden pb-2">
             <span ref={titleLine1Ref} className="block bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-400">

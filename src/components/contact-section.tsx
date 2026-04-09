@@ -40,7 +40,7 @@ export function ContactSection() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative w-full py-32 bg-black overflow-hidden flex flex-col items-center justify-center text-center" id="contact">
+    <section ref={containerRef} className="relative w-full py-32 bg-white dark:bg-black overflow-hidden flex flex-col items-center justify-center text-center" id="contact">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,_var(--tw-gradient-stops))] from-blue-600/20 via-transparent to-transparent pointer-events-none blur-[100px]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_var(--tw-gradient-stops))] from-cyan-600/20 via-transparent to-transparent pointer-events-none blur-[100px]" />
@@ -82,9 +82,9 @@ export function ContactSection() {
           {/* Main Headline */}
           <div className="relative mb-12 w-full max-w-4xl mx-auto">
             <h2 className="text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl font-sans text-neutral-300 tracking-tight leading-[1.1] uppercase">
-              From concept to <span className="text-white font-extrabold">creation</span>
+              From concept to <span className="text-black dark:text-white font-extrabold">creation</span>
               <br />
-              Let&apos;s make it <span className="text-white font-extrabold relative inline-block">
+              Let&apos;s make it <span className="text-black dark:text-white font-extrabold relative inline-block">
                 happen!
                 {/* Rotating Badge */}
                 <div className="absolute -right-12 md:-right-24 -top-8 md:-top-12 w-24 h-24 md:w-32 md:h-32 pointer-events-none z-20">
@@ -116,7 +116,7 @@ export function ContactSection() {
           >
             <Link 
               href="mailto:pabloroga6@gmail.com"
-              className="group flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-neutral-900/80 hover:bg-neutral-800 border border-white/10 backdrop-blur-md transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+              className="group flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-neutral-900/80 hover:bg-neutral-200 dark:bg-neutral-800 border border-black/10 dark:border-white/10 backdrop-blur-md transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.5)]"
             >
               <span className="text-sm font-semibold text-white">Get In Touch</span>
               <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-black transition-transform duration-300 group-hover:translate-x-0.5">
@@ -127,10 +127,10 @@ export function ContactSection() {
 
           {/* Subtitle text */}
           <div className="mt-20 space-y-4 max-w-2xl">
-            <h3 className="text-xl md:text-2xl font-serif text-white font-medium">
+            <h3 className="text-xl md:text-2xl font-serif text-black dark:text-white font-medium">
               I&apos;m available for full-time roles & freelance projects.
             </h3>
-            <p className="text-neutral-400 text-sm md:text-base leading-relaxed font-light">
+            <p className="text-neutral-500 dark:text-neutral-400 text-sm md:text-base leading-relaxed font-light">
               I thrive on crafting dynamic web applications, and<br className="hidden md:block" /> delivering seamless user experiences.
             </p>
           </div>
