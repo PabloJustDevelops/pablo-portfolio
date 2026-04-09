@@ -6,7 +6,7 @@ import { Environment, Float, MeshTransmissionMaterial } from "@react-three/drei"
 import * as THREE from "three";
 import { useTheme } from "next-themes";
 
-function MobiusShape() {
+function TorusShape() {
   const meshRef = useRef<THREE.Mesh>(null);
   const { theme } = useTheme();
   
@@ -32,13 +32,12 @@ function MobiusShape() {
     if (!meshRef.current) return;
 
     // Base continuous slow rotation
-    meshRef.current.rotation.x += delta * 0.1;
-    meshRef.current.rotation.y += delta * 0.15;
-    meshRef.current.rotation.z += delta * 0.05;
+    meshRef.current.rotation.x += delta * 0.15;
+    meshRef.current.rotation.y += delta * 0.2;
 
     // Add mouse parallax
-    targetRotation.current.x = mousePosition.y * 0.8;
-    targetRotation.current.y = mousePosition.x * 0.8;
+    targetRotation.current.x = mousePosition.y * 0.5;
+    targetRotation.current.y = mousePosition.x * 0.5;
 
     currentRotation.current.x += (targetRotation.current.x - currentRotation.current.x) * 5 * delta;
     currentRotation.current.y += (targetRotation.current.y - currentRotation.current.y) * 5 * delta;
@@ -50,23 +49,22 @@ function MobiusShape() {
   const isDark = theme === "dark" || theme === "system";
 
   return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={1.5}>
+    <Float speed={1.5} rotationIntensity={0.5} floatIntensity={1}>
       <mesh ref={meshRef} scale={1.8}>
-        {/* p=1, q=2 creates an infinity loop (Mobius strip like) knot */}
-        <torusKnotGeometry args={[1.8, 0.6, 256, 64, 1, 2]} />
+        <torusKnotGeometry args={[10, 3.5, 256, 32]} />
         <MeshTransmissionMaterial
           backside
-          backsideThickness={1}
+          backsideThickness={2}
           thickness={1.5}
-          roughness={0.1} // Slightly frosted for better light catching
-          transmission={1} 
-          ior={1.5} 
-          chromaticAberration={0.15} 
+          roughness={0.15}
+          transmission={1}
+          ior={1.4}
+          chromaticAberration={0.08}
           anisotropy={0.2}
-          distortion={0.2} 
+          distortion={0.3}
           distortionScale={0.5}
           temporalDistortion={0.1}
-          color={isDark ? "#ffffff" : "#000000"}
+          color={isDark ? "#ffffff" : "#0a0a0a"}
           attenuationDistance={10}
           attenuationColor={isDark ? "#ffffff" : "#000000"}
         />
@@ -75,7 +73,7 @@ function MobiusShape() {
   );
 }
 
-export function Hero3DMobius() {
+export function Hero3DTorus() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -86,17 +84,17 @@ export function Hero3DMobius() {
   if (!mounted) return null;
 
   return (
-    <div className="absolute inset-0 z-0 opacity-90 pointer-events-none">
+    <div className="absolute inset-0 z-0 opacity-80 pointer-events-none">
       <Canvas
-        camera={{ position: [0, 0, 18], fov: 40 }}
+        camera={{ position: [0, 0, 45], fov: 40 }}
         dpr={[1, 2]} // Limit pixel ratio for performance
         gl={{ antialias: true, alpha: true }}
       >
-        <ambientLight intensity={1} />
-        <directionalLight position={[10, 10, 10]} intensity={2} />
-        <directionalLight position={[-10, -10, -10]} intensity={1} />
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[10, 10, 10]} intensity={1} />
+        <directionalLight position={[-10, -10, -10]} intensity={0.5} />
         <Environment preset="city" />
-        <MobiusShape />
+        <TorusShape />
       </Canvas>
     </div>
   );
