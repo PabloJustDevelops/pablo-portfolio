@@ -2,12 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { toast } from "sonner";
+import { sendEmail } from "@/app/actions/send-email";
 import { 
   ArrowRight, Mail, ChevronLeft, Linkedin, Twitter, Github, 
   Search, Sun, Home, Folder, Book, Phone, Trophy, User, 
-  FileText, List, Laptop, Link as LinkIcon, ArrowUpRight 
+  FileText, List, Laptop, Link as LinkIcon, ArrowUpRight, Loader2 
 } from "lucide-react";
 import { profile } from "@/data/profile";
+import Link from "next/link";
 
 type ContactModalProps = {
   isOpen: boolean;
@@ -19,6 +22,8 @@ type ModalState = "navigation" | "contact" | "form";
 
 export function ContactModal({ isOpen, onClose, initialView = "contact" }: ContactModalProps) {
   const [viewState, setViewState] = useState<ModalState>(initialView);
+  const [isPending, setIsPending] = useState(false);
+  const [formData, setFormData] = useState({ name: "", email: "", topic: "", message: "", consent: false });
   const overlayRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -72,7 +77,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
         ease: "power2.in",
       });
     }
-  }, [isOpen]);
+  }, [isOpen, initialView]);
 
   // View transition animation
   const switchView = (newState: ModalState) => {
@@ -92,10 +97,46 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
     });
   };
 
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) {
+      toast.error("Error", { description: "Por favor, completa los campos requeridos." });
+      return;
+    }
+    if (!formData.consent) {
+      toast.error("Error", { description: "Debes aceptar la política de privacidad." });
+      return;
+    }
+
+    setIsPending(true);
+    try {
+      const result = await sendEmail({
+        name: formData.name,
+        email: formData.email,
+        message: `[Topic: ${formData.topic || "None"}]\n\n${formData.message}`,
+      });
+
+      if (result.error) {
+        toast.error("Error", { description: result.error });
+        return;
+      }
+
+      toast.success("¡Mensaje enviado!", {
+        description: "Gracias por contactarme. Te responderé lo antes posible.",
+      });
+      setFormData({ name: "", email: "", topic: "", message: "", consent: false });
+      switchView("contact");
+    } catch (_error) {
+      toast.error("Error inesperado", { description: "Ocurrió un error al enviar tu mensaje." });
+    } finally {
+      setIsPending(false);
+    }
+  };
+
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-[100] hidden bg-black/60"
+      className="fixed inset-0 z-[100] hidden bg-black/60 pointer-events-auto"
       onClick={(e) => {
         if (e.target === overlayRef.current) onClose();
       }}
@@ -147,53 +188,53 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                       <div className="h-px bg-white/5 flex-1" />
                     </div>
                     <div className="grid grid-cols-2 gap-1">
-                      <a href="/" onClick={onClose} className="flex items-center justify-between p-2.5 rounded-xl bg-white/10 text-white">
+                      <Link href="/" onClick={onClose} className="flex items-center justify-between p-2.5 rounded-xl bg-white/10 text-white">
                         <div className="flex items-center gap-3">
                           <Home size={16} className="opacity-70" />
                           <span className="text-sm font-medium">Home</span>
                         </div>
                         <div className="w-1.5 h-1.5 rounded-full bg-white mr-1" />
-                      </a>
-                      <a href="#about" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
+                      </Link>
+                      <Link href="/#about" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
                         <User size={16} className="opacity-70" />
                         <span className="text-sm font-medium">About</span>
-                      </a>
+                      </Link>
                       
-                      <a href="#work" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
+                      <Link href="#work" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
                         <Folder size={16} className="opacity-70" />
                         <span className="text-sm font-medium">Projects</span>
-                      </a>
-                      <a href="#blog" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
+                      </Link>
+                      <Link href="#blog" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
                         <FileText size={16} className="opacity-70" />
                         <span className="text-sm font-medium">Blog</span>
-                      </a>
+                      </Link>
                       
-                      <a href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
+                      <Link href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
                         <Book size={16} className="opacity-70" />
                         <span className="text-sm font-medium">Guestbook</span>
-                      </a>
-                      <a href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
+                      </Link>
+                      <Link href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
                         <List size={16} className="opacity-70" />
                         <span className="text-sm font-medium">Bucket List</span>
-                      </a>
+                      </Link>
                       
                       <button onClick={() => switchView("contact")} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors w-full text-left">
                         <Phone size={16} className="opacity-70" />
                         <span className="text-sm font-medium">Book a call</span>
                       </button>
-                      <a href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
+                      <Link href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
                         <Laptop size={16} className="opacity-70" />
                         <span className="text-sm font-medium">Uses</span>
-                      </a>
+                      </Link>
                       
-                      <a href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
+                      <Link href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
                         <Trophy size={16} className="opacity-70" />
                         <span className="text-sm font-medium">Attribution</span>
-                      </a>
-                      <a href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
+                      </Link>
+                      <Link href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-colors">
                         <LinkIcon size={16} className="opacity-70" />
                         <span className="text-sm font-medium">Links</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
 
@@ -231,7 +272,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                 <div className="flex items-center justify-between border-b border-white/5 p-6 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImEiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTAgNDBMNDAgMEg0ME00MCA0MEwwIDBIMFoiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAyKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2EpIi8+PC9zdmc+')]">
                   <div className="space-y-1">
                     <h2 className="font-serif text-3xl font-medium text-white tracking-tight">Reach out</h2>
-                    <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Let's build something together</p>
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Let&apos;s build something together</p>
                   </div>
                   <button onClick={() => switchView("navigation")} className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-neutral-300 transition-colors hover:bg-white/10 hover:text-white">
                     <ChevronLeft size={14} /> Menu
@@ -308,22 +349,38 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                 </div>
 
                 <div className="p-6">
-                  <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                  <form className="space-y-5" onSubmit={handleFormSubmit}>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-1.5">
                         <label className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Name</label>
-                        <input type="text" placeholder="Jane Doe" className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all" />
+                        <input 
+                          type="text" 
+                          placeholder="Jane Doe" 
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all" 
+                        />
                       </div>
                       <div className="space-y-1.5">
                         <label className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Email</label>
-                        <input type="email" placeholder="jane@example.com" className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all" />
+                        <input 
+                          type="email" 
+                          placeholder="jane@example.com" 
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all" 
+                        />
                       </div>
                     </div>
 
                     <div className="space-y-1.5">
                       <label className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Topic</label>
-                      <select className="w-full appearance-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all">
-                        <option value="" disabled selected>Select a topic</option>
+                      <select 
+                        value={formData.topic}
+                        onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
+                        className="w-full appearance-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all"
+                      >
+                        <option value="" disabled>Select a topic</option>
                         <option value="project">Project Inquiry</option>
                         <option value="role">Full-time Role</option>
                         <option value="hello">Just saying hi</option>
@@ -332,18 +389,43 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
 
                     <div className="space-y-1.5">
                       <label className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Message</label>
-                      <textarea rows={4} placeholder="Tell me about your project, idea, or just say hi..." className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all" />
+                      <textarea 
+                        rows={4} 
+                        placeholder="Tell me about your project, idea, or just say hi..." 
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all" 
+                      />
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <input type="checkbox" id="consent" className="mt-1 h-4 w-4 rounded border-white/10 bg-white/5 checked:bg-white accent-white" />
-                      <label htmlFor="consent" className="text-xs text-neutral-400">
+                      <input 
+                        type="checkbox" 
+                        id="consent" 
+                        checked={formData.consent}
+                        onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
+                        className="mt-1 h-4 w-4 rounded border-white/10 bg-white/5 checked:bg-white accent-white cursor-pointer" 
+                      />
+                      <label htmlFor="consent" className="text-xs text-neutral-400 cursor-pointer">
                         I agree that my submitted data is collected and stored to respond to my inquiry.
                       </label>
                     </div>
 
-                    <button type="submit" className="group flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-black transition-transform hover:scale-[1.02] active:scale-[0.98]">
-                      Send Message <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                    <button 
+                      type="submit" 
+                      disabled={isPending}
+                      className="group flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-black transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:hover:scale-100"
+                    >
+                      {isPending ? (
+                        <>
+                          <Loader2 size={16} className="animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          Send Message <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                        </>
+                      )}
                     </button>
                   </form>
                 </div>

@@ -10,8 +10,8 @@ export function CustomCursor() {
   const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Only mount on desktop/devices with fine pointers
-    if (window.matchMedia("(pointer: fine)").matches) {
+    if (typeof window !== "undefined" && window.matchMedia("(pointer: fine)").matches) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMounted(true);
     }
   }, []);
