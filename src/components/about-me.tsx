@@ -3,43 +3,72 @@
 import { ArrowRight, Github, Linkedin, Twitter, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { profile } from "@/data/profile";
-import { motion } from "framer-motion";
 import { Logo } from "@/components/logo";
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function AboutMe() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const leftColRef = useRef<HTMLDivElement>(null);
+  const rightColRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    // Left column elements stagger
+    const leftElements = leftColRef.current?.children;
+    if (leftElements) {
+      gsap.from(leftElements, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 75%",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out",
+      });
+    }
+
+    // Right column visual card reveal
+    gsap.from(rightColRef.current, {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 75%",
+      },
+      x: 60,
+      opacity: 0,
+      rotationY: 15,
+      duration: 1,
+      ease: "power3.out",
+    });
+  }, { scope: containerRef });
+
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 relative overflow-hidden">
+    <section id="about" ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 relative overflow-hidden">
       {/* Background ambient light */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-500/5 rounded-full blur-[120px] -z-10 pointer-events-none" />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         {/* Left Column: Text Content */}
-        <motion.div 
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+        <div 
+          ref={leftColRef}
           className="space-y-10"
         >
           <div className="space-y-6">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+            <div 
               className="inline-flex items-center gap-3 px-3 py-1 rounded-full bg-white/5 border border-white/10"
             >
               <div className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
               <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-neutral-300">
                 Know About Me
               </span>
-            </motion.div>
+            </div>
             
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+            <h2 
               className="text-5xl md:text-6xl lg:text-7xl font-serif text-white leading-[1.1] tracking-tight"
             >
               Full-Stack Developer and <br />
@@ -50,14 +79,10 @@ export function AboutMe() {
                 </span>
                 <span className="absolute bottom-2 left-0 w-full h-3 bg-indigo-500/20 -z-10 -rotate-2" />
               </span>
-            </motion.h2>
+            </h2>
           </div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+          <div 
             className="space-y-6 text-neutral-400 text-lg leading-relaxed font-light max-w-xl"
           >
             <p>
@@ -75,13 +100,9 @@ export function AboutMe() {
             <p className="text-indigo-200 font-medium italic border-l-2 border-indigo-500/50 pl-4 py-1">
               &quot;I believe in waking up each day eager to make a difference!&quot;
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+          <div 
             className="flex flex-wrap items-center gap-6 pt-4"
           >
             <div className="flex gap-4">
@@ -133,15 +154,12 @@ export function AboutMe() {
                 </div>
               </Link>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Right Column: Visual Card */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9, rotateY: 10 }}
-          whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+        <div 
+          ref={rightColRef}
           className="relative group perspective-[1000px] w-full max-w-md mx-auto lg:max-w-none"
         >
           {/* Card Container */}
@@ -156,31 +174,23 @@ export function AboutMe() {
             
             {/* Animated Floating Elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <motion.div 
-                animate={{ y: [0, -20, 0], opacity: [0.3, 0.6, 0.3] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[10%] right-[10%] w-32 h-32 bg-purple-500/10 rounded-full blur-2xl" 
+              <div 
+                className="absolute top-[10%] right-[10%] w-32 h-32 bg-purple-500/10 rounded-full blur-2xl animate-[float_4s_ease-in-out_infinite]" 
               />
-              <motion.div 
-                animate={{ x: [0, 20, 0], opacity: [0.2, 0.5, 0.2] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-[20%] left-[10%] w-40 h-40 bg-blue-500/10 rounded-full blur-2xl" 
+              <div 
+                className="absolute bottom-[20%] left-[10%] w-40 h-40 bg-blue-500/10 rounded-full blur-2xl animate-[float-delayed_5s_ease-in-out_infinite]" 
               />
             </div>
 
             {/* Logo Content */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64">
+              <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 group/logo">
                 {/* 3D Layered Cards */}
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-3xl border border-white/10 backdrop-blur-md z-10"
-                  whileHover={{ rotateZ: -5, scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                <div 
+                  className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-3xl border border-white/10 backdrop-blur-md z-10 transition-all duration-500 ease-out group-hover/logo:-rotate-6 group-hover/logo:scale-105"
                 />
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-tl from-indigo-600/30 to-purple-600/30 rounded-3xl border border-white/5 z-0"
-                  whileHover={{ rotateZ: 5, scale: 0.95, x: 10, y: 10 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                <div 
+                  className="absolute inset-0 bg-gradient-to-tl from-indigo-600/30 to-purple-600/30 rounded-3xl border border-white/5 z-0 transition-all duration-500 ease-out group-hover/logo:rotate-6 group-hover/logo:scale-95 group-hover/logo:translate-x-2 group-hover/logo:translate-y-2"
                   style={{ transform: "rotate(-3deg)" }}
                 />
                 
@@ -207,7 +217,7 @@ export function AboutMe() {
 
           {/* Background Glow behind the card */}
           <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 blur-3xl -z-20 opacity-0 group-hover:opacity-40 transition-opacity duration-700 rounded-[3rem]" />
-        </motion.div>
+        </div>
       </div>
     </section>
   );

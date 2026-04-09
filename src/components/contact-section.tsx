@@ -1,13 +1,46 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function ContactSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const rotatingBadgeRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    // Entrance animation
+    gsap.from(contentRef.current, {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+      },
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+    });
+
+    // Continuous rotation for the badge
+    if (rotatingBadgeRef.current) {
+      gsap.to(rotatingBadgeRef.current, {
+        rotate: 360,
+        duration: 15,
+        repeat: -1,
+        ease: "linear",
+      });
+    }
+  }, { scope: containerRef });
+
   return (
-    <section className="relative w-full py-32 bg-black overflow-hidden flex flex-col items-center justify-center text-center" id="contact">
+    <section ref={containerRef} className="relative w-full py-32 bg-black overflow-hidden flex flex-col items-center justify-center text-center" id="contact">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,_var(--tw-gradient-stops))] from-blue-600/20 via-transparent to-transparent pointer-events-none blur-[100px]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_var(--tw-gradient-stops))] from-cyan-600/20 via-transparent to-transparent pointer-events-none blur-[100px]" />
@@ -19,11 +52,8 @@ export function ContactSection() {
       />
 
       <div className="container relative mx-auto px-4 max-w-5xl z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        <div
+          ref={contentRef}
           className="flex flex-col items-center"
         >
           {/* Logo / Icon with Wings at top */}
@@ -59,9 +89,8 @@ export function ContactSection() {
                 {/* Rotating Badge */}
                 <div className="absolute -right-12 md:-right-24 -top-8 md:-top-12 w-24 h-24 md:w-32 md:h-32 pointer-events-none z-20">
                   <div className="relative w-full h-full rounded-full bg-blue-600/10 backdrop-blur-md border border-blue-500/20 shadow-[0_0_40px_rgba(37,99,235,0.2)] flex items-center justify-center">
-                    <motion.div 
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                    <div 
+                      ref={rotatingBadgeRef}
                       className="absolute inset-0 w-full h-full"
                     >
                       <svg viewBox="0 0 100 100" className="w-full h-full text-white">
@@ -72,7 +101,7 @@ export function ContactSection() {
                           </textPath>
                         </text>
                       </svg>
-                    </motion.div>
+                    </div>
                     {/* Center Star */}
                     <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-white/80" />
                   </div>
@@ -82,9 +111,8 @@ export function ContactSection() {
           </div>
 
           {/* Button */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <div
+            className="transition-transform duration-300 hover:scale-105 active:scale-95"
           >
             <Link 
               href="mailto:pabloroga6@gmail.com"
@@ -95,7 +123,7 @@ export function ContactSection() {
                 <ArrowRight size={16} strokeWidth={2.5} />
               </div>
             </Link>
-          </motion.div>
+          </div>
 
           {/* Subtitle text */}
           <div className="mt-20 space-y-4 max-w-2xl">
@@ -106,7 +134,7 @@ export function ContactSection() {
               I thrive on crafting dynamic web applications, and<br className="hidden md:block" /> delivering seamless user experiences.
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

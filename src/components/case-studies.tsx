@@ -1,12 +1,16 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { projects } from "@/data/projects";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function CaseStudiesSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,17 +49,30 @@ function CaseStudyItem({
   index: number;
   totalProjects: number;
 }) {
-  const shouldReduceMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-
-  const targetScale = 1 - ((totalProjects - index) * 0.05);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
+  useGSAP(() => {
+    // Only apply scroll animations if user hasn't requested reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (!prefersReducedMotion && cardRef.current && containerRef.current) {
+      const targetScale = 1 - ((totalProjects - index) * 0.05);
+      
+      gsap.to(cardRef.current, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+        scale: targetScale,
+        opacity: 0.3,
+        transformOrigin: "top center",
+        ease: "none"
+      });
+    }
+  }, { scope: containerRef });
 
   return (
     <div 
@@ -67,12 +84,8 @@ function CaseStudyItem({
     >
       {/* Left Side: Transparent background, sticky card inside */}
       <div className="w-full lg:w-[55%] xl:w-[60%] flex items-start justify-center relative lg:h-full px-4 lg:px-8 py-12 lg:py-0 lg:pt-24 xl:pt-32">
-        <motion.div
-          style={shouldReduceMotion ? {} : { 
-            scale, 
-            opacity, 
-            transformOrigin: "top center",
-          }}
+        <div
+          ref={cardRef}
           className="w-full max-w-2xl relative"
         >
           <div style={{ marginTop: `${index * 30}px` }}>
@@ -113,7 +126,7 @@ function CaseStudyItem({
               </div>
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Right Side: Solid background to cover previous text smoothly */}

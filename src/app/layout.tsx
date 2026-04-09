@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
+import { CustomCursor } from "@/components/custom-cursor";
 import "./globals.css";
 
 const inter = Inter({
@@ -37,6 +38,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <CustomCursor />
           <Navbar />
           {children}
           <Toaster />
