@@ -155,7 +155,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
             {viewState === "navigation" && (
               <div className="flex flex-col">
                 {/* Search Header */}
-                <div className="flex items-center gap-3 p-4 border-b border-black/5 dark:border-white/5 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImEiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTAgNDBMNDAgMEg0ME00MCA0MEwwIDBIMFoiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAyKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2EpIi8+PC9zdmc+')]">
+                <div className="flex items-center gap-3 min-w-0 flex-1 p-4 border-b border-black/5 dark:border-white/5 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImEiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTAgNDBMNDAgMEg0ME00MCA0MEwwIDBIMFoiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAyKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2EpIi8+PC9zdmc+')]">
                   <div className="flex-1 flex items-center gap-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5">
                     <Search size={16} className="text-neutral-500" />
                     <input 
@@ -191,81 +191,81 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
 
                   {/* Pages */}
                   <div className="space-y-2">
-                    <div className="flex items-center gap-3 mb-3 px-1">
+                    <div className="flex items-center gap-3 min-w-0 flex-1 mb-3 px-1">
                       <span className="text-xs font-medium text-neutral-400">Pages</span>
                       <div className="h-px bg-black/5 dark:bg-white/5 flex-1" />
                     </div>
-                    <div className="grid grid-cols-2 gap-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                       <Link href="/" onClick={onClose} className="flex items-center justify-between p-2.5 rounded-xl bg-black/10 dark:bg-white/10 text-white">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 min-w-0 flex-1">
                           <Home size={16} className="opacity-70" />
-                          <span className="text-sm font-medium">Home</span>
+                          <span className="text-sm font-medium truncate">Home</span>
                         </div>
                         <div className="w-1.5 h-1.5 rounded-full bg-white dark:bg-black dark:dark:bg-white mr-1" />
                       </Link>
-                      <Link href="/#about" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
+                      <Link href="/#about" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
                         <User size={16} className="opacity-70" />
-                        <span className="text-sm font-medium">About</span>
+                        <span className="text-sm font-medium truncate">About</span>
                       </Link>
                       
-                      <Link href="#work" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
+                      <Link href="#work" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
                         <Folder size={16} className="opacity-70" />
-                        <span className="text-sm font-medium">Projects</span>
+                        <span className="text-sm font-medium truncate">Projects</span>
                       </Link>
-                      <Link href="#blog" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
+                      <Link href="#blog" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
                         <FileText size={16} className="opacity-70" />
-                        <span className="text-sm font-medium">Blog</span>
+                        <span className="text-sm font-medium truncate">Blog</span>
                       </Link>
                       
-                      <Link href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
+                      <Link href="#" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
                         <Book size={16} className="opacity-70" />
-                        <span className="text-sm font-medium">Guestbook</span>
+                        <span className="text-sm font-medium truncate">Guestbook</span>
                       </Link>
-                      <Link href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
+                      <Link href="#" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
                         <List size={16} className="opacity-70" />
-                        <span className="text-sm font-medium">Bucket List</span>
+                        <span className="text-sm font-medium truncate">Bucket List</span>
                       </Link>
                       
-                      <button onClick={() => switchView("contact")} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors w-full text-left">
+                      <button onClick={() => switchView("contact")} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors w-full text-left">
                         <Phone size={16} className="opacity-70" />
-                        <span className="text-sm font-medium">Book a call</span>
+                        <span className="text-sm font-medium truncate">Book a call</span>
                       </button>
-                      <Link href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
+                      <Link href="#" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
                         <Laptop size={16} className="opacity-70" />
-                        <span className="text-sm font-medium">Uses</span>
+                        <span className="text-sm font-medium truncate">Uses</span>
                       </Link>
                       
-                      <Link href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
+                      <Link href="#" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
                         <Trophy size={16} className="opacity-70" />
-                        <span className="text-sm font-medium">Attribution</span>
+                        <span className="text-sm font-medium truncate">Attribution</span>
                       </Link>
-                      <Link href="#" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
+                      <Link href="#" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
                         <LinkIcon size={16} className="opacity-70" />
-                        <span className="text-sm font-medium">Links</span>
+                        <span className="text-sm font-medium truncate">Links</span>
                       </Link>
                     </div>
                   </div>
 
                   {/* Connect */}
                   <div className="space-y-2 pb-2">
-                    <div className="flex items-center gap-3 mb-3 px-1">
+                    <div className="flex items-center gap-3 min-w-0 flex-1 mb-3 px-1">
                       <span className="text-xs font-medium text-neutral-400">Connect</span>
                       <div className="h-px bg-black/5 dark:bg-white/5 flex-1" />
                     </div>
                     <div className="flex items-center gap-2">
                       <a href={profile.social.github} target="_blank" className="flex items-center gap-2 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors flex-1">
                         <Github size={16} className="opacity-70" />
-                        <span className="text-sm font-medium flex-1">GitHub</span>
+                        <span className="text-sm font-medium truncate flex-1">GitHub</span>
                         <ArrowUpRight size={14} className="opacity-50" />
                       </a>
                       <a href={profile.social.linkedin} target="_blank" className="flex items-center gap-2 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors flex-1">
                         <Linkedin size={16} className="opacity-70" />
-                        <span className="text-sm font-medium flex-1">LinkedIn</span>
+                        <span className="text-sm font-medium truncate flex-1">LinkedIn</span>
                         <ArrowUpRight size={14} className="opacity-50" />
                       </a>
                       <a href="#" target="_blank" className="flex items-center gap-2 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors flex-1">
                         <Twitter size={16} className="opacity-70" />
-                        <span className="text-sm font-medium flex-1">X (Twitter)</span>
+                        <span className="text-sm font-medium truncate flex-1">X (Twitter)</span>
                         <ArrowUpRight size={14} className="opacity-50" />
                       </a>
                     </div>
@@ -280,7 +280,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                 <div className="flex items-center justify-between border-b border-black/5 dark:border-white/5 p-6 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImEiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTAgNDBMNDAgMEg0ME00MCA0MEwwIDBIMFoiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAyKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2EpIi8+PC9zdmc+')]">
                   <div className="space-y-1">
                     <h2 className="font-serif text-3xl font-medium text-black dark:text-white tracking-tight">Reach out</h2>
-                    <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Let&apos;s build something together</p>
+                    <p className="text-[11px] font-sans font-medium uppercase tracking-widest text-neutral-500">Let&apos;s build something together</p>
                   </div>
                   <button onClick={() => switchView("navigation")} className="flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-2 text-xs font-medium text-neutral-600 dark:text-neutral-300 transition-colors hover:bg-black/10 dark:hover:bg-black/10 dark:hover:bg-white/10 hover:text-white">
                     <ChevronLeft size={14} /> Menu
@@ -349,7 +349,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                 <div className="flex items-center justify-between border-b border-black/5 dark:border-white/5 p-6 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImEiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTAgNDBMNDAgMEg0ME00MCA0MEwwIDBIMFoiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAyKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2EpIi8+PC9zdmc+')]">
                   <div className="space-y-1">
                     <h2 className="font-serif text-3xl font-medium text-black dark:text-white tracking-tight">Drop a note</h2>
-                    <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">I read every message</p>
+                    <p className="text-[11px] font-sans font-medium uppercase tracking-widest text-neutral-500">I read every message</p>
                   </div>
                   <button onClick={() => switchView("navigation")} className="flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-2 text-xs font-medium text-neutral-600 dark:text-neutral-300 transition-colors hover:bg-black/10 dark:hover:bg-black/10 dark:hover:bg-white/10 hover:text-white">
                     <ChevronLeft size={14} /> Menu
@@ -360,7 +360,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                   <form className="space-y-5" onSubmit={handleFormSubmit}>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Name</label>
+                        <label className="text-[11px] font-sans font-medium uppercase tracking-widest text-neutral-500">Name</label>
                         <input 
                           type="text" 
                           placeholder="Jane Doe" 
@@ -370,7 +370,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Email</label>
+                        <label className="text-[11px] font-sans font-medium uppercase tracking-widest text-neutral-500">Email</label>
                         <input 
                           type="email" 
                           placeholder="jane@example.com" 
@@ -382,7 +382,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Topic</label>
+                      <label className="text-[11px] font-sans font-medium uppercase tracking-widest text-neutral-500">Topic</label>
                       <select 
                         value={formData.topic}
                         onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
@@ -396,7 +396,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Message</label>
+                      <label className="text-[11px] font-sans font-medium uppercase tracking-widest text-neutral-500">Message</label>
                       <textarea 
                         rows={4} 
                         placeholder="Tell me about your project, idea, or just say hi..." 

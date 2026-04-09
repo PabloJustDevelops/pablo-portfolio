@@ -166,7 +166,7 @@ function CaseStudyItem({
 
           <div className="flex flex-wrap gap-2 mt-2">
             {project.tags.map(tag => (
-              <Badge key={tag} variant="secondary" className="bg-neutral-900/80 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono text-[10px] uppercase tracking-wider py-1.5 px-3 transition-colors">
+              <Badge key={tag} variant="secondary" className="bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 text-black dark:text-white transition-colors">
                 {tag}
               </Badge>
             ))}
