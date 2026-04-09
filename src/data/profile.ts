@@ -6,6 +6,7 @@ export const profile = {
   social: {
     github: "https://github.com",
     linkedin: "https://linkedin.com",
+    twitter: "https://twitter.com",
     email: "mailto:pabloroga6@gmail.com",
   },
   status: "Open to Work",
