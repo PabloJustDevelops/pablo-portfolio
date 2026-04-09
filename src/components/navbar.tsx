@@ -17,33 +17,96 @@ const navItems = [
 
 export function Navbar() {
   const pathname = usePathname();
+  const [activeHash, setActiveHash] = useState("");
   const [pillStyle, setPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
   const [modalState, setModalState] = useState<"closed" | "contact" | "navigation">("closed");
   const navRef = useRef<HTMLElement>(null);
 
-  // Update pill position when pathname changes
+  // Sync hash on mount and hash changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      setActiveHash(window.location.hash);
+    };
+    
+    // Set initial hash
+    handleHashChange();
+    
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  // Update pill position when pathname or hash changes
   useEffect(() => {
     if (!navRef.current) return;
     
-    // Find active link
-    const activeLink = Array.from(navRef.current.querySelectorAll("a")).find((el) => {
-      const href = el.getAttribute("href");
-      return href === pathname || (href !== "/" && pathname.startsWith(href || ""));
-    });
+    // Helper to check if an item is active
+    const isItemActive = (href: string) => {
+      if (href === "/") {
+        return pathname === "/" && (!activeHash || activeHash === "");
+      }
+      if (href.startsWith("/#")) {
+        const hash = href.substring(1);
+        return activeHash === hash || (pathname === "/" && activeHash === hash);
+      }
+      return pathname.startsWith(href);
+    };
 
-    if (activeLink) {
-      const parentRect = navRef.current.getBoundingClientRect();
-      const linkRect = activeLink.getBoundingClientRect();
-      
-      setPillStyle({
-        width: linkRect.width,
-        left: linkRect.left - parentRect.left,
-        opacity: 1,
+    // Delay calculation slightly to allow DOM to update after font load / active state change
+    const updatePill = () => {
+      if (!navRef.current) return;
+      const activeLink = Array.from(navRef.current.querySelectorAll("a")).find((el) => {
+        const href = el.getAttribute("href") || "";
+        return isItemActive(href);
       });
-    } else {
-      setPillStyle((prev) => ({ ...prev, opacity: 0 }));
-    }
-  }, [pathname]);
+
+      if (activeLink) {
+        const parentRect = navRef.current.getBoundingClientRect();
+        const linkRect = activeLink.getBoundingClientRect();
+        
+        setPillStyle({
+          width: linkRect.width,
+          left: linkRect.left - parentRect.left,
+          opacity: 1,
+        });
+      } else {
+        setPillStyle((prev) => ({ ...prev, opacity: 0 }));
+      }
+    };
+
+    updatePill();
+    
+    // Also add intersection observer to update active section on scroll
+    const handleScroll = () => {
+      const sections = navItems
+        .filter(item => item.href.startsWith('/#'))
+        .map(item => item.href.substring(2)); // get ids: "about", "work", etc.
+      
+      let currentSection = "";
+      
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          // If the top of the section is near the top of the viewport (with offset)
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            currentSection = `#${section}`;
+            break;
+          }
+        }
+      }
+      
+      if (currentSection && currentSection !== activeHash) {
+        // We only want to visually update the pill, not spam the history API
+        setActiveHash(currentSection);
+      } else if (!currentSection && window.scrollY < 100 && activeHash !== "") {
+        // At the top of the page
+        setActiveHash("");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [pathname, activeHash]);
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 px-6 py-4 flex items-center justify-between pointer-events-none">
@@ -68,7 +131,17 @@ export function Navbar() {
           />
 
           {navItems.map((item) => {
-            const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+            let isActive = false;
+            
+            if (item.href === "/") {
+              isActive = pathname === "/" && (!activeHash || activeHash === "");
+            } else if (item.href.startsWith("/#")) {
+              const hash = item.href.substring(1); // #about, #work
+              isActive = activeHash === hash || (pathname === "/" && activeHash === hash);
+            } else {
+              isActive = pathname.startsWith(item.href);
+            }
+
             return (
               <Link
                 key={item.name}
@@ -79,6 +152,13 @@ export function Navbar() {
                     ? "text-black dark:text-white"
                     : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
                 )}
+                onClick={() => {
+                  if (item.href.startsWith("/#")) {
+                    setActiveHash(item.href.substring(1));
+                  } else if (item.href === "/") {
+                    setActiveHash("");
+                  }
+                }}
               >
                 {item.name}
               </Link>
