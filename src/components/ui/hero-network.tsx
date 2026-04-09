@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
@@ -10,15 +10,21 @@ interface Point {
   vx: number;
   vy: number;
   radius: number;
-  baseX: number;
-  baseY: number;
 }
 
 export function HeroNetwork({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { theme } = useTheme();
-  
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     
@@ -34,56 +40,64 @@ export function HeroNetwork({ className }: { className?: string }) {
     let isActive = false;
 
     // Configuration
-    const POINT_COUNT = 100;
-    const MAX_DISTANCE = 150; // Distance to connect points
-    const MOUSE_RADIUS = 200; // Distance for mouse interaction
-    const POINT_SPEED = 0.5;
+    const POINT_COUNT = 120; // Slightly more points to fill screen
+    const MAX_DISTANCE = 160; // Distance to connect points
+    const MOUSE_RADIUS = 250; // Distance for mouse interaction
+    const POINT_SPEED = 0.4;
 
     const isDark = theme === "dark" || theme === "system";
     const primaryColor = isDark ? "255, 255, 255" : "0, 0, 0";
     const accentColor = isDark ? "167, 139, 250" : "59, 130, 246"; // Violet/Blue
 
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
     // Initialize points
     const initPoints = () => {
       points = [];
-      const width = canvas.width;
-      const height = canvas.height;
-      
       for (let i = 0; i < POINT_COUNT; i++) {
-        const x = Math.random() * width;
-        const y = Math.random() * height;
         points.push({
-          x,
-          y,
-          baseX: x,
-          baseY: y,
+          x: Math.random() * width,
+          y: Math.random() * height,
           vx: (Math.random() - 0.5) * POINT_SPEED,
           vy: (Math.random() - 0.5) * POINT_SPEED,
-          radius: Math.random() * 1.5 + 0.5,
+          radius: Math.random() * 1.5 + 0.8, // Slightly bigger dots
         });
       }
     };
 
-    // Handle resize
+    // Handle resize with ResizeObserver
     const handleResize = () => {
       const parent = canvas.parentElement;
       if (!parent) return;
       
-      // Setup canvas for high DPI displays
-      const dpr = window.devicePixelRatio || 1;
       const rect = parent.getBoundingClientRect();
-      
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      
+      if (rect.width === 0 || rect.height === 0) return;
+
+      width = rect.width;
+      height = rect.height;
+
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
       ctx.scale(dpr, dpr);
-      canvas.style.width = `${rect.width}px`;
-      canvas.style.height = `${rect.height}px`;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
       
       initPoints();
     };
 
-    // Mouse events
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize();
+    });
+    
+    if (canvas.parentElement) {
+      resizeObserver.observe(canvas.parentElement);
+    } else {
+      resizeObserver.observe(document.body);
+    }
+
+    // Mouse events directly on window to track smoothly everywhere
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouseX = e.clientX - rect.left;
@@ -97,19 +111,14 @@ export function HeroNetwork({ className }: { className?: string }) {
       mouseY = -1000;
     };
 
-    window.addEventListener("resize", handleResize);
-    canvas.addEventListener("mousemove", handleMouseMove);
-    canvas.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseleave", handleMouseLeave);
     
     // Initial setup
     handleResize();
 
     // Animation Loop
     const render = () => {
-      // Use logical coordinates for drawing
-      const width = canvas.width / (window.devicePixelRatio || 1);
-      const height = canvas.height / (window.devicePixelRatio || 1);
-      
       ctx.clearRect(0, 0, width, height);
 
       // Update and draw points
@@ -120,11 +129,11 @@ export function HeroNetwork({ className }: { className?: string }) {
         p.x += p.vx;
         p.y += p.vy;
 
-        // Bounce off walls
+        // Bounce off walls smoothly
         if (p.x < 0 || p.x > width) p.vx *= -1;
         if (p.y < 0 || p.y > height) p.vy *= -1;
 
-        // Mouse interaction (repel)
+        // Mouse interaction (repel slightly)
         if (isActive) {
           const dx = mouseX - p.x;
           const dy = mouseY - p.y;
@@ -132,16 +141,16 @@ export function HeroNetwork({ className }: { className?: string }) {
 
           if (dist < MOUSE_RADIUS) {
             const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS;
-            // Push away from mouse
-            p.x -= (dx / dist) * force * 2;
-            p.y -= (dy / dist) * force * 2;
+            p.x -= (dx / dist) * force * 1.5;
+            p.y -= (dy / dist) * force * 1.5;
           }
         }
 
         // Draw point
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${primaryColor}, ${isActive && Math.sqrt(Math.pow(mouseX - p.x, 2) + Math.pow(mouseY - p.y, 2)) < MOUSE_RADIUS ? 0.8 : 0.3})`;
+        const pointOpacity = isActive && Math.sqrt(Math.pow(mouseX - p.x, 2) + Math.pow(mouseY - p.y, 2)) < MOUSE_RADIUS ? 0.9 : 0.4;
+        ctx.fillStyle = `rgba(${primaryColor}, ${pointOpacity})`;
         ctx.fill();
 
         // Connect points
@@ -156,8 +165,8 @@ export function HeroNetwork({ className }: { className?: string }) {
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
             
-            // Calculate opacity based on distance (closer = more opaque)
-            let opacity = (1 - dist / MAX_DISTANCE) * 0.15;
+            // Calculate opacity based on distance
+            let opacity = (1 - dist / MAX_DISTANCE) * 0.2;
             
             // Highlight connections near mouse
             let isNearMouse = false;
@@ -166,7 +175,7 @@ export function HeroNetwork({ className }: { className?: string }) {
               const mouseDist2 = Math.sqrt(Math.pow(mouseX - p2.x, 2) + Math.pow(mouseY - p2.y, 2));
               
               if (mouseDist1 < MOUSE_RADIUS || mouseDist2 < MOUSE_RADIUS) {
-                opacity *= 2.5; // Make lines near mouse brighter
+                opacity = Math.min(opacity * 3, 0.8); // Make lines near mouse brighter
                 isNearMouse = true;
               }
             }
@@ -177,17 +186,17 @@ export function HeroNetwork({ className }: { className?: string }) {
           }
         }
         
-        // Connect to mouse if close enough
+        // Connect directly to mouse cursor if very close
         if (isActive) {
           const dx = mouseX - p.x;
           const dy = mouseY - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < MAX_DISTANCE * 1.2) {
+          if (dist < MAX_DISTANCE * 0.8) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(mouseX, mouseY);
-            const opacity = (1 - dist / (MAX_DISTANCE * 1.2)) * 0.3;
+            const opacity = (1 - dist / (MAX_DISTANCE * 0.8)) * 0.4;
             ctx.strokeStyle = `rgba(${accentColor}, ${opacity})`;
             ctx.lineWidth = 1;
             ctx.stroke();
@@ -201,22 +210,23 @@ export function HeroNetwork({ className }: { className?: string }) {
     render();
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      canvas.removeEventListener("mousemove", handleMouseMove);
-      canvas.removeEventListener("mouseleave", handleMouseLeave);
+      resizeObserver.disconnect();
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [theme]);
+  }, [theme, mounted]);
+
+  if (!mounted) return null;
 
   return (
-    <div className={cn("absolute inset-0 z-0 overflow-hidden opacity-70", className)}>
+    <div className={cn("absolute inset-0 z-0 overflow-hidden", className)}>
       <canvas
         ref={canvasRef}
         className="block w-full h-full pointer-events-auto"
       />
-      {/* Soft gradient overlay to fade out the network at the edges */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-white dark:to-black opacity-80" />
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-white dark:from-black via-transparent to-white dark:to-black opacity-60" />
+      {/* Reduced the aggressive gradient masks so the network is fully visible */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-white dark:to-black opacity-50" />
     </div>
   );
 }
