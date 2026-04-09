@@ -4,13 +4,19 @@ import { profile } from "@/data/profile";
 import { ArrowRight, Copy } from "lucide-react";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
-import { Hero3DTorus } from "@/components/ui/hero-3d-torus";
 import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import dynamic from "next/dynamic";
 
 import confetti from "canvas-confetti";
+
+// Dynamically import the heavy 3D component so it doesn't block the main thread during initial hydration/paint
+const Hero3DTorus = dynamic(() => import("@/components/ui/hero-3d-torus").then(mod => mod.Hero3DTorus), { 
+  ssr: false,
+  loading: () => <div className="absolute inset-0 z-0 opacity-0 pointer-events-none" />
+});
 
 gsap.registerPlugin(ScrollTrigger);
 
