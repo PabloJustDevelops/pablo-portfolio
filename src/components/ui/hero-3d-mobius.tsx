@@ -6,7 +6,7 @@ import { Environment, Float, MeshTransmissionMaterial } from "@react-three/drei"
 import * as THREE from "three";
 import { useTheme } from "next-themes";
 
-function PrismShape() {
+function MobiusShape() {
   const meshRef = useRef<THREE.Mesh>(null);
   const { theme } = useTheme();
   
@@ -32,9 +32,9 @@ function PrismShape() {
     if (!meshRef.current) return;
 
     // Base continuous slow rotation
-    meshRef.current.rotation.x += delta * 0.15;
-    meshRef.current.rotation.y += delta * 0.2;
-    meshRef.current.rotation.z += delta * 0.1;
+    meshRef.current.rotation.x += delta * 0.1;
+    meshRef.current.rotation.y += delta * 0.15;
+    meshRef.current.rotation.z += delta * 0.05;
 
     // Add mouse parallax
     targetRotation.current.x = mousePosition.y * 0.8;
@@ -51,21 +51,23 @@ function PrismShape() {
 
   return (
     <Float speed={2} rotationIntensity={0.5} floatIntensity={1.5}>
-      <mesh ref={meshRef} scale={3.5}>
-        {/* An Icosahedron with 0 detail creates a perfect sharp 20-sided diamond/crystal shape */}
-        <icosahedronGeometry args={[1, 0]} />
+      <mesh ref={meshRef} scale={1.8}>
+        {/* p=1, q=2 creates an infinity loop (Mobius strip like) knot */}
+        <torusKnotGeometry args={[1.8, 0.6, 256, 64, 1, 2]} />
         <MeshTransmissionMaterial
           backside
           backsideThickness={1}
           thickness={1.5}
-          roughness={0.05} // Very smooth and reflective
-          transmission={1} // Fully transparent glass
-          ior={1.5} // Index of refraction for glass/crystal
-          chromaticAberration={0.15} // Splits light into RGB on the edges
-          anisotropy={0.1}
-          distortion={0} // No distortion, keep faces flat
+          roughness={0.1} // Slightly frosted for better light catching
+          transmission={1} 
+          ior={1.5} 
+          chromaticAberration={0.15} 
+          anisotropy={0.2}
+          distortion={0.2} 
+          distortionScale={0.5}
+          temporalDistortion={0.1}
           color={isDark ? "#ffffff" : "#000000"}
-          attenuationDistance={5}
+          attenuationDistance={10}
           attenuationColor={isDark ? "#ffffff" : "#000000"}
         />
       </mesh>
@@ -73,7 +75,7 @@ function PrismShape() {
   );
 }
 
-export function Hero3DPrism() {
+export function Hero3DMobius() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -86,17 +88,15 @@ export function Hero3DPrism() {
   return (
     <div className="absolute inset-0 z-0 opacity-90 pointer-events-none">
       <Canvas
-        camera={{ position: [0, 0, 20], fov: 40 }}
+        camera={{ position: [0, 0, 18], fov: 40 }}
         dpr={[1, 2]} // Limit pixel ratio for performance
         gl={{ antialias: true, alpha: true }}
       >
         <ambientLight intensity={1} />
         <directionalLight position={[10, 10, 10]} intensity={2} />
         <directionalLight position={[-10, -10, -10]} intensity={1} />
-        
-        {/* Environment map is crucial for glass materials to have something to reflect/refract */}
         <Environment preset="city" />
-        <PrismShape />
+        <MobiusShape />
       </Canvas>
     </div>
   );
