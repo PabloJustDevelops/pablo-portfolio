@@ -86,9 +86,9 @@ export function Hero3DTorus() {
   return (
     <div className="absolute inset-0 z-0 opacity-80 pointer-events-none">
       <Canvas
-        camera={{ position: [0, 0, 45], fov: 40 }}
-        dpr={[1, 2]} // Limit pixel ratio for performance
-        gl={{ antialias: true, alpha: true }}
+        camera={{ position: [0, 0, 70], fov: 35 }}
+        dpr={[1, 1.5]} // Lower maximum dpr to improve initialization speed
+        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 10]} intensity={1} />
