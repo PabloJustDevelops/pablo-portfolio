@@ -4,7 +4,7 @@ import { profile } from "@/data/profile";
 import { ArrowRight, Copy } from "lucide-react";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
-import { HeroGeometric } from "@/components/ui/hero-geometric";
+import { HeroNetwork } from "@/components/ui/hero-network";
 import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -131,7 +131,7 @@ export function Hero() {
     <div ref={containerRef} className="relative flex flex-col items-center justify-center text-center w-full min-h-screen overflow-hidden bg-white dark:bg-black selection:bg-blue-500/30 pb-40">
       {/* Background Effects */}
       <div ref={backgroundRef} className="absolute inset-0 z-0">
-        <HeroGeometric />
+        <HeroNetwork />
         <StarsBackground
           starDensity={0.00009}
           allStarsTwinkle={true}
