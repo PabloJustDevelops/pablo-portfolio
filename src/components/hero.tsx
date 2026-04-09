@@ -159,9 +159,9 @@ export function Hero() {
         {/* Badge */}
         <div
           ref={badgeRef}
-          className="mb-8 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_0_15px_-3px_rgba(255,255,255,0.1)]"
+          className="mb-8 px-4 py-1.5 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 backdrop-blur-md shadow-[0_0_15px_-3px_rgba(0,0,0,0.1)]"
         >
-          <span className="text-xs text-neutral-300 font-medium tracking-wide">
+          <span className="text-xs text-neutral-700 dark:text-neutral-300 font-medium tracking-wide">
             Disponible para nuevos proyectos
           </span>
         </div>
@@ -184,9 +184,9 @@ export function Hero() {
         {/* Subtitle / Profile */}
         <div
           ref={profileRef}
-          className="mt-4 flex items-center gap-3 text-lg text-neutral-400 max-w-xl font-sans mx-auto"
+          className="mt-4 flex items-center gap-3 text-lg text-neutral-600 dark:text-neutral-400 max-w-xl font-sans mx-auto"
         >
-          <div className="w-8 h-8 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center text-xs font-bold text-white">
+          <div className="w-8 h-8 rounded-full bg-neutral-200 dark:bg-neutral-800 border border-neutral-700 flex items-center justify-center text-xs font-bold text-black dark:text-white">
             {profile.name.charAt(0)}
           </div>
           <p>
@@ -202,7 +202,7 @@ export function Hero() {
           <a
             href="mailto:pabloroga6@gmail.com"
             onClick={handleConfetti}
-            className="group relative px-8 py-4 rounded-full bg-white text-black font-semibold text-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.5)]"
+            className="group relative px-8 py-4 rounded-full bg-white text-black font-semibold text-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_-5px_rgba(0,0,0,0.5)]"
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-violet-400 opacity-0 group-hover:opacity-20 blur-lg transition-opacity duration-300" />
             <span className="relative z-10 flex items-center gap-2">
@@ -215,7 +215,7 @@ export function Hero() {
           </a>
 
           <button
-            className="group flex items-center gap-2 text-neutral-400 hover:text-white text-sm font-medium transition-colors px-4 py-2 rounded-full hover:bg-white/5"
+            className="group flex items-center gap-2 text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white text-sm font-medium transition-colors px-4 py-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5"
             onClick={() => {
               navigator.clipboard.writeText("pabloroga6@gmail.com");
             }}

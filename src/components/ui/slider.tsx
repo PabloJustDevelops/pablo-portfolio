@@ -11,7 +11,7 @@ const Slider = React.forwardRef<
     <input
       type="range"
       className={cn(
-        "w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-white hover:accent-neutral-200 transition-colors",
+        "w-full h-2 bg-neutral-200 dark:bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-white hover:accent-neutral-200 transition-colors",
         className
       )}
       ref={ref}

@@ -29,7 +29,7 @@ export default function Home() {
       </div>
       
       {/* Footer */}
-      <footer className="w-full text-center text-xs text-neutral-500 py-8 border-t border-white/5">
+      <footer className="w-full text-center text-xs text-neutral-500 dark:text-neutral-500 py-8 border-t border-white/5">
         <p>© {new Date().getFullYear()} Pablo Rodríguez Garijo. Built with Next.js, Tailwind & Love.</p>
       </footer>
     </main>

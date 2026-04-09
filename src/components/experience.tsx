@@ -15,7 +15,7 @@ export function Experience() {
           <div key={idx} className="relative pl-6">
              <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-neutral-200 dark:bg-neutral-800 border-2 border-white dark:border-neutral-900" />
              <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">{exp.role}</h3>
-             <div className="flex justify-between items-center text-xs text-neutral-500 mt-1">
+             <div className="flex justify-between items-center text-xs text-neutral-500 dark:text-neutral-500 mt-1">
                 <span>{exp.company}</span>
                 <span className="font-mono text-[10px] bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded">{exp.period}</span>
              </div>

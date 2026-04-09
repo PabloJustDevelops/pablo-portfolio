@@ -164,12 +164,12 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                       className="bg-transparent border-none outline-none text-sm text-black dark:text-white w-full placeholder:text-neutral-500"
                     />
                   </div>
-                  <button onClick={() => switchView("contact")} className="px-4 py-2.5 text-xs font-medium text-neutral-600 dark:text-neutral-300 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 hover:text-black dark:hover:text-white transition-colors">
+                  <button onClick={() => switchView("contact")} className="px-4 py-2.5 text-xs font-medium text-neutral-600 dark:text-neutral-300 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl hover:bg-black/10 dark:hover:bg-black/10 dark:hover:bg-white/10 hover:text-black dark:hover:text-white transition-colors">
                     Reach out
                   </button>
                   <button 
                     onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                    className="p-2.5 text-neutral-500 dark:text-neutral-400 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl hover:bg-black/10 dark:hover:bg-black/10 dark:bg-white/10 hover:text-white dark:text-black dark:hover:text-black dark:text-white transition-colors"
+                    className="p-2.5 text-neutral-500 dark:text-neutral-400 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl hover:bg-black/10 dark:hover:bg-black/10 dark:hover:bg-white/10 hover:text-black dark:hover:text-white dark:hover:text-black dark:hover:text-white transition-colors"
                   >
                     {mounted && theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
                   </button>
@@ -181,7 +181,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                   <div className="space-y-3">
                     <div className="flex items-center justify-between px-1">
                       <span className="text-xs font-medium text-neutral-400">Recent</span>
-                      <button className="text-xs text-neutral-500 hover:text-black dark:hover:text-white transition-colors">Clear</button>
+                      <button className="text-xs text-neutral-500 dark:text-neutral-500 hover:text-black dark:hover:text-white transition-colors">Clear</button>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="px-3 py-1.5 text-xs text-neutral-500 dark:text-neutral-400 border border-black/10 dark:border-white/10 rounded-full border-dashed cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">Bucket List</span>
@@ -201,7 +201,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                           <Home size={16} className="opacity-70" />
                           <span className="text-sm font-medium">Home</span>
                         </div>
-                        <div className="w-1.5 h-1.5 rounded-full bg-black dark:bg-white mr-1" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-white dark:bg-black dark:dark:bg-white mr-1" />
                       </Link>
                       <Link href="/#about" onClick={onClose} className="flex items-center gap-3 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
                         <User size={16} className="opacity-70" />
@@ -282,7 +282,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                     <h2 className="font-serif text-3xl font-medium text-black dark:text-white tracking-tight">Reach out</h2>
                     <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">Let&apos;s build something together</p>
                   </div>
-                  <button onClick={() => switchView("navigation")} className="flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-2 text-xs font-medium text-neutral-600 dark:text-neutral-300 transition-colors hover:bg-black/10 dark:hover:bg-white/10 hover:text-white">
+                  <button onClick={() => switchView("navigation")} className="flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-2 text-xs font-medium text-neutral-600 dark:text-neutral-300 transition-colors hover:bg-black/10 dark:hover:bg-black/10 dark:hover:bg-white/10 hover:text-white">
                     <ChevronLeft size={14} /> Menu
                   </button>
                 </div>
@@ -329,13 +329,13 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
 
                   {/* Social Links Footer */}
                   <div className="mt-2 grid grid-cols-3 gap-2">
-                    <a href={profile.social.linkedin} target="_blank" className="flex items-center justify-center gap-2 rounded-2xl border border-black/5 dark:border-white/5 bg-transparent py-3.5 text-[13px] font-medium text-neutral-500 dark:text-neutral-400 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-[#1a1a1c] hover:text-white">
+                    <a href={profile.social.linkedin} target="_blank" className="flex items-center justify-center gap-2 rounded-2xl border border-black/5 dark:border-white/5 bg-transparent py-3.5 text-[13px] font-medium text-neutral-500 dark:text-neutral-400 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-100 dark:bg-[#1a1a1c] hover:text-white">
                       <Linkedin size={16} className="opacity-70" /> LinkedIn
                     </a>
-                    <a href="#" target="_blank" className="flex items-center justify-center gap-2 rounded-2xl border border-black/5 dark:border-white/5 bg-transparent py-3.5 text-[13px] font-medium text-neutral-500 dark:text-neutral-400 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-[#1a1a1c] hover:text-white">
+                    <a href="#" target="_blank" className="flex items-center justify-center gap-2 rounded-2xl border border-black/5 dark:border-white/5 bg-transparent py-3.5 text-[13px] font-medium text-neutral-500 dark:text-neutral-400 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-100 dark:bg-[#1a1a1c] hover:text-white">
                       <Twitter size={16} className="opacity-70" /> X / Twitter
                     </a>
-                    <a href={profile.social.github} target="_blank" className="flex items-center justify-center gap-2 rounded-2xl border border-black/5 dark:border-white/5 bg-transparent py-3.5 text-[13px] font-medium text-neutral-500 dark:text-neutral-400 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-[#1a1a1c] hover:text-white">
+                    <a href={profile.social.github} target="_blank" className="flex items-center justify-center gap-2 rounded-2xl border border-black/5 dark:border-white/5 bg-transparent py-3.5 text-[13px] font-medium text-neutral-500 dark:text-neutral-400 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-100 dark:bg-[#1a1a1c] hover:text-white">
                       <Github size={16} className="opacity-70" /> GitHub
                     </a>
                   </div>
@@ -351,7 +351,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                     <h2 className="font-serif text-3xl font-medium text-black dark:text-white tracking-tight">Drop a note</h2>
                     <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">I read every message</p>
                   </div>
-                  <button onClick={() => switchView("navigation")} className="flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-2 text-xs font-medium text-neutral-600 dark:text-neutral-300 transition-colors hover:bg-black/10 dark:hover:bg-white/10 hover:text-white">
+                  <button onClick={() => switchView("navigation")} className="flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-2 text-xs font-medium text-neutral-600 dark:text-neutral-300 transition-colors hover:bg-black/10 dark:hover:bg-black/10 dark:hover:bg-white/10 hover:text-white">
                     <ChevronLeft size={14} /> Menu
                   </button>
                 </div>
@@ -366,7 +366,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                           placeholder="Jane Doe" 
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-3 text-sm text-black dark:text-white placeholder:text-neutral-600 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all" 
+                          className="w-full rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-3 text-sm text-black dark:text-white placeholder:text-neutral-600 focus:border-black/20 dark:focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 transition-all" 
                         />
                       </div>
                       <div className="space-y-1.5">
@@ -376,7 +376,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                           placeholder="jane@example.com" 
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-3 text-sm text-black dark:text-white placeholder:text-neutral-600 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all" 
+                          className="w-full rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-3 text-sm text-black dark:text-white placeholder:text-neutral-600 focus:border-black/20 dark:focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 transition-all" 
                         />
                       </div>
                     </div>
@@ -386,7 +386,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                       <select 
                         value={formData.topic}
                         onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
-                        className="w-full appearance-none rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-3 text-sm text-black dark:text-white focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all"
+                        className="w-full appearance-none rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-3 text-sm text-black dark:text-white focus:border-black/20 dark:focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 transition-all"
                       >
                         <option value="" disabled>Select a topic</option>
                         <option value="project">Project Inquiry</option>
@@ -402,7 +402,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                         placeholder="Tell me about your project, idea, or just say hi..." 
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full resize-none rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-3 text-sm text-black dark:text-white placeholder:text-neutral-600 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all" 
+                        className="w-full resize-none rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-3 text-sm text-black dark:text-white placeholder:text-neutral-600 focus:border-black/20 dark:focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 transition-all" 
                       />
                     </div>
 
@@ -412,7 +412,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                         id="consent" 
                         checked={formData.consent}
                         onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
-                        className="mt-1 h-4 w-4 rounded border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 checked:bg-black dark:bg-white accent-white cursor-pointer" 
+                        className="mt-1 h-4 w-4 rounded border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 checked:bg-white dark:checked:bg-black dark:bg-white accent-white cursor-pointer" 
                       />
                       <label htmlFor="consent" className="text-xs text-neutral-500 dark:text-neutral-400 cursor-pointer">
                         I agree that my submitted data is collected and stored to respond to my inquiry.
@@ -422,7 +422,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                     <button 
                       type="submit" 
                       disabled={isPending}
-                      className="group flex w-full items-center justify-center gap-2 rounded-xl bg-black dark:bg-white px-4 py-3 text-sm font-semibold text-white dark:text-black transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:hover:scale-100"
+                      className="group flex w-full items-center justify-center gap-2 rounded-xl bg-white dark:bg-black dark:dark:bg-white px-4 py-3 text-sm font-semibold text-black dark:text-white dark:dark:text-black transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:hover:scale-100"
                     >
                       {isPending ? (
                         <>

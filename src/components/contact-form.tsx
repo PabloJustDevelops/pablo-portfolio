@@ -71,7 +71,7 @@ export function ContactForm() {
                   <Input 
                     placeholder="Tu nombre" 
                     {...field} 
-                    className="bg-neutral-900/50 border-neutral-800 text-neutral-200 placeholder:text-neutral-600 focus:border-blue-500/50 focus:ring-blue-500/20"
+                    className="bg-neutral-900/50 border-neutral-800 text-neutral-800 dark:text-neutral-200 placeholder:text-neutral-600 focus:border-blue-500/50 focus:ring-blue-500/20"
                   />
                 </FormControl>
                 <FormMessage />
@@ -88,7 +88,7 @@ export function ContactForm() {
                   <Input 
                     placeholder="tu@email.com" 
                     {...field} 
-                    className="bg-neutral-900/50 border-neutral-800 text-neutral-200 placeholder:text-neutral-600 focus:border-blue-500/50 focus:ring-blue-500/20"
+                    className="bg-neutral-900/50 border-neutral-800 text-neutral-800 dark:text-neutral-200 placeholder:text-neutral-600 focus:border-blue-500/50 focus:ring-blue-500/20"
                   />
                 </FormControl>
                 <FormMessage />
@@ -105,7 +105,7 @@ export function ContactForm() {
               <FormControl>
                 <Textarea 
                   placeholder="Cuéntame sobre tu proyecto..." 
-                  className="min-h-[120px] bg-neutral-900/50 border-neutral-800 text-neutral-200 placeholder:text-neutral-600 focus:border-blue-500/50 focus:ring-blue-500/20 resize-none"
+                  className="min-h-[120px] bg-neutral-900/50 border-neutral-800 text-neutral-800 dark:text-neutral-200 placeholder:text-neutral-600 focus:border-blue-500/50 focus:ring-blue-500/20 resize-none"
                   {...field} 
                 />
               </FormControl>

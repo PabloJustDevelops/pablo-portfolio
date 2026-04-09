@@ -60,20 +60,20 @@ export function ContactSection() {
           <div className="relative flex items-center justify-center mb-12">
             {/* Abstract Wings */}
             <div className="absolute w-[280px] h-[60px] opacity-40 flex justify-between items-center pointer-events-none">
-              <svg viewBox="0 0 100 50" className="w-[120px] h-full text-white/50 fill-current" preserveAspectRatio="none">
+              <svg viewBox="0 0 100 50" className="w-[120px] h-full text-black/50 dark:text-white/50 fill-current" preserveAspectRatio="none">
                 <path d="M100 25 C70 5, 40 10, 0 30 C30 25, 60 35, 100 50 Z" />
                 <path d="M90 20 C65 5, 35 15, 10 35 C40 28, 65 38, 90 45 Z" />
                 <path d="M80 15 C55 5, 30 20, 20 40 C45 32, 65 40, 80 40 Z" />
               </svg>
-              <svg viewBox="0 0 100 50" className="w-[120px] h-full text-white/50 fill-current" preserveAspectRatio="none" style={{ transform: 'scaleX(-1)' }}>
+              <svg viewBox="0 0 100 50" className="w-[120px] h-full text-black/50 dark:text-white/50 fill-current" preserveAspectRatio="none" style={{ transform: 'scaleX(-1)' }}>
                 <path d="M100 25 C70 5, 40 10, 0 30 C30 25, 60 35, 100 50 Z" />
                 <path d="M90 20 C65 5, 35 15, 10 35 C40 28, 65 38, 90 45 Z" />
                 <path d="M80 15 C55 5, 30 20, 20 40 C45 32, 65 40, 80 40 Z" />
               </svg>
             </div>
             {/* Center Circle */}
-            <div className="relative z-10 w-20 h-20 rounded-full bg-gradient-to-b from-blue-900/80 to-black border border-blue-500/30 flex items-center justify-center backdrop-blur-md shadow-[0_0_30px_rgba(37,99,235,0.3)]">
-              <Logo className="w-10 h-10 text-white" />
+            <div className="relative z-10 w-20 h-20 rounded-full bg-gradient-to-b from-blue-900/80 to-white dark:to-black border border-blue-500/30 flex items-center justify-center backdrop-blur-md shadow-[0_0_30px_rgba(37,99,235,0.3)]">
+              <Logo className="w-10 h-10 text-black dark:text-white" />
               {/* Inner ring */}
               <div className="absolute inset-1 rounded-full border border-white/10" />
             </div>
@@ -81,7 +81,7 @@ export function ContactSection() {
 
           {/* Main Headline */}
           <div className="relative mb-12 w-full max-w-4xl mx-auto">
-            <h2 className="text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl font-sans text-neutral-300 tracking-tight leading-[1.1] uppercase">
+            <h2 className="text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl font-sans text-neutral-700 dark:text-neutral-300 tracking-tight leading-[1.1] uppercase">
               From concept to <span className="text-black dark:text-white font-extrabold">creation</span>
               <br />
               Let&apos;s make it <span className="text-black dark:text-white font-extrabold relative inline-block">
@@ -93,7 +93,7 @@ export function ContactSection() {
                       ref={rotatingBadgeRef}
                       className="absolute inset-0 w-full h-full"
                     >
-                      <svg viewBox="0 0 100 100" className="w-full h-full text-white">
+                      <svg viewBox="0 0 100 100" className="w-full h-full text-black dark:text-white">
                         <path id="circlePath" d="M 50, 50 m -34, 0 a 34,34 0 1,1 68,0 a 34,34 0 1,1 -68,0" fill="transparent" />
                         <text fontSize="10.5" fontWeight="600" letterSpacing="3.5" fill="currentColor">
                           <textPath href="#circlePath" startOffset="0%">
@@ -103,7 +103,7 @@ export function ContactSection() {
                       </svg>
                     </div>
                     {/* Center Star */}
-                    <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-white/80" />
+                    <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-black/80 dark:text-white/80" />
                   </div>
                 </div>
               </span>
@@ -116,9 +116,9 @@ export function ContactSection() {
           >
             <Link 
               href="mailto:pabloroga6@gmail.com"
-              className="group flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-neutral-900/80 hover:bg-neutral-200 dark:bg-neutral-800 border border-black/10 dark:border-white/10 backdrop-blur-md transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+              className="group flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-neutral-100/80 dark:bg-neutral-900/80 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-black/10 dark:border-white/10 backdrop-blur-md transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.5)]"
             >
-              <span className="text-sm font-semibold text-white">Get In Touch</span>
+              <span className="text-sm font-semibold text-black dark:text-white">Get In Touch</span>
               <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-black transition-transform duration-300 group-hover:translate-x-0.5">
                 <ArrowRight size={16} strokeWidth={2.5} />
               </div>

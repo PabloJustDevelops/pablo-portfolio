@@ -18,7 +18,7 @@ export function CaseStudiesSection() {
   return (
     <section id="work" className="w-full relative py-20" ref={containerRef}>
       <div className="flex flex-col items-center text-center mb-16 md:mb-24">
-        <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4">Case Studies</span>
+        <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-500 mb-4">Case Studies</span>
         <h2 className="text-5xl md:text-7xl font-serif text-black dark:text-white tracking-tight">
           Curated <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">work</span>
         </h2>
@@ -90,7 +90,7 @@ function CaseStudyItem({
         >
           <div style={{ marginTop: `${index * 30}px` }}>
             {/* Period/Category Info - Desktop visible above card, Mobile visible inline */}
-            <div className="hidden lg:flex items-center justify-between text-xs font-mono text-neutral-500 mb-4 px-2">
+            <div className="hidden lg:flex items-center justify-between text-xs font-mono text-neutral-500 dark:text-neutral-500 mb-4 px-2">
               <div className="flex items-center gap-4">
                 <span>{(index + 1).toString().padStart(2, '0')}</span>
                 <div className="h-px w-12 bg-neutral-800" />
@@ -106,7 +106,7 @@ function CaseStudyItem({
               target="_blank" 
               className="group block w-full shadow-[0_0_40px_rgba(0,0,0,0.5)] rounded-[2rem]"
             >
-              <div className={`relative overflow-hidden rounded-[2rem] pt-8 px-8 md:pt-12 md:px-12 ${project.accentColor} transition-transform duration-300 ring-1 ring-white/10 h-[45vh] lg:h-[60vh] flex flex-col`}>
+              <div className={`relative overflow-hidden rounded-[2rem] pt-8 px-8 md:pt-12 md:px-12 ${project.accentColor} transition-transform duration-300 ring-1 ring-black/10 dark:ring-white/10 h-[45vh] lg:h-[60vh] flex flex-col`}>
                 <div className="flex justify-between items-start mb-8 lg:mb-12">
                   <p className="text-xl md:text-2xl font-medium text-black dark:text-white max-w-xl leading-relaxed drop-shadow-sm">
                     {project.cardText}
@@ -149,7 +149,7 @@ function CaseStudyItem({
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif text-black dark:text-white tracking-tight">{project.title}</h3>
           </div>
 
-          <p className="text-base md:text-lg text-neutral-300 leading-relaxed">
+          <p className="text-base md:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed">
             {project.description}
           </p>
 
@@ -166,7 +166,7 @@ function CaseStudyItem({
 
           <div className="flex flex-wrap gap-2 mt-2">
             {project.tags.map(tag => (
-              <Badge key={tag} variant="secondary" className="bg-neutral-900/80 hover:bg-neutral-200 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-neutral-300 font-mono text-[10px] uppercase tracking-wider py-1.5 px-3 transition-colors">
+              <Badge key={tag} variant="secondary" className="bg-neutral-900/80 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono text-[10px] uppercase tracking-wider py-1.5 px-3 transition-colors">
                 {tag}
               </Badge>
             ))}

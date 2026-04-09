@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function ExperiencePage() {
   return (
-    <main className="min-h-screen bg-[#050505] text-black dark:text-white selection:bg-blue-500/30">
+    <main className="min-h-screen bg-white dark:bg-[#050505] text-black dark:text-white selection:bg-blue-500/30">
       {/* Background ambient effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px]" />
@@ -45,7 +45,7 @@ export default function ExperiencePage() {
                   2023 — Present
                 </div>
                 <h3 className="text-3xl sm:text-4xl font-serif text-black dark:text-white mb-2">Senior Full-Stack Developer</h3>
-                <p className="text-xl text-neutral-300 font-light">TechCorp Inc.</p>
+                <p className="text-xl text-neutral-700 dark:text-neutral-300 font-light">TechCorp Inc.</p>
               </div>
               
               <div className="space-y-4 mt-12">
@@ -83,14 +83,14 @@ export default function ExperiencePage() {
             </div>
 
             <div className="h-48 rounded-[2rem] bg-white/[0.02] border border-black/5 dark:border-white/5 p-8 flex flex-col justify-center items-center text-center group hover:border-blue-500/30 transition-colors">
-              <Rocket className="text-neutral-500 group-hover:text-blue-400 mb-3 transition-colors" size={32} />
+              <Rocket className="text-neutral-500 dark:text-neutral-500 group-hover:text-blue-400 mb-3 transition-colors" size={32} />
               <div className="text-sm text-neutral-400">Always looking for</div>
               <div className="text-lg font-medium text-black dark:text-white mt-1">The next big challenge</div>
             </div>
           </div>
 
           {/* Timeline Connector Line (Visible on Desktop) */}
-          <div className="hidden md:block absolute left-[30px] top-[100%] bottom-[-100px] w-px bg-gradient-to-b from-white/10 to-transparent -z-10" />
+          <div className="hidden md:block absolute left-[30px] top-[100%] bottom-[-100px] w-px bg-gradient-to-b from-black/10 dark:from-white/10 to-transparent -z-10" />
 
           {/* Previous Role Card */}
           <div className="md:col-span-12 mt-6 group relative overflow-hidden rounded-[2rem] bg-white/[0.02] border border-black/5 dark:border-white/5 p-8 sm:p-10 hover:bg-white/[0.04] transition-colors duration-500">
@@ -104,7 +104,7 @@ export default function ExperiencePage() {
                   </div>
                   <h4 className="text-2xl font-serif text-black dark:text-white mb-1">Frontend Developer</h4>
                   <p className="text-neutral-500 dark:text-neutral-400 mb-4">Creative Digital Agency</p>
-                  <p className="text-sm text-neutral-500 max-w-3xl">
+                  <p className="text-sm text-neutral-500 dark:text-neutral-500 max-w-3xl">
                     Developed highly interactive marketing websites and internal dashboards for major brands. Focused on UI/UX, animations, and responsive design.
                   </p>
                 </div>
@@ -116,7 +116,7 @@ export default function ExperiencePage() {
         {/* Suggestion / Placeholder Note for the User */}
         <div className="mt-24 p-6 rounded-2xl border border-dashed border-blue-500/30 bg-blue-500/5 text-center max-w-2xl mx-auto">
           <p className="text-sm text-blue-300/80 mb-2 font-mono uppercase tracking-widest">Dev Note</p>
-          <p className="text-neutral-300 font-light">
+          <p className="text-neutral-700 dark:text-neutral-300 font-light">
             This is the template for your Work Experience. Similar to the Education page, replace the texts and dates with your actual work history.
             You can copy the cards to add more companies to your timeline!
           </p>

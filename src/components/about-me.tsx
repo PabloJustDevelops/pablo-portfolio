@@ -109,20 +109,20 @@ export function AboutMe() {
               <Link
                 href={profile.social.linkedin}
                 target="_blank"
-                className="w-10 h-10 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-neutral-400 hover:text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all duration-300 hover:scale-110"
+                className="w-10 h-10 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white hover:bg-black/10 dark:hover:bg-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all duration-300 hover:scale-110"
               >
                 <Linkedin size={18} />
               </Link>
               <Link
                 href={profile.social.github}
                 target="_blank"
-                className="w-10 h-10 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-neutral-400 hover:text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all duration-300 hover:scale-110"
+                className="w-10 h-10 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white hover:bg-black/10 dark:hover:bg-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all duration-300 hover:scale-110"
               >
                 <Github size={18} />
               </Link>
               <Link
                 href="#"
-                className="w-10 h-10 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-neutral-400 hover:text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all duration-300 hover:scale-110"
+                className="w-10 h-10 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white hover:bg-black/10 dark:hover:bg-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all duration-300 hover:scale-110"
               >
                 <Twitter size={18} />
               </Link>
@@ -136,7 +136,7 @@ export function AboutMe() {
                 className="group flex items-center justify-between sm:justify-start gap-3 px-5 py-2.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-medium text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all duration-300 uppercase tracking-widest"
               >
                 <span>Work Experience</span>
-                <div className="w-6 h-6 rounded-full bg-black/10 dark:bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
+                <div className="w-6 h-6 rounded-full bg-black/10 dark:bg-white/10 flex items-center justify-center group-hover:bg-black/20 dark:group-hover:bg-white/20 transition-colors">
                   <ArrowRight size={12} className="-rotate-45 group-hover:rotate-0 transition-transform duration-300" />
                 </div>
               </Link>
@@ -163,7 +163,7 @@ export function AboutMe() {
           className="relative group perspective-[1000px] w-full max-w-md mx-auto lg:max-w-none"
         >
           {/* Card Container */}
-          <div className="relative aspect-[4/5] sm:aspect-square md:aspect-[4/3] lg:aspect-[4/5] rounded-[2rem] bg-[#0A0A0A] overflow-hidden border border-black/10 dark:border-white/10 shadow-2xl transform-gpu transition-all duration-700 group-hover:rotate-y-[-5deg] group-hover:rotate-x-[5deg]">
+          <div className="relative aspect-[4/5] sm:aspect-square md:aspect-[4/3] lg:aspect-[4/5] rounded-[2rem] bg-white dark:bg-[#0A0A0A] overflow-hidden border border-black/10 dark:border-white/10 shadow-2xl transform-gpu transition-all duration-700 group-hover:rotate-y-[-5deg] group-hover:rotate-x-[5deg]">
             
             {/* Background Grid & Patterns */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-20" />
@@ -187,7 +187,7 @@ export function AboutMe() {
               <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 group/logo">
                 {/* 3D Layered Cards */}
                 <div 
-                  className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-3xl border border-black/10 dark:border-white/10 backdrop-blur-md z-10 transition-all duration-500 ease-out group-hover/logo:-rotate-6 group-hover/logo:scale-105"
+                  className="absolute inset-0 bg-gradient-to-br from-black/10 dark:from-white/10 to-transparent rounded-3xl border border-black/10 dark:border-white/10 backdrop-blur-md z-10 transition-all duration-500 ease-out group-hover/logo:-rotate-6 group-hover/logo:scale-105"
                 />
                 <div 
                   className="absolute inset-0 bg-gradient-to-tl from-indigo-600/30 to-purple-600/30 rounded-3xl border border-black/5 dark:border-white/5 z-0 transition-all duration-500 ease-out group-hover/logo:rotate-6 group-hover/logo:scale-95 group-hover/logo:translate-x-2 group-hover/logo:translate-y-2"
@@ -196,7 +196,7 @@ export function AboutMe() {
                 
                 {/* The Logo Text / SVG */}
                 <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-                  <Logo className="w-40 h-40 text-black dark:text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]" />
+                  <Logo className="w-40 h-40 text-black dark:text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.2)]" />
                 </div>
               </div>
             </div>
@@ -206,7 +206,7 @@ export function AboutMe() {
               <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
               <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
             </div>
-            <div className="absolute bottom-6 left-6 text-[10px] font-mono text-white/20 tracking-widest">
+            <div className="absolute bottom-6 left-6 text-[10px] font-mono text-black/20 dark:text-white/20 tracking-widest">
               SYS.READY
             </div>
             <div className="absolute bottom-6 right-6 w-12 h-[1px] bg-white/20" />
