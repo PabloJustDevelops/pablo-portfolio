@@ -212,10 +212,6 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                         <Folder size={16} className="opacity-70" />
                         <span className="text-sm font-medium truncate">Projects</span>
                       </Link>
-                      <Link href="#blog" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
-                        <FileText size={16} className="opacity-70" />
-                        <span className="text-sm font-medium truncate">Blog</span>
-                      </Link>
                       
                       <Link href="#" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
                         <Book size={16} className="opacity-70" />
