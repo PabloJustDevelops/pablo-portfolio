@@ -29,6 +29,7 @@ export default function UsesPage() {
                   src="https://coreva-normal.trae.ai/api/ide/v1/text_to_image?prompt=Front-facing%20hero%20shot%20of%20a%20modern%20black%20gaming%20laptop%20%28Gigabyte%20G5%20KC%29%2C%20open%20screen%20displaying%20a%20sleek%20abstract%20dark%20blue%20and%20black%20wallpaper%2C%20set%20against%20a%20blurred%20dark%20background%20with%20elegant%20light%20rays%2C%20cinematic%20studio%20lighting%2C%20photorealistic%2C%208k%20resolution%2C%20highly%20detailed%2C%20centered%20composition&image_size=landscape_16_9"
                   alt="Gigabyte G5 KC Laptop"
                   fill
+                  unoptimized
                   className="object-cover opacity-90 object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
