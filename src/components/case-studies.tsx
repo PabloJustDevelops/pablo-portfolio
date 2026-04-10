@@ -16,7 +16,7 @@ export function CaseStudiesSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   
   return (
-    <section id="work" className="w-full relative py-20" ref={containerRef}>
+    <section id="work" className="w-full relative py-20 px-4 sm:px-6 lg:px-8 z-10" ref={containerRef}>
       <div className="flex flex-col items-center text-center mb-16 md:mb-24">
         <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-500 mb-4">Case Studies</span>
         <h2 className="text-5xl md:text-7xl font-serif text-black dark:text-white tracking-tight">

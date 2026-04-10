@@ -48,11 +48,11 @@ export function AboutMe() {
   }, { scope: containerRef });
 
   return (
-    <section id="about" ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 relative overflow-hidden">
+    <section id="about" ref={containerRef} className="px-4 sm:px-6 lg:px-8 py-32 relative overflow-hidden border-t border-black/5 dark:border-white/5">
       {/* Background ambient light */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-500/5 rounded-full blur-[120px] -z-10 pointer-events-none" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center relative z-10">
         {/* Left Column: Text Content */}
         <div 
           ref={leftColRef}

@@ -11,6 +11,9 @@ export default function UsesPage() {
       {/* Container with side borders to match the reference style */}
       <div className="max-w-6xl mx-auto border-x border-black/5 dark:border-white/5 relative">
         
+        {/* Global Vertical Grid Line */}
+        <div className="absolute top-0 bottom-0 left-1/3 w-px bg-black/5 dark:bg-white/5 hidden md:block pointer-events-none z-0" />
+        
         {/* Subtle background texture for the header area */}
         <div className="absolute top-0 left-0 right-0 h-[400px] opacity-[0.03] dark:opacity-[0.05] pointer-events-none mix-blend-overlay"
              style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} 
@@ -90,11 +93,11 @@ export default function UsesPage() {
             <Tool icon="https://cdn.simpleicons.org/spotify/1DB954" darkIcon="https://cdn.simpleicons.org/spotify/1DB954" name="Spotify" />
           </div>
         </Section>
-      </div>
 
-      {/* Recycled Contact / Call to action section */}
-      <div className="border-t border-black/5 dark:border-white/5">
-        <ContactSection />
+        {/* Recycled Contact / Call to action section */}
+        <div className="border-t border-black/5 dark:border-white/5">
+          <ContactSection />
+        </div>
       </div>
     </main>
   );
@@ -112,9 +115,9 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex flex-col md:flex-row border-b border-black/5 dark:border-white/5 relative">
+    <section className="flex flex-col md:flex-row border-b border-black/5 dark:border-white/5 relative z-10">
       {/* Left Column */}
-      <div className="md:w-1/3 p-8 md:p-12 md:border-r border-black/5 dark:border-white/5 shrink-0">
+      <div className="md:w-1/3 p-8 md:p-12 shrink-0">
         <p className="text-xs font-bold text-neutral-400 dark:text-neutral-500 mb-4 font-mono">
           {number}
         </p>

@@ -42,7 +42,7 @@ export function BentoSection() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-8">
+    <section ref={containerRef} className="px-4 sm:px-6 lg:px-8 py-20 space-y-8 border-b border-black/5 dark:border-white/5 relative z-10">
       {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(200px,auto)]">
         {/* 1. Collaboration Card (Top Left - Spans 2 Cols) */}
