@@ -26,8 +26,8 @@ export default function UsesPage() {
             <div className="rounded-3xl bg-neutral-100 dark:bg-[#111111] border border-black/5 dark:border-white/5 overflow-hidden">
               <div className="relative aspect-[16/10] bg-black w-full overflow-hidden">
                 <Image
-                  src="https://www.techreclaimss.com/wp-content/uploads/2025/5/1747446442/gigabyte-g5-kc-15-6-fhd-144hz-i5-10500h-2-5ghz-16gb-512gb-rtx-3060-charger-1747446447.webp" // Gigabyte G5 KC image
-                  alt="Gigabyte G5 KC"
+                  src="https://www.notebookcheck.net/fileadmin/Notebooks/Gigabyte/G5_KC/Gigabyte_G5_KC_1.jpg" // High quality studio shot of Gigabyte G5 KC
+                  alt="Gigabyte G5 KC Laptop"
                   fill
                   className="object-cover opacity-90 object-center"
                 />

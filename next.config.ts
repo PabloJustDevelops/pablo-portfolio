@@ -33,7 +33,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "www.gigabyte.cn",
+        hostname: "www.notebookcheck.net",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
       }
     ],
   },
