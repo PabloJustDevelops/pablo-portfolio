@@ -207,12 +207,11 @@ export function Navbar() {
             {/* Bucket List Card */}
             <Link href="#" onClick={() => setIsMoreOpen(false)} className="group relative h-48 sm:h-full rounded-[1.5rem] overflow-hidden block border border-black/5 dark:border-white/5 bg-neutral-900">
               <Image 
-                src="https://images.unsplash.com/photo-1521685350720-6f020612b7a4?auto=format&fit=crop&w=800&q=80" 
-                alt="" 
+                src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80" 
+                alt="Florida Summer Beach" 
                 fill
                 sizes="(max-width: 768px) 100vw, 300px"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                unoptimized
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
               <div className="absolute bottom-0 inset-x-0 p-5 flex flex-col justify-end">
