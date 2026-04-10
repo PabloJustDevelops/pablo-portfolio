@@ -226,7 +226,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                         <Phone size={16} className="opacity-70" />
                         <span className="text-sm font-medium truncate">Book a call</span>
                       </button>
-                      <Link href="#" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
+                      <Link href="/uses" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
                         <Laptop size={16} className="opacity-70" />
                         <span className="text-sm font-medium truncate">Uses</span>
                       </Link>

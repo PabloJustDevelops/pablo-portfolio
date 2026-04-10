@@ -232,7 +232,7 @@ export function Navbar() {
                 </div>
               </Link>
               
-              <Link href="#" onClick={() => setIsMoreOpen(false)} className="flex items-center gap-4 p-3 rounded-[1.25rem] border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors">
+              <Link href="/uses" onClick={() => setIsMoreOpen(false)} className="flex items-center gap-4 p-3 rounded-[1.25rem] border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors">
                 <div className="w-10 h-10 rounded-[0.85rem] bg-black/5 dark:bg-white/10 flex items-center justify-center shrink-0 border border-black/5 dark:border-white/5">
                   <Laptop size={18} className="text-neutral-600 dark:text-neutral-400" />
                 </div>
