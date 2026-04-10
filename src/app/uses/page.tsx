@@ -26,10 +26,10 @@ export default function UsesPage() {
             <div className="rounded-3xl bg-neutral-100 dark:bg-[#111111] border border-black/5 dark:border-white/5 overflow-hidden">
               <div className="relative aspect-[16/10] bg-black w-full overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=1200&q=80" // High quality generic laptop/setup
+                  src="https://www.techreclaimss.com/wp-content/uploads/2025/5/1747446442/gigabyte-g5-kc-15-6-fhd-144hz-i5-10500h-2-5ghz-16gb-512gb-rtx-3060-charger-1747446447.webp" // Gigabyte G5 KC image
                   alt="Gigabyte G5 KC"
                   fill
-                  className="object-cover opacity-90"
+                  className="object-cover opacity-90 object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
               </div>
@@ -50,41 +50,41 @@ export default function UsesPage() {
           {/* 02 Dev Tools */}
           <Section number="02" title="Dev Tools" description="">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-12 gap-x-6 pt-2">
-              <Tool icon="T" name="Trae" color="bg-blue-500" />
-              <Tool icon="C" name="Claude Code" color="bg-orange-500" />
-              <Tool icon="O" name="OpenCode" color="bg-indigo-500" />
-              <Tool icon="WT" name="Windows Terminal" color="bg-neutral-800" subtitle="(Chris Titus)" />
-              <Tool icon="Z" name="Zen Browser" color="bg-zinc-700" />
-              <Tool icon="F" name="Figma" color="bg-pink-500" />
-              <Tool icon="Fr" name="Framer" color="bg-blue-400" />
-              <Tool icon="D" name="Docker" color="bg-cyan-500" />
+              <Tool icon="https://cdn.simpleicons.org/cursor/ffffff" name="Trae" color="bg-[#18181B]" />
+              <Tool icon="https://cdn.simpleicons.org/anthropic/ffffff" name="Claude Code" color="bg-[#D97757]" />
+              <Tool icon="https://cdn.simpleicons.org/opensourceinitiative/ffffff" name="OpenCode" color="bg-[#3DA639]" />
+              <Tool icon="https://cdn.simpleicons.org/windowsterminal/ffffff" name="Windows Terminal" color="bg-[#4D4D4D]" subtitle="(Chris Titus)" />
+              <Tool icon="https://cdn.simpleicons.org/zenbrowser/ffffff" name="Zen Browser" color="bg-[#1F1F1F]" />
+              <Tool icon="https://cdn.simpleicons.org/figma/ffffff" name="Figma" color="bg-[#F24E1E]" />
+              <Tool icon="https://cdn.simpleicons.org/framer/ffffff" name="Framer" color="bg-[#0055FF]" />
+              <Tool icon="https://cdn.simpleicons.org/docker/ffffff" name="Docker" color="bg-[#2496ED]" />
             </div>
           </Section>
 
           {/* 03 CLI Tools */}
           <Section number="03" title="CLI Tools" description="">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-12 gap-x-6 pt-2">
-              <Tool icon="Z" name="Zsh" color="bg-emerald-600" />
-              <Tool icon="T" name="tmux" color="bg-green-500" />
-              <Tool icon="L" name="LazyGit" color="bg-orange-600" />
-              <Tool icon="N" name="Neovim" color="bg-green-400" />
-              <Tool icon="Z" name="zoxide" color="bg-purple-500" />
-              <Tool icon="E" name="eza" color="bg-blue-500" />
-              <Tool icon="S" name="Starship" color="bg-pink-600" />
-              <Tool icon="G" name="GitHub CLI" color="bg-neutral-800" />
+              <Tool icon="https://cdn.simpleicons.org/gnubash/ffffff" name="Zsh" color="bg-[#4EAA25]" />
+              <Tool icon="https://cdn.simpleicons.org/tmux/ffffff" name="tmux" color="bg-[#1BB91F]" />
+              <Tool icon="https://cdn.simpleicons.org/git/ffffff" name="LazyGit" color="bg-[#F05032]" />
+              <Tool icon="https://cdn.simpleicons.org/neovim/ffffff" name="Neovim" color="bg-[#57A143]" />
+              <Tool icon="https://cdn.simpleicons.org/rust/ffffff" name="zoxide" color="bg-[#000000]" />
+              <Tool icon="https://cdn.simpleicons.org/files/ffffff" name="eza" color="bg-[#1F1F1F]" />
+              <Tool icon="https://cdn.simpleicons.org/starship/ffffff" name="Starship" color="bg-[#DD0B78]" />
+              <Tool icon="https://cdn.simpleicons.org/github/ffffff" name="GitHub CLI" color="bg-[#181717]" />
             </div>
           </Section>
 
           {/* 04 Apps */}
           <Section number="04" title="Apps" description="">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-12 gap-x-6 pt-2">
-              <Tool icon="R" name="Raycast" color="bg-red-500" />
-              <Tool icon="N" name="Notion" color="bg-neutral-800" />
-              <Tool icon="C" name="CleanShot X" color="bg-blue-400" />
-              <Tool icon="S" name="Screen Studio" color="bg-purple-600" />
-              <Tool icon="1" name="1Password" color="bg-blue-600" />
-              <Tool icon="K" name="Karabiner" color="bg-neutral-600" subtitle="Elements" />
-              <Tool icon="S" name="Spotify" color="bg-green-500" />
+              <Tool icon="https://cdn.simpleicons.org/raycast/ffffff" name="Raycast" color="bg-[#FF6363]" />
+              <Tool icon="https://cdn.simpleicons.org/notion/ffffff" name="Notion" color="bg-[#000000]" />
+              <Tool icon="https://cdn.simpleicons.org/mac-os/ffffff" name="CleanShot X" color="bg-[#007AFF]" />
+              <Tool icon="https://cdn.simpleicons.org/obsstudio/ffffff" name="Screen Studio" color="bg-[#302E31]" />
+              <Tool icon="https://cdn.simpleicons.org/1password/ffffff" name="1Password" color="bg-[#0058F5]" />
+              <Tool icon="https://cdn.simpleicons.org/apple/ffffff" name="Karabiner" color="bg-[#999999]" subtitle="Elements" />
+              <Tool icon="https://cdn.simpleicons.org/spotify/ffffff" name="Spotify" color="bg-[#1DB954]" />
             </div>
           </Section>
         </div>
@@ -123,15 +123,21 @@ function Section({
 }
 
 function Tool({ icon, name, color, subtitle }: { icon: string; name: string; color: string; subtitle?: string }) {
+  const isImage = icon.startsWith("http") || icon.startsWith("/");
+
   return (
     <div className="flex flex-col items-center text-center gap-3 group cursor-default">
       <div
         className={cn(
-          "w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-xl font-bold text-white shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1",
+          "w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-xl font-bold text-white shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1 overflow-hidden",
           color
         )}
       >
-        {icon}
+        {isImage ? (
+          <Image src={icon} alt={name} width={32} height={32} className="w-8 h-8 object-contain" unoptimized />
+        ) : (
+          icon
+        )}
       </div>
       <div>
         <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors block">
