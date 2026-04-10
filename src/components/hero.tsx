@@ -2,8 +2,6 @@
 
 import { profile } from "@/data/profile";
 import { ArrowRight, Copy } from "lucide-react";
-import { ShootingStars } from "@/components/ui/shooting-stars";
-import { StarsBackground } from "@/components/ui/stars-background";
 import { HeroNetwork } from "@/components/ui/hero-network";
 import { useRef } from "react";
 import gsap from "gsap";
@@ -132,23 +130,6 @@ export function Hero() {
       {/* Background Effects */}
       <div ref={backgroundRef} className="absolute inset-0 z-0">
         <HeroNetwork />
-        <StarsBackground
-          starDensity={0.00009}
-          allStarsTwinkle={true}
-          twinkleProbability={0.55}
-          minTwinkleSpeed={0.6}
-          maxTwinkleSpeed={1.2}
-          className="opacity-35"
-        />
-        <ShootingStars
-          starColor="#A5B4FC"
-          trailColor="#22D3EE"
-          minSpeed={10}
-          maxSpeed={22}
-          minDelay={4500}
-          maxDelay={9500}
-          className="opacity-15"
-        />
       </div>
 
       {/* Grain Overlay */}
