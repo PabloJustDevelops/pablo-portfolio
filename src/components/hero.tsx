@@ -2,9 +2,7 @@
 
 import { profile } from "@/data/profile";
 import { ArrowRight, Copy } from "lucide-react";
-import { ShootingStars } from "@/components/ui/shooting-stars";
-import { StarsBackground } from "@/components/ui/stars-background";
-import { AuroraBloom } from "@/components/ui/aurora-bloom";
+import { HeroNetwork } from "@/components/ui/hero-network";
 import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -128,27 +126,10 @@ export function Hero() {
   };
 
   return (
-    <div ref={containerRef} className="relative flex flex-col items-center justify-center text-center w-full min-h-screen overflow-hidden bg-black selection:bg-blue-500/30 pb-40">
+    <div ref={containerRef} className="relative flex flex-col items-center justify-center text-center w-full min-h-screen overflow-hidden bg-white dark:bg-black selection:bg-blue-500/30 pb-40">
       {/* Background Effects */}
       <div ref={backgroundRef} className="absolute inset-0 z-0">
-        <AuroraBloom intensity="normal" />
-        <StarsBackground
-          starDensity={0.00009}
-          allStarsTwinkle={true}
-          twinkleProbability={0.55}
-          minTwinkleSpeed={0.6}
-          maxTwinkleSpeed={1.2}
-          className="opacity-35"
-        />
-        <ShootingStars
-          starColor="#A5B4FC"
-          trailColor="#22D3EE"
-          minSpeed={10}
-          maxSpeed={22}
-          minDelay={4500}
-          maxDelay={9500}
-          className="opacity-15"
-        />
+        <HeroNetwork />
       </div>
 
       {/* Grain Overlay */}
@@ -159,15 +140,15 @@ export function Hero() {
         {/* Badge */}
         <div
           ref={badgeRef}
-          className="mb-8 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_0_15px_-3px_rgba(255,255,255,0.1)]"
+          className="mb-8 px-4 py-1.5 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 backdrop-blur-md shadow-[0_0_15px_-3px_rgba(0,0,0,0.1)]"
         >
-          <span className="text-xs text-neutral-300 font-medium tracking-wide">
+          <span className="text-xs text-neutral-700 dark:text-neutral-300 font-medium tracking-wide">
             Disponible para nuevos proyectos
           </span>
         </div>
 
         {/* Headline */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif tracking-tight text-white leading-[1.1] flex flex-col items-center" style={{ perspective: "1000px" }}>
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif tracking-tight text-black dark:text-white leading-[1.1] flex flex-col items-center" style={{ perspective: "1000px" }}>
           {/* We wrap text in overflow-hidden containers to create a mask reveal effect */}
           <div className="overflow-hidden pb-2">
             <span ref={titleLine1Ref} className="block bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-400">
@@ -184,9 +165,9 @@ export function Hero() {
         {/* Subtitle / Profile */}
         <div
           ref={profileRef}
-          className="mt-4 flex items-center gap-3 text-lg text-neutral-400 max-w-xl font-sans mx-auto"
+          className="mt-4 flex items-center gap-3 text-lg text-neutral-600 dark:text-neutral-400 max-w-xl font-sans mx-auto"
         >
-          <div className="w-8 h-8 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center text-xs font-bold text-white">
+          <div className="w-8 h-8 rounded-full bg-neutral-200 dark:bg-neutral-800 border border-neutral-700 flex items-center justify-center text-xs font-bold text-black dark:text-white">
             {profile.name.charAt(0)}
           </div>
           <p>
@@ -202,7 +183,7 @@ export function Hero() {
           <a
             href="mailto:pabloroga6@gmail.com"
             onClick={handleConfetti}
-            className="group relative px-8 py-4 rounded-full bg-white text-black font-semibold text-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.5)]"
+            className="group relative px-8 py-4 rounded-full bg-white text-black font-semibold text-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_-5px_rgba(0,0,0,0.5)]"
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-violet-400 opacity-0 group-hover:opacity-20 blur-lg transition-opacity duration-300" />
             <span className="relative z-10 flex items-center gap-2">
@@ -215,7 +196,7 @@ export function Hero() {
           </a>
 
           <button
-            className="group flex items-center gap-2 text-neutral-400 hover:text-white text-sm font-medium transition-colors px-4 py-2 rounded-full hover:bg-white/5"
+            className="group flex items-center gap-2 text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white text-sm font-medium transition-colors px-4 py-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5"
             onClick={() => {
               navigator.clipboard.writeText("pabloroga6@gmail.com");
             }}

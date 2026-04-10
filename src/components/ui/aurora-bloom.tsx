@@ -51,7 +51,7 @@ export function AuroraBloom({ className, intensity = "normal" }: AuroraBloomProp
       aria-hidden="true"
       className={cn("absolute inset-0 z-0 pointer-events-none overflow-hidden", className)}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_50%_40%,_rgba(255,255,255,0.06)_0%,_transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_50%_40%,_rgba(0,0,0,0.06)_0%,_transparent_60%)]" />
 
       <div
         ref={motionRef}

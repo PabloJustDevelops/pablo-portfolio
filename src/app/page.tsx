@@ -6,7 +6,7 @@ import { ContactSection } from "@/components/contact-section";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white font-sans antialiased selection:bg-neutral-800">
+    <main className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-sans antialiased selection:bg-neutral-800">
       {/* Hero Section Full Width */}
       <section className="w-full h-screen min-h-[600px] flex items-center justify-center border-b border-white/5">
         <Hero />
@@ -29,7 +29,7 @@ export default function Home() {
       </div>
       
       {/* Footer */}
-      <footer className="w-full text-center text-xs text-neutral-500 py-8 border-t border-white/5">
+      <footer className="w-full text-center text-xs text-neutral-500 dark:text-neutral-500 py-8 border-t border-white/5">
         <p>© {new Date().getFullYear()} Pablo Rodríguez Garijo. Built with Next.js, Tailwind & Love.</p>
       </footer>
     </main>

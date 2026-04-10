@@ -120,12 +120,12 @@ export function StatusBento() {
         ref={leftCardRef}
         className="md:col-span-2 h-full"
       >
-        <div className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent h-full">
-          <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-white/10 p-8 flex flex-col justify-between min-h-[220px] h-full shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_20px_60px_-35px_rgba(124,58,237,0.45)] transition-all duration-500 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_90px_-45px_rgba(59,130,246,0.35)]">
+        <div className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-black/5 dark:via-white/5 to-transparent h-full">
+          <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-black/10 dark:ring-white/10 p-8 flex flex-col justify-between min-h-[220px] h-full shadow-[0_0_0_1px_rgba(0,0,0,0.02),0_20px_60px_-35px_rgba(124,58,237,0.45)] transition-all duration-500 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_1px_rgba(0,0,0,0.05),0_30px_90px_-45px_rgba(59,130,246,0.35)]">
             <div className="absolute inset-0">
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-500/20 via-transparent to-transparent opacity-70" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-blue-500/15 via-transparent to-transparent opacity-70" />
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.06] [mask-image:radial-gradient(ellipse_at_center,black_55%,transparent_100%)]" />
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000010_1px,transparent_1px),linear-gradient(to_bottom,#00000010_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.06] [mask-image:radial-gradient(ellipse_at_center,black_55%,transparent_100%)]" />
             </div>
         
             <div className="relative flex flex-col h-full">
@@ -140,22 +140,22 @@ export function StatusBento() {
                     Codificando
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/10 shadow-inner">
+                <div className="flex items-center gap-2 text-xs font-mono text-neutral-500 dark:text-neutral-400 bg-black/5 dark:bg-white/5 px-3 py-1.5 rounded-full border border-black/10 dark:border-white/10 shadow-inner">
                   <span className="text-emerald-400 animate-pulse">●</span> {time ? `${time} LOCAL` : '00:00:00 LOCAL'}
                 </div>
               </div>
               
               <div className="flex-1 flex flex-col justify-end">
-                <h3 className="text-2xl md:text-3xl font-serif text-white mb-2 leading-tight">
+                <h3 className="text-2xl md:text-3xl font-serif text-black dark:text-white mb-2 leading-tight">
                   Building scalable SaaS products
                 </h3>
-                <p className="text-neutral-400 text-sm max-w-md leading-relaxed mb-6">
+                <p className="text-neutral-500 dark:text-neutral-400 text-sm max-w-md leading-relaxed mb-6">
                   Actualmente enfocado en desarrollo full-stack, optimización de rendimiento y arquitecturas modernas.
                 </p>
 
                 {/* Gráfico de actividad tipo GitHub */}
                 <div className="flex flex-col gap-2.5 opacity-80 hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-[10px] text-neutral-500 font-mono uppercase tracking-wider flex items-center gap-2">
+                  <span className="text-[10px] text-neutral-500 dark:text-neutral-500 font-mono uppercase tracking-wider flex items-center gap-2">
                     Actividad Reciente
                   </span>
                   <div className="flex gap-1.5 flex-wrap sm:flex-nowrap overflow-hidden">
@@ -188,9 +188,9 @@ export function StatusBento() {
 
       <div
         ref={rightCardRef}
-        className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-white/5 to-transparent h-full"
+        className="relative group rounded-3xl p-[1px] bg-gradient-to-br from-white/15 via-black/5 dark:via-white/5 to-transparent h-full"
       >
-        <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-white/10 p-6 flex flex-col justify-between min-h-[220px] h-full shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_20px_60px_-35px_rgba(59,130,246,0.35)] transition-all duration-500 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_30px_90px_-45px_rgba(59,130,246,0.45)]">
+        <div className="relative overflow-hidden rounded-3xl bg-neutral-950/90 ring-1 ring-black/10 dark:ring-white/10 p-6 flex flex-col justify-between min-h-[220px] h-full shadow-[0_0_0_1px_rgba(0,0,0,0.02),0_20px_60px_-35px_rgba(59,130,246,0.35)] transition-all duration-500 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_1px_rgba(0,0,0,0.05),0_30px_90px_-45px_rgba(59,130,246,0.45)]">
           <div
             className="absolute -inset-8 opacity-30 blur-2xl scale-110"
             style={{
@@ -210,7 +210,7 @@ export function StatusBento() {
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="px-2 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-neutral-200/70">
+              <span className="px-2 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-[10px] text-neutral-200/70">
                 Last.fm
               </span>
               {(nowPlaying?.isPlaying || isLoading) && (
@@ -228,7 +228,7 @@ export function StatusBento() {
           </div>
 
           <div className="relative flex flex-col items-center justify-center flex-1 gap-5 mt-4 mb-2">
-            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden shrink-0 ring-1 ring-white/10 bg-neutral-900 shadow-2xl transition-transform duration-500 group-hover:scale-105 group-hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.5)]">
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden shrink-0 ring-1 ring-black/10 dark:ring-white/10 bg-neutral-100 dark:bg-neutral-900 shadow-2xl transition-transform duration-500 group-hover:scale-105 group-hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.5)]">
               <div className="absolute inset-0 bg-white/10" />
               {isLoading ? (
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -247,8 +247,8 @@ export function StatusBento() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                   {nowPlaying?.isPlaying && (
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center ring-1 ring-white/10 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.8)]">
-                        <Play size={16} className="text-white ml-1" />
+                      <div className="w-10 h-10 rounded-full bg-white/50 dark:bg-black/50 backdrop-blur-md flex items-center justify-center ring-1 ring-black/10 dark:ring-white/10 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.8)]">
+                        <Play size={16} className="text-black dark:text-white ml-1" />
                       </div>
                     </div>
                   )}
@@ -259,16 +259,16 @@ export function StatusBento() {
             <div className="flex flex-col items-center text-center overflow-hidden w-full px-2">
             {isLoading ? (
               <>
-                <div className="h-5 bg-white/10 rounded w-3/4 animate-pulse mb-3"></div>
-                <div className="h-3 bg-white/5 rounded w-1/2 animate-pulse mb-3"></div>
-                <div className="h-5 bg-white/5 rounded-full w-1/3 animate-pulse mt-1"></div>
+                <div className="h-5 bg-black/10 dark:bg-white/10 rounded w-3/4 animate-pulse mb-3"></div>
+                <div className="h-3 bg-black/5 dark:bg-white/5 rounded w-1/2 animate-pulse mb-3"></div>
+                <div className="h-5 bg-black/5 dark:bg-white/5 rounded-full w-1/3 animate-pulse mt-1"></div>
               </>
             ) : (
               <>
                 <Link 
                   href={nowPlaying?.url || "#"} 
                   target="_blank"
-                  className="text-base sm:text-lg font-semibold text-white hover:text-blue-200 transition-colors truncate w-full"
+                  className="text-base sm:text-lg font-semibold text-black dark:text-white hover:text-blue-200 transition-colors truncate w-full"
                   title={nowPlaying?.title}
                 >
                   {nowPlaying?.title || "Sin reproducción"}
@@ -278,12 +278,12 @@ export function StatusBento() {
                 </span>
                 
                 {nowPlaying?.isPlaying ? (
-                  <span className="text-[11px] text-neutral-200/80 mt-3 flex items-center justify-center gap-1.5 font-medium px-3 py-1 rounded-full bg-white/10 border border-white/10 backdrop-blur-md">
+                  <span className="text-[11px] text-neutral-200/80 mt-3 flex items-center justify-center gap-1.5 font-medium px-3 py-1 rounded-full bg-black/10 dark:bg-white/10 border border-black/10 dark:border-white/10 backdrop-blur-md">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.6)]"></span>
                     EN VIVO · YouTube
                   </span>
                 ) : (
-                  <span className="text-[11px] text-neutral-200/60 mt-3 font-medium px-3 py-1 rounded-full bg-white/5 border border-white/5 backdrop-blur-md">
+                  <span className="text-[11px] text-neutral-200/60 mt-3 font-medium px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 backdrop-blur-md">
                     Última escuchada
                   </span>
                 )}
