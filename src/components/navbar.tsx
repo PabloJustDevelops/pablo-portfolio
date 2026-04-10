@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Command } from "lucide-react";
+import { ChevronDown, Command, Link as LinkIcon, Laptop, Trophy } from "lucide-react";
 import { Logo } from "./logo";
 import { useEffect, useRef, useState } from "react";
 import { ContactModal } from "./contact-modal";
@@ -19,7 +19,9 @@ export function Navbar() {
   const [activeHash, setActiveHash] = useState("");
   const [pillStyle, setPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
   const [modalState, setModalState] = useState<"closed" | "contact" | "navigation">("closed");
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const moreMenuRef = useRef<HTMLDivElement>(null);
 
   // Sync hash on mount and hash changes
   useEffect(() => {
@@ -32,6 +34,17 @@ export function Navbar() {
     
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  // Handle click outside for More menu
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target as Node)) {
+        setIsMoreOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Update pill position when pathname or hash changes
@@ -117,7 +130,7 @@ export function Navbar() {
       </div>
 
       {/* Center: Pill Navigation */}
-      <div className="relative flex items-center gap-1 p-1.5 rounded-full bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-2xl pointer-events-auto">
+      <div ref={moreMenuRef} className="relative flex items-center gap-1 p-1.5 rounded-full bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-2xl pointer-events-auto">
         <nav ref={navRef} className="relative flex items-center gap-1">
           {/* Animated Background Pill */}
           <div
@@ -157,6 +170,7 @@ export function Navbar() {
                   } else if (item.href === "/") {
                     setActiveHash("");
                   }
+                  setIsMoreOpen(false);
                 }}
               >
                 {item.name}
@@ -164,9 +178,15 @@ export function Navbar() {
             );
           })}
           
-          <button className="relative z-10 flex items-center gap-1 text-sm font-medium text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors px-4 py-2">
+          <button 
+            onClick={() => setIsMoreOpen(!isMoreOpen)}
+            className={cn(
+              "relative z-10 flex items-center gap-1 text-sm font-medium transition-colors px-4 py-2 rounded-full",
+              isMoreOpen ? "text-black dark:text-white bg-black/5 dark:bg-white/10" : "text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
+            )}
+          >
             More
-            <ChevronDown size={14} className="opacity-50" />
+            <ChevronDown size={14} className={cn("opacity-50 transition-transform duration-300", isMoreOpen && "rotate-180")} />
           </button>
         </nav>
 
@@ -178,6 +198,59 @@ export function Navbar() {
         >
           Book a Call
         </button>
+
+        {/* Dropdown Menu */}
+        {isMoreOpen && (
+          <div className="absolute top-[calc(100%+16px)] left-1/2 -translate-x-1/2 w-[340px] sm:w-[500px] bg-white dark:bg-[#1a1a1c] border border-black/10 dark:border-white/10 rounded-[2rem] shadow-2xl p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 animate-in fade-in slide-in-from-top-4 duration-300 z-50 pointer-events-auto">
+            
+            {/* Bucket List Card */}
+            <Link href="#" onClick={() => setIsMoreOpen(false)} className="group relative h-48 sm:h-full rounded-[1.5rem] overflow-hidden block border border-black/5 dark:border-white/5">
+              <img 
+                src="https://images.unsplash.com/photo-1521685350720-6f020612b7a4?q=80&w=800&auto=format&fit=crop" 
+                alt="Bucket List" 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 inset-x-0 p-5 flex flex-col justify-end">
+                <h4 className="text-white font-bold text-lg leading-tight">Bucket List</h4>
+                <p className="text-white/80 text-xs mt-1">Things to do at least once in my life</p>
+              </div>
+            </Link>
+
+            {/* Links List */}
+            <div className="flex flex-col gap-2">
+              <Link href="#" onClick={() => setIsMoreOpen(false)} className="flex items-center gap-4 p-3 rounded-[1.25rem] border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors">
+                <div className="w-10 h-10 rounded-[0.85rem] bg-black/5 dark:bg-white/10 flex items-center justify-center shrink-0 border border-black/5 dark:border-white/5">
+                  <LinkIcon size={18} className="text-neutral-600 dark:text-neutral-400" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-black dark:text-white leading-tight">Links</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">All my links are here</p>
+                </div>
+              </Link>
+              
+              <Link href="#" onClick={() => setIsMoreOpen(false)} className="flex items-center gap-4 p-3 rounded-[1.25rem] border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors">
+                <div className="w-10 h-10 rounded-[0.85rem] bg-black/5 dark:bg-white/10 flex items-center justify-center shrink-0 border border-black/5 dark:border-white/5">
+                  <Laptop size={18} className="text-neutral-600 dark:text-neutral-400" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-black dark:text-white leading-tight">Uses</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">A peek into my digital...</p>
+                </div>
+              </Link>
+              
+              <Link href="#" onClick={() => setIsMoreOpen(false)} className="flex items-center gap-4 p-3 rounded-[1.25rem] border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors">
+                <div className="w-10 h-10 rounded-[0.85rem] bg-black/5 dark:bg-white/10 flex items-center justify-center shrink-0 border border-black/5 dark:border-white/5">
+                  <Trophy size={18} className="text-neutral-600 dark:text-neutral-400" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-black dark:text-white leading-tight">Attribution</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">Journey to create this site</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Right: Command Menu Trigger */}
