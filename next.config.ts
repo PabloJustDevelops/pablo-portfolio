@@ -41,6 +41,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "www.pcvarge.com",
+      },
+      {
+        protocol: "https",
         hostname: "images.unsplash.com",
       }
     ],

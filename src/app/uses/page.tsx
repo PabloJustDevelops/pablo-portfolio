@@ -24,15 +24,15 @@ export default function UsesPage() {
           {/* 01 Workstation */}
           <Section number="01" title="Workstation" description="The physical tools I rely on every day.">
             <div className="rounded-3xl bg-neutral-100 dark:bg-[#111111] border border-black/5 dark:border-white/5 overflow-hidden">
-              <div className="relative aspect-[16/10] bg-black w-full overflow-hidden">
+              <div className="relative aspect-[16/10] bg-white w-full overflow-hidden flex items-center justify-center">
                 <Image
-                  src="https://coreva-normal.trae.ai/api/ide/v1/text_to_image?prompt=Front-facing%20hero%20shot%20of%20a%20modern%20black%20gaming%20laptop%20%28Gigabyte%20G5%20KC%29%2C%20open%20screen%20displaying%20a%20sleek%20abstract%20dark%20blue%20and%20black%20wallpaper%2C%20set%20against%20a%20blurred%20dark%20background%20with%20elegant%20light%20rays%2C%20cinematic%20studio%20lighting%2C%20photorealistic%2C%208k%20resolution%2C%20highly%20detailed%2C%20centered%20composition&image_size=landscape_16_9"
+                  src="https://www.pcvarge.com/wp-content/uploads/2022/02/Gigabyte-G5-KC-5US1130SH-Review-scaled.jpg"
                   alt="Gigabyte G5 KC Laptop"
                   fill
                   unoptimized
-                  className="object-cover opacity-90 object-center"
+                  className="object-contain p-8"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent dark:from-black/20" />
               </div>
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 p-6 md:p-8">
                 <div>
