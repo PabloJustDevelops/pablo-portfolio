@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Command, Link as LinkIcon, Laptop, Trophy } from "lucide-react";
 import { Logo } from "./logo";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { ContactModal } from "./contact-modal";
 
@@ -204,16 +205,19 @@ export function Navbar() {
           <div className="absolute top-[calc(100%+16px)] left-1/2 -translate-x-1/2 w-[340px] sm:w-[500px] bg-white dark:bg-[#1a1a1c] border border-black/10 dark:border-white/10 rounded-[2rem] shadow-2xl p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 animate-in fade-in slide-in-from-top-4 duration-300 z-50 pointer-events-auto">
             
             {/* Bucket List Card */}
-            <Link href="#" onClick={() => setIsMoreOpen(false)} className="group relative h-48 sm:h-full rounded-[1.5rem] overflow-hidden block border border-black/5 dark:border-white/5">
-              <img 
-                src="https://images.unsplash.com/photo-1521685350720-6f020612b7a4?q=80&w=800&auto=format&fit=crop" 
-                alt="Bucket List" 
+            <Link href="#" onClick={() => setIsMoreOpen(false)} className="group relative h-48 sm:h-full rounded-[1.5rem] overflow-hidden block border border-black/5 dark:border-white/5 bg-neutral-900">
+              <Image 
+                src="https://images.unsplash.com/photo-1521685350720-6f020612b7a4?auto=format&fit=crop&w=800&q=80" 
+                alt="" 
+                fill
+                sizes="(max-width: 768px) 100vw, 300px"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                unoptimized
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
               <div className="absolute bottom-0 inset-x-0 p-5 flex flex-col justify-end">
-                <h4 className="text-white font-bold text-lg leading-tight">Bucket List</h4>
-                <p className="text-white/80 text-xs mt-1">Things to do at least once in my life</p>
+                <h4 className="text-white font-sans font-bold text-lg leading-tight tracking-tight">Bucket List</h4>
+                <p className="text-white/80 font-sans text-xs mt-1">Things to do at least once in my life</p>
               </div>
             </Link>
 
