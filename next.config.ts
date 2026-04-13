@@ -37,6 +37,14 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "coreva-normal.trae.ai",
+      },
+      {
+        protocol: "https",
+        hostname: "www.pcvarge.com",
+      },
+      {
+        protocol: "https",
         hostname: "images.unsplash.com",
       }
     ],
