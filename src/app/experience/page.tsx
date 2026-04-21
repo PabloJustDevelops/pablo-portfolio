@@ -1,7 +1,9 @@
 import { Metadata } from "next";
-import { Briefcase, Code2, Rocket, Network } from "lucide-react";
+import Link from "next/link";
 import { profile } from "@/data/profile";
 import { ContactSection } from "@/components/contact-section";
+import { experience } from "@/data/experience";
+import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
   title: `Work Experience | ${profile.name}`,
@@ -20,167 +22,119 @@ export default function ExperiencePage() {
 
       {/* Main Grid Container */}
       <div className="max-w-6xl mx-auto border-x border-black/5 dark:border-white/5 relative z-10">
-        
-        {/* Global Vertical Grid Line */}
-        <div className="absolute top-0 bottom-0 left-1/3 w-px bg-black/5 dark:bg-white/5 hidden md:block pointer-events-none z-0" />
 
         {/* Header Section */}
-        <header className="text-center py-20 md:py-32 flex flex-col items-center justify-center border-b border-black/5 dark:border-white/5 relative bg-neutral-50/80 dark:bg-[#0a0a0a]/80 backdrop-blur-sm z-10">
+        <header className="text-center py-20 md:py-28 flex flex-col items-center justify-center border-b border-black/5 dark:border-white/5 relative bg-neutral-50/80 dark:bg-[#0a0a0a]/80 backdrop-blur-sm z-10">
           <p className="text-xs font-bold tracking-[0.2em] text-neutral-500 dark:text-neutral-400 uppercase mb-6">
-            The Journey
+            Experiencia
           </p>
-          <h1 className="text-5xl md:text-7xl font-playfair tracking-tight mb-6">
-            Professional{" "}
+          <h1 className="text-5xl md:text-7xl font-serif tracking-tight mb-6">
+            Work{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 italic pr-2">
               Experience
             </span>
           </h1>
           <p className="text-neutral-500 dark:text-neutral-400 text-lg max-w-2xl font-light px-4">
-            A timeline of my career, the companies I&apos;ve worked with, and the impact I&apos;ve made along the way.
+            Una línea de tiempo de roles, responsabilidades y resultados.
           </p>
+          {profile.social?.linkedin && (
+            <div className="mt-10">
+              <Link
+                href={profile.social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-medium text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all duration-300 uppercase tracking-widest"
+              >
+                Contactar
+              </Link>
+            </div>
+          )}
         </header>
 
         <div className="flex flex-col relative z-10">
-          
-          {/* Role 1 */}
-          <section className="flex flex-col md:flex-row border-b border-black/5 dark:border-white/5 relative">
-            {/* Left Column (Timeline/Date) */}
-            <div className="md:w-1/3 p-8 md:p-12 shrink-0 flex flex-col justify-start">
-              <p className="text-xs font-bold text-neutral-400 dark:text-neutral-500 mb-4 font-mono">
-                2023 — Present
-              </p>
-              <h2 className="text-2xl md:text-3xl font-playfair font-semibold text-black dark:text-white mb-2">
-                TechCorp Inc.
-              </h2>
-              <p className="text-neutral-500 dark:text-neutral-400 text-sm">
-                San Francisco, CA (Remote)
-              </p>
-            </div>
-            
-            {/* Right Column (Content) */}
-            <div className="md:w-2/3 p-8 md:p-12 flex flex-col gap-6">
-              <div className="group relative overflow-hidden rounded-[2rem] bg-white/[0.02] border border-black/5 dark:border-white/5 p-8 sm:p-10 hover:bg-white/[0.04] transition-colors duration-500 shadow-sm">
-                <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity duration-500 group-hover:scale-110 transform">
-                  <Briefcase size={100} className="text-blue-400" />
+          {experience.map((exp, idx) => (
+            <section
+              key={`${exp.company}-${exp.period}-${idx}`}
+              className="relative border-b border-black/5 dark:border-white/5"
+            >
+              <div className="flex flex-col md:flex-row relative">
+                <div className="md:w-1/3 p-8 md:p-12 shrink-0 relative">
+                  <div className="hidden md:block absolute left-0 top-0 bottom-0 w-px bg-black/5 dark:bg-white/5" />
+                  <div className="hidden md:block absolute -left-[5px] top-12 w-2.5 h-2.5 rounded-full bg-neutral-200 dark:bg-neutral-800 border-2 border-white dark:border-neutral-900" />
+
+                  <p className="text-xs font-bold text-neutral-400 dark:text-neutral-500 mb-4 font-mono">
+                    {exp.period}
+                  </p>
+                  <h2 className="text-2xl md:text-3xl font-serif font-semibold text-black dark:text-white mb-2">
+                    {exp.company}
+                  </h2>
+                  {(exp.location || exp.scope) && (
+                    <div className="text-neutral-500 dark:text-neutral-400 text-sm space-y-1">
+                      {exp.location && <div>{exp.location}</div>}
+                      {exp.scope && <div>{exp.scope}</div>}
+                    </div>
+                  )}
                 </div>
-                
-                <div className="relative z-10">
-                  <h3 className="text-3xl font-serif text-black dark:text-white mb-6">Senior Full-Stack Developer</h3>
-                  
+
+                <div className="md:w-2/3 p-8 md:p-12 flex flex-col gap-6">
                   <div className="space-y-4">
-                    <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                      Leading a team of 5 developers to build scalable web applications. Reduced load times by 40% and implemented a new microservices architecture.
-                    </p>
-                    <div className="flex flex-wrap gap-2 pt-4">
-                      {["React", "Next.js", "Node.js", "AWS", "TypeScript"].map(tag => (
-                        <span key={tag} className="px-3 py-1 rounded-md bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs text-neutral-600 dark:text-neutral-300">
+                    <h3 className="text-3xl md:text-4xl font-serif text-black dark:text-white">
+                      {exp.role}
+                    </h3>
+                    {exp.summary && (
+                      <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                        {exp.summary}
+                      </p>
+                    )}
+                  </div>
+
+                  <ul className="space-y-3">
+                    {exp.highlights.map((item, i) => (
+                      <li
+                        key={i}
+                        className="flex gap-3 text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                      >
+                        <span className="mt-2 inline-block w-1.5 h-1.5 rounded-full bg-neutral-400/60 dark:bg-neutral-500/60" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {exp.stack && exp.stack.length > 0 && (
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {exp.stack.map((tag) => (
+                        <Badge
+                          key={tag}
+                          variant="secondary"
+                          className="bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 text-black dark:text-white transition-colors"
+                        >
                           {tag}
-                        </span>
+                        </Badge>
                       ))}
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+                  )}
 
-          {/* Role 2 */}
-          <section className="flex flex-col md:flex-row border-b border-black/5 dark:border-white/5 relative">
-            {/* Left Column (Timeline/Date) */}
-            <div className="md:w-1/3 p-8 md:p-12 shrink-0 flex flex-col justify-start">
-              <p className="text-xs font-bold text-neutral-400 dark:text-neutral-500 mb-4 font-mono">
-                2021 — 2023
-              </p>
-              <h2 className="text-2xl md:text-3xl font-playfair font-semibold text-black dark:text-white mb-2">
-                Creative Digital
-              </h2>
-              <p className="text-neutral-500 dark:text-neutral-400 text-sm">
-                New York, NY
-              </p>
-            </div>
-            
-            {/* Right Column (Content) */}
-            <div className="md:w-2/3 p-8 md:p-12 flex flex-col gap-6">
-              <div className="group relative overflow-hidden rounded-[2rem] bg-white/[0.02] border border-black/5 dark:border-white/5 p-8 sm:p-10 hover:bg-white/[0.04] transition-colors duration-500 shadow-sm">
-                <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity duration-500 group-hover:scale-110 transform">
-                  <Network size={100} className="text-cyan-400" />
-                </div>
-                
-                <div className="relative z-10">
-                  <h3 className="text-3xl font-serif text-black dark:text-white mb-6">Frontend Developer</h3>
-                  
-                  <div className="space-y-4">
-                    <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                      Developed highly interactive marketing websites and internal dashboards for major brands. Focused on UI/UX, animations, and responsive design.
-                    </p>
-                    <div className="flex flex-wrap gap-2 pt-4">
-                      {["Vue.js", "GSAP", "Tailwind", "Figma", "Firebase"].map(tag => (
-                        <span key={tag} className="px-3 py-1 rounded-md bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs text-neutral-600 dark:text-neutral-300">
-                          {tag}
-                        </span>
+                  {exp.links && exp.links.length > 0 && (
+                    <div className="flex flex-wrap gap-4 pt-2">
+                      {exp.links.map((l) => (
+                        <Link
+                          key={l.href}
+                          href={l.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white underline underline-offset-4"
+                        >
+                          {l.label}
+                        </Link>
                       ))}
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
-            </div>
-          </section>
-
-          {/* Open Source / Freelance */}
-          <section className="flex flex-col md:flex-row border-b border-black/5 dark:border-white/5 relative">
-            {/* Left Column (Timeline/Date) */}
-            <div className="md:w-1/3 p-8 md:p-12 shrink-0 flex flex-col justify-start">
-              <p className="text-xs font-bold text-neutral-400 dark:text-neutral-500 mb-4 font-mono">
-                Ongoing
-              </p>
-              <h2 className="text-2xl md:text-3xl font-playfair font-semibold text-black dark:text-white mb-2">
-                Open Source & Freelance
-              </h2>
-              <p className="text-neutral-500 dark:text-neutral-400 text-sm">
-                Global
-              </p>
-            </div>
-            
-            {/* Right Column (Content) */}
-            <div className="md:w-2/3 p-8 md:p-12 flex flex-col sm:flex-row gap-6">
-              <div className="flex-1 rounded-[2rem] bg-gradient-to-br from-cyan-500/10 to-blue-500/5 border border-black/5 dark:border-white/5 p-8 relative overflow-hidden group shadow-sm">
-                <div className="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-110 transition-transform duration-500">
-                  <Code2 size={100} className="text-cyan-400" />
-                </div>
-                <h4 className="text-xl font-serif text-black dark:text-white mb-6 relative z-10">Notable Projects</h4>
-                <ul className="space-y-6 relative z-10">
-                  <li className="space-y-1">
-                    <div className="text-sm font-medium text-cyan-600 dark:text-cyan-300">React Component Library</div>
-                    <div className="text-xs text-neutral-500">Creator • 500+ Stars</div>
-                  </li>
-                  <li className="space-y-1">
-                    <div className="text-sm font-medium text-cyan-600 dark:text-cyan-300">E-commerce Platform</div>
-                    <div className="text-xs text-neutral-500">Freelance Lead • 2023</div>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="flex-1 rounded-[2rem] bg-white/[0.02] border border-black/5 dark:border-white/5 p-8 flex flex-col justify-center items-center text-center group hover:border-blue-500/30 transition-colors shadow-sm">
-                <Rocket className="text-neutral-500 dark:text-neutral-500 group-hover:text-blue-500 dark:group-hover:text-blue-400 mb-4 transition-colors" size={40} />
-                <div className="text-sm text-neutral-500 dark:text-neutral-400">Always looking for</div>
-                <div className="text-xl font-medium text-black dark:text-white mt-2 font-serif">The next big challenge</div>
-              </div>
-            </div>
-          </section>
-
-          {/* Suggestion / Placeholder Note for the User */}
-          <div className="p-8 md:p-12 relative z-10">
-            <div className="p-6 rounded-2xl border border-dashed border-blue-500/30 bg-blue-500/5 text-center max-w-2xl mx-auto">
-              <p className="text-sm text-blue-600 dark:text-blue-300/80 mb-2 font-mono uppercase tracking-widest">Dev Note</p>
-              <p className="text-neutral-700 dark:text-neutral-300 font-light text-sm">
-                This is the template for your Work Experience. Replace the texts and dates with your actual work history.
-                You can duplicate the sections to add more companies to your timeline!
-              </p>
-            </div>
-          </div>
+            </section>
+          ))}
         </div>
 
-        {/* Recycled Contact / Call to action section */}
         <div className="border-t border-black/5 dark:border-white/5">
           <ContactSection />
         </div>
