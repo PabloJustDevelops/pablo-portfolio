@@ -29,99 +29,151 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
 
-  useGSAP(
-    () => {
-      if (prefersReducedMotion) return;
-      if (!sectionRef.current) return;
+  useGSAP(() => {
+    if (prefersReducedMotion) return;
+    if (!sectionRef.current) return;
 
-      const chapterTriggers: ScrollTrigger[] = [];
+    const chapterTriggers: ScrollTrigger[] = [];
 
-      const createActiveIndexTriggers = () => {
-        chapterTriggers.forEach((t) => t.kill());
-        chapterTriggers.length = 0;
+    chaptersRef.current.forEach((el, idx) => {
+      if (!el) return;
+      chapterTriggers.push(
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top center",
+          end: "bottom center",
+          onToggle: (self) => {
+            if (self.isActive) setActiveIndex(idx);
+          },
+        })
+      );
+    });
 
-        chaptersRef.current.forEach((el, idx) => {
-          if (!el) return;
-          chapterTriggers.push(
-            ScrollTrigger.create({
-              trigger: el,
-              start: "top center",
-              end: "bottom center",
-              onToggle: (self) => {
-                if (self.isActive) setActiveIndex(idx);
-              },
-            })
-          );
-        });
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      if (!desktopRailRef.current || !desktopProgressRef.current || !desktopHaloRef.current) return;
+
+      let maxY = 0;
+      const measure = () => {
+        const railRect = desktopRailRef.current!.getBoundingClientRect();
+        const haloRect = desktopHaloRef.current!.getBoundingClientRect();
+        maxY = Math.max(0, railRect.height - haloRect.height);
       };
 
-      createActiveIndexTriggers();
+      measure();
 
-      const desktopTrigger =
-        desktopRailRef.current && desktopProgressRef.current && desktopHaloRef.current
-          ? ScrollTrigger.create({
-              trigger: sectionRef.current,
-              start: "top top",
-              end: "bottom bottom",
-              scrub: true,
-              onUpdate: (self) => {
-                const railRect = desktopRailRef.current!.getBoundingClientRect();
-                const haloRect = desktopHaloRef.current!.getBoundingClientRect();
-                const maxY = Math.max(0, railRect.height - haloRect.height);
-                const p = self.progress;
-                gsap.set(desktopProgressRef.current!, { scaleY: p, transformOrigin: "top center" });
-                gsap.set(desktopHaloRef.current!, { y: p * maxY });
-              },
-            })
-          : null;
-
-      const mobileTrigger =
-        mobileRailRef.current && mobileProgressRef.current && mobileHaloRef.current
-          ? ScrollTrigger.create({
-              trigger: sectionRef.current,
-              start: "top top",
-              end: "bottom bottom",
-              scrub: true,
-              onUpdate: (self) => {
-                const railRect = mobileRailRef.current!.getBoundingClientRect();
-                const haloRect = mobileHaloRef.current!.getBoundingClientRect();
-                const maxY = Math.max(0, railRect.height - haloRect.height);
-                const p = self.progress;
-                gsap.set(mobileProgressRef.current!, { scaleY: p, transformOrigin: "top center" });
-                gsap.set(mobileHaloRef.current!, { y: p * maxY });
-              },
-            })
-          : null;
+      const st = ScrollTrigger.create({
+        trigger: sectionRef.current!,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        onUpdate: (self) => {
+          const p = self.progress;
+          gsap.set(desktopProgressRef.current!, { scaleY: p, transformOrigin: "top center" });
+          gsap.set(desktopHaloRef.current!, { y: p * maxY });
+        },
+      });
 
       const onRefresh = () => {
-        desktopTrigger?.update();
-        mobileTrigger?.update();
+        measure();
+        st.update();
       };
 
       ScrollTrigger.addEventListener("refresh", onRefresh);
 
       return () => {
         ScrollTrigger.removeEventListener("refresh", onRefresh);
-        desktopTrigger?.kill();
-        mobileTrigger?.kill();
-        chapterTriggers.forEach((t) => t.kill());
+        st.kill();
       };
-    },
-    { scope: sectionRef }
-  );
+    });
+
+    mm.add("(max-width: 767px)", () => {
+      if (!mobileRailRef.current || !mobileProgressRef.current || !mobileHaloRef.current) return;
+
+      let maxY = 0;
+      const measure = () => {
+        const railRect = mobileRailRef.current!.getBoundingClientRect();
+        const haloRect = mobileHaloRef.current!.getBoundingClientRect();
+        maxY = Math.max(0, railRect.height - haloRect.height);
+      };
+
+      measure();
+
+      const st = ScrollTrigger.create({
+        trigger: sectionRef.current!,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        onUpdate: (self) => {
+          const p = self.progress;
+          gsap.set(mobileProgressRef.current!, { scaleY: p, transformOrigin: "top center" });
+          gsap.set(mobileHaloRef.current!, { y: p * maxY });
+        },
+      });
+
+      const onRefresh = () => {
+        measure();
+        st.update();
+      };
+
+      ScrollTrigger.addEventListener("refresh", onRefresh);
+
+      return () => {
+        ScrollTrigger.removeEventListener("refresh", onRefresh);
+        st.kill();
+      };
+    });
+
+    return () => {
+      mm.revert();
+      chapterTriggers.forEach((t) => t.kill());
+    };
+  }, { scope: sectionRef });
 
   return (
     <div ref={sectionRef} className="relative">
-      <div className="md:hidden pointer-events-none fixed left-4 top-1/2 -translate-y-1/2 h-[60vh] w-6 z-20">
-        <div ref={mobileRailRef} className="relative h-full w-px bg-black/10 dark:bg-white/10 rounded-full mx-auto">
-          <div
-            ref={mobileProgressRef}
-            className="absolute inset-0 origin-top scale-y-0 bg-gradient-to-b from-blue-600 via-cyan-500 to-teal-400 rounded-full"
-          />
-          <div ref={mobileHaloRef} className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ top: 0 }}>
-            <div className="relative">
-              <div className="absolute inset-0 -m-3 rounded-full bg-cyan-400/15 blur-md" />
-              <div className="w-2.5 h-2.5 rounded-full bg-white dark:bg-black border border-black/20 dark:border-white/20" />
+      <div className="md:hidden pointer-events-none absolute left-4 top-0 bottom-0 w-6 z-20">
+        <div className="sticky top-0 h-screen flex items-center justify-center">
+          <div className="relative h-[60vh] w-6 flex items-stretch justify-center">
+            <div ref={mobileRailRef} className="relative h-full w-px bg-black/15 dark:bg-white/25 rounded-full">
+              <div
+                ref={mobileProgressRef}
+                className="absolute inset-0 origin-top scale-y-0 bg-gradient-to-b from-blue-500 via-cyan-400 to-teal-300 rounded-full"
+              />
+              <div
+                ref={mobileHaloRef}
+                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2"
+                style={{ top: 0 }}
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 -m-4 rounded-full bg-cyan-400/25 blur-lg" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-cyan-300 border border-white/40 shadow-[0_0_22px_rgba(34,211,238,0.35)]" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="hidden md:block pointer-events-none absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[80px] z-20">
+        <div className="sticky top-0 h-screen flex items-center justify-center">
+          <div className="relative h-[70vh] w-[80px] flex items-stretch justify-center">
+            <div ref={desktopRailRef} className="relative h-full w-px bg-black/15 dark:bg-white/25 rounded-full">
+              <div
+                ref={desktopProgressRef}
+                className="absolute inset-0 origin-top scale-y-0 bg-gradient-to-b from-blue-500 via-cyan-400 to-teal-300 rounded-full"
+              />
+              <div
+                ref={desktopHaloRef}
+                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2"
+                style={{ top: 0 }}
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 -m-6 rounded-full bg-cyan-400/30 blur-xl" />
+                  <div className="w-3.5 h-3.5 rounded-full bg-cyan-300 border border-white/40 shadow-[0_0_30px_rgba(34,211,238,0.45)]" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -152,28 +204,7 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
                 )}
               </div>
 
-              <div className="hidden md:block relative">
-                <div className="sticky top-0 h-screen flex items-center justify-center">
-                  <div className="relative h-[70vh] w-[80px] flex items-stretch justify-center">
-                    <div ref={desktopRailRef} className="relative w-px bg-black/10 dark:bg-white/10 rounded-full">
-                      <div
-                        ref={desktopProgressRef}
-                        className="absolute inset-0 origin-top scale-y-0 bg-gradient-to-b from-blue-600 via-cyan-500 to-teal-400 rounded-full"
-                      />
-                      <div
-                        ref={desktopHaloRef}
-                        className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2"
-                        style={{ top: 0 }}
-                      >
-                        <div className="relative">
-                          <div className="absolute inset-0 -m-4 rounded-full bg-cyan-400/20 blur-lg" />
-                          <div className="w-3 h-3 rounded-full bg-white dark:bg-black border border-black/20 dark:border-white/20" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div className="hidden md:block" />
 
               <div className="pl-12 pr-6 pb-10 md:px-6 md:py-12 flex flex-col gap-6">
                 <div className="space-y-4">
@@ -232,12 +263,9 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
                 )}
               </div>
             </div>
-
-            <div className="md:hidden absolute left-4 top-0 bottom-0 w-px bg-black/10 dark:bg-white/10" />
           </section>
         ))}
       </div>
     </div>
   );
 }
-
