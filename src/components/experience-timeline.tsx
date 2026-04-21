@@ -14,15 +14,17 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const desktopRailRef = useRef<HTMLDivElement>(null);
-  const desktopProgressRef = useRef<HTMLDivElement>(null);
   const desktopHaloRef = useRef<HTMLDivElement>(null);
 
   const mobileRailRef = useRef<HTMLDivElement>(null);
-  const mobileProgressRef = useRef<HTMLDivElement>(null);
   const mobileHaloRef = useRef<HTMLDivElement>(null);
+
+  const metaProbeRef = useRef<HTMLDivElement>(null);
+  const contentProbeRef = useRef<HTMLDivElement>(null);
 
   const chaptersRef = useRef<Array<HTMLElement | null>>([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [desktopX, setDesktopX] = useState<number | null>(null);
 
   const prefersReducedMotion = useMemo(() => {
     if (typeof window === "undefined") return true;
@@ -52,13 +54,21 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 768px)", () => {
-      if (!desktopRailRef.current || !desktopProgressRef.current || !desktopHaloRef.current) return;
+      if (!desktopRailRef.current || !desktopHaloRef.current) return;
 
       let maxY = 0;
       const measure = () => {
         const railRect = desktopRailRef.current!.getBoundingClientRect();
         const haloRect = desktopHaloRef.current!.getBoundingClientRect();
         maxY = Math.max(0, railRect.height - haloRect.height);
+
+        if (sectionRef.current && metaProbeRef.current && contentProbeRef.current) {
+          const sectionRect = sectionRef.current.getBoundingClientRect();
+          const metaRect = metaProbeRef.current.getBoundingClientRect();
+          const contentRect = contentProbeRef.current.getBoundingClientRect();
+          const x = (metaRect.right + contentRect.left) / 2 - sectionRect.left;
+          setDesktopX(x);
+        }
       };
 
       measure();
@@ -70,7 +80,6 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
         scrub: true,
         onUpdate: (self) => {
           const p = self.progress;
-          gsap.set(desktopProgressRef.current!, { scaleY: p, transformOrigin: "top center" });
           gsap.set(desktopHaloRef.current!, { y: p * maxY });
         },
       });
@@ -89,7 +98,7 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
     });
 
     mm.add("(max-width: 767px)", () => {
-      if (!mobileRailRef.current || !mobileProgressRef.current || !mobileHaloRef.current) return;
+      if (!mobileRailRef.current || !mobileHaloRef.current) return;
 
       let maxY = 0;
       const measure = () => {
@@ -107,7 +116,6 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
         scrub: true,
         onUpdate: (self) => {
           const p = self.progress;
-          gsap.set(mobileProgressRef.current!, { scaleY: p, transformOrigin: "top center" });
           gsap.set(mobileHaloRef.current!, { y: p * maxY });
         },
       });
@@ -136,19 +144,15 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
       <div className="md:hidden pointer-events-none absolute left-4 top-0 bottom-0 w-6 z-20">
         <div className="sticky top-0 h-screen flex items-center justify-center">
           <div className="relative h-[60vh] w-6 flex items-stretch justify-center">
-            <div ref={mobileRailRef} className="relative h-full w-px bg-black/15 dark:bg-white/25 rounded-full">
-              <div
-                ref={mobileProgressRef}
-                className="absolute inset-0 origin-top scale-y-0 bg-gradient-to-b from-blue-500 via-cyan-400 to-teal-300 rounded-full"
-              />
+            <div ref={mobileRailRef} className="relative h-full w-[2px] bg-white/15 dark:bg-white/20 rounded-full">
               <div
                 ref={mobileHaloRef}
                 className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2"
                 style={{ top: 0 }}
               >
                 <div className="relative">
-                  <div className="absolute inset-0 -m-4 rounded-full bg-cyan-400/25 blur-lg" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-cyan-300 border border-white/40 shadow-[0_0_22px_rgba(34,211,238,0.35)]" />
+                  <div className="absolute inset-0 -m-5 rounded-full bg-cyan-400/30 blur-xl" />
+                  <div className="w-3 h-3 rounded-full bg-cyan-300 border border-white/50 shadow-[0_0_30px_rgba(34,211,238,0.55)]" />
                 </div>
               </div>
             </div>
@@ -156,13 +160,16 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
         </div>
       </div>
 
-      <div className="hidden md:block pointer-events-none absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[80px] z-20">
-        <div className="sticky top-0 h-screen flex items-center justify-center">
-          <div className="relative h-[70vh] w-[80px] flex items-stretch justify-center">
-            <div ref={desktopRailRef} className="relative h-full w-px bg-black/15 dark:bg-white/25 rounded-full">
+      {desktopX !== null && (
+        <div
+          className="hidden md:block pointer-events-none absolute top-0 bottom-0 -translate-x-1/2 w-10 z-20"
+          style={{ left: desktopX }}
+        >
+          <div className="sticky top-0 h-screen flex items-center justify-center">
+            <div className="relative h-[70vh] w-10 flex items-stretch justify-center">
               <div
-                ref={desktopProgressRef}
-                className="absolute inset-0 origin-top scale-y-0 bg-gradient-to-b from-blue-500 via-cyan-400 to-teal-300 rounded-full"
+                ref={desktopRailRef}
+                className="relative h-full w-[2px] bg-white/15 dark:bg-white/20 rounded-full"
               />
               <div
                 ref={desktopHaloRef}
@@ -170,14 +177,14 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
                 style={{ top: 0 }}
               >
                 <div className="relative">
-                  <div className="absolute inset-0 -m-6 rounded-full bg-cyan-400/30 blur-xl" />
-                  <div className="w-3.5 h-3.5 rounded-full bg-cyan-300 border border-white/40 shadow-[0_0_30px_rgba(34,211,238,0.45)]" />
+                  <div className="absolute inset-0 -m-7 rounded-full bg-cyan-400/35 blur-2xl" />
+                  <div className="w-4 h-4 rounded-full bg-cyan-300 border border-white/50 shadow-[0_0_40px_rgba(34,211,238,0.65)]" />
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="flex flex-col">
         {items.map((exp, idx) => (
@@ -189,7 +196,10 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
             className="relative border-b border-black/5 dark:border-white/5 md:min-h-[85vh]"
           >
             <div className="md:grid md:grid-cols-[1fr_80px_1.6fr] md:gap-0">
-              <div className="pl-12 pr-6 py-10 md:px-6 md:py-12">
+              <div
+                ref={idx === 0 ? metaProbeRef : undefined}
+                className="pl-12 pr-6 py-10 md:px-6 md:py-12"
+              >
                 <p className="text-xs font-bold text-neutral-400 dark:text-neutral-500 mb-4 font-mono">
                   {exp.period}
                 </p>
@@ -206,7 +216,10 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
 
               <div className="hidden md:block" />
 
-              <div className="pl-12 pr-6 pb-10 md:px-6 md:py-12 flex flex-col gap-6">
+              <div
+                ref={idx === 0 ? contentProbeRef : undefined}
+                className="pl-12 pr-6 pb-10 md:px-6 md:py-12 flex flex-col gap-6"
+              >
                 <div className="space-y-4">
                   <h3
                     className={[
