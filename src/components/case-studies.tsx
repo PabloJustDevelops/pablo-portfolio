@@ -50,14 +50,14 @@ function CaseStudyItem({
   totalProjects: number;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const stackRef = useRef<HTMLDivElement>(null);
   const cardBodyRef = useRef<HTMLDivElement>(null);
   
   useGSAP(() => {
     // Only apply scroll animations if user hasn't requested reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
-    if (!prefersReducedMotion && cardRef.current && cardBodyRef.current && containerRef.current) {
+    if (!prefersReducedMotion && stackRef.current && cardBodyRef.current && containerRef.current) {
       const targetScale = 1 - ((totalProjects - index) * 0.05);
       
       const tl = gsap.timeline({
@@ -70,7 +70,7 @@ function CaseStudyItem({
         defaults: { ease: "none" }
       });
 
-      tl.to(cardRef.current, { scale: targetScale, transformOrigin: "top center" }, 0);
+      tl.to(stackRef.current, { scale: targetScale, transformOrigin: "top center" }, 0);
       tl.to(cardBodyRef.current, { opacity: 0.3 }, 0);
     }
   }, { scope: containerRef });
@@ -89,24 +89,24 @@ function CaseStudyItem({
           className="w-full max-w-2xl relative"
         >
           <div style={{ marginTop: `${index * 30}px` }}>
-            <div ref={cardRef}>
+            <div ref={stackRef}>
+              <div className="hidden lg:flex items-center justify-between text-xs font-mono text-neutral-500 dark:text-neutral-500 mb-4 px-2">
+                <div className="flex items-center gap-4">
+                  <span>{(index + 1).toString().padStart(2, '0')}</span>
+                  <div className="h-px w-12 bg-neutral-800" />
+                  <span className="uppercase tracking-widest">{project.category}</span>
+                </div>
+                <span className="rounded-full border border-neutral-200 dark:border-neutral-800 px-3 py-1 bg-neutral-900/50">
+                  {project.period}
+                </span>
+              </div>
+
               <Link 
                 href={project.link} 
                 target="_blank" 
                 className="group block w-full shadow-[0_0_40px_rgba(0,0,0,0.5)] rounded-[2rem]"
               >
                 <div className={`relative overflow-hidden rounded-[2rem] pt-8 px-8 md:pt-12 md:px-12 ${project.accentColor} transition-transform duration-300 ring-1 ring-black/10 dark:ring-white/10 h-[45vh] lg:h-[60vh] flex flex-col`}>
-                  <div className="hidden lg:flex items-center justify-between text-xs font-mono text-black/70 dark:text-white/70 mb-6">
-                    <div className="flex items-center gap-4">
-                      <span>{(index + 1).toString().padStart(2, '0')}</span>
-                      <div className="h-px w-12 bg-black/40 dark:bg-white/30" />
-                      <span className="uppercase tracking-widest">{project.category}</span>
-                    </div>
-                    <span className="rounded-full border border-black/15 dark:border-white/15 px-3 py-1 bg-black/10 dark:bg-white/10">
-                      {project.period}
-                    </span>
-                  </div>
-
                   <div ref={cardBodyRef} className="flex flex-col flex-1">
                     <div className="flex justify-between items-start mb-8 lg:mb-12">
                       <p className="text-xl md:text-2xl font-medium text-black dark:text-white max-w-xl leading-relaxed drop-shadow-sm">
