@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { projects } from "@/data/projects";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
@@ -85,7 +85,6 @@ function CaseStudyItem({
       {/* Left Side: Transparent background, sticky card inside */}
       <div className="w-full lg:w-[55%] xl:w-[60%] flex items-start justify-center relative lg:h-full px-4 lg:px-8 py-12 lg:py-0 lg:pt-24 xl:pt-32">
         <div
-          ref={cardRef}
           className="w-full max-w-2xl relative"
         >
           <div style={{ marginTop: `${index * 30}px` }}>
@@ -101,30 +100,32 @@ function CaseStudyItem({
               </span>
             </div>
 
-            <Link 
-              href={project.link} 
-              target="_blank" 
-              className="group block w-full shadow-[0_0_40px_rgba(0,0,0,0.5)] rounded-[2rem]"
-            >
-              <div className={`relative overflow-hidden rounded-[2rem] pt-8 px-8 md:pt-12 md:px-12 ${project.accentColor} transition-transform duration-300 ring-1 ring-black/10 dark:ring-white/10 h-[45vh] lg:h-[60vh] flex flex-col`}>
-                <div className="flex justify-between items-start mb-8 lg:mb-12">
-                  <p className="text-xl md:text-2xl font-medium text-black dark:text-white max-w-xl leading-relaxed drop-shadow-sm">
-                    {project.cardText}
-                  </p>
-                  <ArrowRight className="text-black dark:text-white opacity-70 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-300 w-6 h-6 md:w-8 md:h-8 flex-shrink-0 ml-4" />
+            <div ref={cardRef}>
+              <Link 
+                href={project.link} 
+                target="_blank" 
+                className="group block w-full shadow-[0_0_40px_rgba(0,0,0,0.5)] rounded-[2rem]"
+              >
+                <div className={`relative overflow-hidden rounded-[2rem] pt-8 px-8 md:pt-12 md:px-12 ${project.accentColor} transition-transform duration-300 ring-1 ring-black/10 dark:ring-white/10 h-[45vh] lg:h-[60vh] flex flex-col`}>
+                  <div className="flex justify-between items-start mb-8 lg:mb-12">
+                    <p className="text-xl md:text-2xl font-medium text-black dark:text-white max-w-xl leading-relaxed drop-shadow-sm">
+                      {project.cardText}
+                    </p>
+                    <ArrowRight className="text-black dark:text-white opacity-70 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-300 w-6 h-6 md:w-8 md:h-8 flex-shrink-0 ml-4" />
+                  </div>
+                  
+                  <div className="relative mt-auto w-full flex-1 rounded-t-xl overflow-hidden shadow-2xl transform translate-y-6 group-hover:translate-y-2 transition-transform duration-500 bg-neutral-900">
+                     {project.image ? (
+                        <Image src={project.image} alt={project.title} fill className="object-cover object-top" />
+                     ) : (
+                        <div className="absolute inset-0 flex items-center justify-center text-neutral-500">
+                            {project.title} Preview
+                        </div>
+                     )}
+                  </div>
                 </div>
-                
-                <div className="relative mt-auto w-full flex-1 rounded-t-xl overflow-hidden shadow-2xl transform translate-y-6 group-hover:translate-y-2 transition-transform duration-500 bg-neutral-900">
-                   {project.image ? (
-                      <Image src={project.image} alt={project.title} fill className="object-cover object-top" />
-                   ) : (
-                      <div className="absolute inset-0 flex items-center justify-center text-neutral-500">
-                          {project.title} Preview
-                      </div>
-                   )}
-                </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
