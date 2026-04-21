@@ -3,7 +3,7 @@ import Link from "next/link";
 import { profile } from "@/data/profile";
 import { ContactSection } from "@/components/contact-section";
 import { experience } from "@/data/experience";
-import { Badge } from "@/components/ui/badge";
+import { ExperienceTimeline } from "@/components/experience-timeline";
 
 export const metadata: Metadata = {
   title: `Work Experience | ${profile.name}`,
@@ -52,87 +52,7 @@ export default function ExperiencePage() {
         </header>
 
         <div className="flex flex-col relative z-10">
-          {experience.map((exp, idx) => (
-            <section
-              key={`${exp.company}-${exp.period}-${idx}`}
-              className="relative border-b border-black/5 dark:border-white/5"
-            >
-              <div className="flex flex-col md:flex-row relative">
-                <div className="md:w-1/3 p-8 md:p-12 shrink-0 relative">
-                  <div className="hidden md:block absolute left-0 top-0 bottom-0 w-px bg-black/5 dark:bg-white/5" />
-                  <div className="hidden md:block absolute -left-[5px] top-12 w-2.5 h-2.5 rounded-full bg-neutral-200 dark:bg-neutral-800 border-2 border-white dark:border-neutral-900" />
-
-                  <p className="text-xs font-bold text-neutral-400 dark:text-neutral-500 mb-4 font-mono">
-                    {exp.period}
-                  </p>
-                  <h2 className="text-2xl md:text-3xl font-serif font-semibold text-black dark:text-white mb-2">
-                    {exp.company}
-                  </h2>
-                  {(exp.location || exp.scope) && (
-                    <div className="text-neutral-500 dark:text-neutral-400 text-sm space-y-1">
-                      {exp.location && <div>{exp.location}</div>}
-                      {exp.scope && <div>{exp.scope}</div>}
-                    </div>
-                  )}
-                </div>
-
-                <div className="md:w-2/3 p-8 md:p-12 flex flex-col gap-6">
-                  <div className="space-y-4">
-                    <h3 className="text-3xl md:text-4xl font-serif text-black dark:text-white">
-                      {exp.role}
-                    </h3>
-                    {exp.summary && (
-                      <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                        {exp.summary}
-                      </p>
-                    )}
-                  </div>
-
-                  <ul className="space-y-3">
-                    {exp.highlights.map((item, i) => (
-                      <li
-                        key={i}
-                        className="flex gap-3 text-neutral-600 dark:text-neutral-400 leading-relaxed"
-                      >
-                        <span className="mt-2 inline-block w-1.5 h-1.5 rounded-full bg-neutral-400/60 dark:bg-neutral-500/60" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {exp.stack && exp.stack.length > 0 && (
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {exp.stack.map((tag) => (
-                        <Badge
-                          key={tag}
-                          variant="secondary"
-                          className="bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 text-black dark:text-white transition-colors"
-                        >
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
-
-                  {exp.links && exp.links.length > 0 && (
-                    <div className="flex flex-wrap gap-4 pt-2">
-                      {exp.links.map((l) => (
-                        <Link
-                          key={l.href}
-                          href={l.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white underline underline-offset-4"
-                        >
-                          {l.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </section>
-          ))}
+          <ExperienceTimeline items={experience} />
         </div>
 
         <div className="border-t border-black/5 dark:border-white/5">
