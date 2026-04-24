@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { TechBadge } from "@/components/tech-badge";
 import type { ExperienceItem } from "@/data/experience";
 
 export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
@@ -212,12 +213,7 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
                   {exp.stack && exp.stack.length > 0 && (
                     <div className="flex flex-wrap gap-2">
                       {exp.stack.map((tag) => (
-                        <Badge
-                          key={tag}
-                          className="bg-black/5 dark:bg-white/10 border-black/10 dark:border-white/10 text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/20"
-                        >
-                          {tag}
-                        </Badge>
+                        <TechBadge key={`${exp.id}-${tag}`} name={tag} />
                       ))}
                     </div>
                   )}
