@@ -10,8 +10,8 @@ export function Experience() {
       </div>
 
       <div className="flex flex-col gap-8 relative pl-4 border-l border-neutral-200 dark:border-neutral-800 ml-2">
-        {experience.map((exp, idx) => (
-          <div key={idx} className="relative pl-6">
+        {experience.map((exp) => (
+          <div key={exp.id} className="relative pl-6">
              <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-neutral-200 dark:bg-neutral-800 border-2 border-white dark:border-neutral-900" />
              <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">{exp.role}</h3>
              <div className="flex justify-between items-center text-xs text-neutral-500 dark:text-neutral-500 mt-1">

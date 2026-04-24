@@ -52,7 +52,9 @@ export default function ExperiencePage() {
         </header>
 
         <div className="flex flex-col relative z-10">
-          <ExperienceTimeline items={experience} />
+          <div className="px-6 md:px-10 py-10 md:py-16">
+            <ExperienceTimeline items={experience} />
+          </div>
         </div>
 
         <div className="border-t border-black/5 dark:border-white/5">
