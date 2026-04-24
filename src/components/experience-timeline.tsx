@@ -18,6 +18,10 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
     if (typeof window === "undefined") return true;
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
+  const progress = useMemo(() => {
+    if (items.length <= 1) return 0;
+    return Math.min(1, Math.max(0, activeIndex / (items.length - 1)));
+  }, [activeIndex, items.length]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -61,7 +65,17 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative rounded-3xl overflow-hidden ring-1 ring-black/5 dark:ring-white/10">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(59,130,246,0.08)_0%,transparent_70%)] dark:bg-[radial-gradient(ellipse_at_top_right,rgba(59,130,246,0.12)_0%,transparent_75%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(168,85,247,0.07)_0%,transparent_65%)] dark:bg-[radial-gradient(ellipse_at_bottom_left,rgba(168,85,247,0.10)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.45] [mask-image:radial-gradient(ellipse_at_center,black_55%,transparent_100%)]" />
+        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.04] mix-blend-overlay" />
+      </div>
+
+      <div className="absolute inset-0 bg-white/70 dark:bg-[#0a0a0a]/60 backdrop-blur-[2px]" />
+
+      <div className="relative">
       <div className="md:hidden sticky top-20 z-20 bg-neutral-50/80 dark:bg-[#0a0a0a]/80 backdrop-blur-sm border-b border-black/5 dark:border-white/5">
         <nav
           aria-label="Índice de experiencia"
@@ -140,12 +154,28 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
               }}
               className="scroll-mt-28 border-b border-black/5 dark:border-white/5 px-4 md:px-8 py-12 md:py-16"
             >
+              <div className="mb-4 flex items-center justify-between gap-4">
+                <div className="text-[11px] font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+                  {exp.period.match(/\d{4}/)?.[0] ?? "—"}
+                </div>
+                <div className="text-[11px] font-mono text-neutral-500 dark:text-neutral-500">
+                  {(idx + 1).toString().padStart(2, "0")}
+                </div>
+              </div>
               <Card
                 className={cn(
-                  "bg-white/60 dark:bg-white/[0.02] ring-1 ring-black/5 dark:ring-white/10",
-                  idx === activeIndex && "ring-black/15 dark:ring-white/20"
+                  "relative bg-white/60 dark:bg-white/[0.02] ring-1 ring-black/5 dark:ring-white/10 transition-all duration-300",
+                  "hover:-translate-y-0.5 hover:ring-black/10 dark:hover:ring-white/15",
+                  idx === activeIndex && "ring-black/15 dark:ring-white/20 shadow-[0_18px_60px_-45px_rgba(59,130,246,0.35)]"
                 )}
               >
+                <div
+                  className={cn(
+                    "absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-blue-500 via-cyan-400 to-purple-400",
+                    "opacity-0 transition-opacity duration-300",
+                    idx === activeIndex && "opacity-100"
+                  )}
+                />
                 <CardHeader className="border-b border-black/5 dark:border-white/5">
                   <div className="flex flex-wrap items-center gap-2">
                     <Badge className="bg-black/5 dark:bg-white/10 border-black/10 dark:border-white/10 text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/20">
@@ -241,6 +271,15 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
             </section>
           ))}
         </div>
+      </div>
+      </div>
+      <div className="hidden md:block pointer-events-none absolute left-0 top-0 bottom-0 w-[1px] bg-black/5 dark:bg-white/10" />
+      <div className="hidden md:block pointer-events-none absolute left-0 top-0 bottom-0 w-20">
+        <div className="absolute left-10 top-24 bottom-24 w-[2px] bg-black/10 dark:bg-white/10 rounded-full" />
+        <div
+          className="absolute left-10 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-white dark:bg-black border border-black/20 dark:border-white/25 shadow-[0_0_0_6px_rgba(59,130,246,0.12)]"
+          style={{ top: `${14 + progress * 72}%` }}
+        />
       </div>
     </div>
   );
