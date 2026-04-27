@@ -36,7 +36,11 @@ export default function EducationPage() {
         </header>
 
         <EducationFeatured featured={educationPageData.featured} />
-        <EducationTimelineExperienceStyle items={educationPageData.timeline} />
+        <div className="flex flex-col relative z-10 border-t border-black/5 dark:border-white/5">
+          <div className="px-6 md:px-10 py-10 md:py-16">
+            <EducationTimelineExperienceStyle items={educationPageData.timeline} />
+          </div>
+        </div>
 
         {educationPageData.certifications && educationPageData.certifications.length > 0 && (
           <section className="px-6 md:px-10 py-12 md:py-16 border-t border-black/5 dark:border-white/5">

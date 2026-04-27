@@ -58,14 +58,14 @@ export function EducationTimelineExperienceStyle({ items }: { items: EducationIt
     setActiveIndex(idx);
   };
 
-  const shortLabel = (title: string) => {
-    if (title.includes("(SMR)") || title.includes("SMR")) return "SMR";
-    if (title.includes("(DAM)") || title.includes("DAM")) return "DAM";
-    return "Formación";
+  const indexLabel = (item: EducationItem) => {
+    if (item.title.includes("(SMR)") || item.title.includes("SMR")) return "SMR";
+    if (item.title.includes("(DAM)") || item.title.includes("DAM")) return "DAM";
+    return item.center;
   };
 
   return (
-    <div className="relative border-t border-black/5 dark:border-white/5">
+    <div className="relative">
       <div className="md:hidden sticky top-20 z-20 bg-neutral-50/80 dark:bg-[#0a0a0a]/80 backdrop-blur-sm border-b border-black/5 dark:border-white/5">
         <nav
           aria-label="Índice de educación"
@@ -88,7 +88,7 @@ export function EducationTimelineExperienceStyle({ items }: { items: EducationIt
                   : "text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white"
               )}
             >
-              <span className="font-medium">{shortLabel(edu.title)}</span>
+              <span className="font-medium">{indexLabel(edu)}</span>
             </button>
           ))}
         </nav>
@@ -115,14 +115,14 @@ export function EducationTimelineExperienceStyle({ items }: { items: EducationIt
                   aria-current={idx === activeIndex ? "true" : undefined}
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "sm" }),
-                    "h-auto items-start justify-start gap-2 px-3 py-2 rounded-xl border border-transparent text-left",
+                    "h-auto items-start justify-start gap-2 px-3 py-2 rounded-xl border border-transparent text-left whitespace-normal",
                     idx === activeIndex
                       ? "bg-black/5 dark:bg-white/10 border-black/10 dark:border-white/10 text-black dark:text-white"
                       : "text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white"
                   )}
                 >
-                  <span className="flex flex-col">
-                    <span className="text-sm font-medium leading-tight">{edu.title}</span>
+                  <span className="flex flex-col min-w-0">
+                    <span className="text-sm font-medium leading-tight">{indexLabel(edu)}</span>
                     <span className="text-[11px] font-mono text-neutral-500 dark:text-neutral-500 leading-tight">
                       {edu.period}
                     </span>
@@ -210,4 +210,3 @@ export function EducationTimelineExperienceStyle({ items }: { items: EducationIt
     </div>
   );
 }
-
