@@ -73,18 +73,6 @@ export const educationPageData: EducationPageData = {
             "Spring Boot",
           ],
         },
-        {
-          title: "Actualmente aprendiendo",
-          tags: [
-            "Arquitectura",
-            "Testing",
-            "OpenLayers/GIS",
-            "React Native",
-            "CI/CD",
-            "Seguridad",
-            "Backend con Node",
-          ],
-        },
       ],
     },
     project: {
