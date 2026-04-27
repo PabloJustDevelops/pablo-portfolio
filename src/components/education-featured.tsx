@@ -32,6 +32,24 @@ export function EducationFeatured({ featured }: { featured: EducationPageData["f
                 ))}
               </div>
             )}
+            {featured.main.sections && featured.main.sections.length > 0 && (
+              <div className="space-y-6">
+                {featured.main.sections.map((section) => (
+                  <div key={section.title} className="space-y-3">
+                    <div className="text-xs font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-500">
+                      {section.title}
+                    </div>
+                    {section.tags && section.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {section.tags.map((tag) => (
+                          <Badge key={`${section.title}-${tag}`}>{tag}</Badge>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -61,24 +79,7 @@ export function EducationFeatured({ featured }: { featured: EducationPageData["f
             </div>
           </CardContent>
         </Card>
-
-        <Card className="md:col-span-12 bg-white/60 dark:bg-white/[0.02] ring-1 ring-black/5 dark:ring-white/10">
-          <CardHeader className="border-b border-black/5 dark:border-white/5">
-            <div className="text-xl font-serif text-black dark:text-white">Actualmente aprendiendo</div>
-            <div className="text-neutral-600 dark:text-neutral-400">
-              Temas en los que estoy profundizando últimamente.
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-2">
-              {featured.learningNow.map((topic) => (
-                <Badge key={topic}>{topic}</Badge>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </section>
   );
 }
-

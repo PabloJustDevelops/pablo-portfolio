@@ -9,6 +9,10 @@ export type EducationItem = {
   summary?: string;
   highlights?: string[];
   tags?: string[];
+  sections?: Array<{
+    title: string;
+    tags?: string[];
+  }>;
   links?: EducationLink[];
 };
 
@@ -24,7 +28,6 @@ export type EducationPageData = {
   featured: {
     main: EducationItem;
     project: FeaturedProject;
-    learningNow: string[];
   };
   timeline: EducationItem[];
   certifications?: Array<{
@@ -53,6 +56,36 @@ export const educationPageData: EducationPageData = {
         "Flujos con Git, testing, despliegue básico con Docker y metodologías ágiles (Scrum/Kanban).",
       ],
       tags: ["Java", "SQL", "APIs REST", "Android", "Git", "Testing", "Docker", "Agile"],
+      sections: [
+        {
+          title: "Automatización & IA",
+          tags: [
+            "n8n",
+            "Python",
+            "OpenCV (cv2)",
+            "YOLO",
+            "Roboflow",
+            "MicroPython",
+            "TensorFlow",
+            "PyTorch",
+            "Entrenamiento de LLMs",
+            "Weka",
+            "Spring Boot",
+          ],
+        },
+        {
+          title: "Actualmente aprendiendo",
+          tags: [
+            "Arquitectura",
+            "Testing",
+            "OpenLayers/GIS",
+            "React Native",
+            "CI/CD",
+            "Seguridad",
+            "Backend con Node",
+          ],
+        },
+      ],
     },
     project: {
       name: "TravelPal",
@@ -66,15 +99,6 @@ export const educationPageData: EducationPageData = {
         "Sin mapas por limitación de API de pago.",
       ],
     },
-    learningNow: [
-      "Arquitectura",
-      "Testing",
-      "OpenLayers/GIS",
-      "React Native",
-      "CI/CD",
-      "Seguridad",
-      "Backend con Node",
-    ],
   },
   timeline: [
     {
