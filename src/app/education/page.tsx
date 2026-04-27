@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { profile } from "@/data/profile";
 import { educationPageData } from "@/data/education";
 import { EducationFeatured } from "@/components/education-featured";
-import { EducationTimeline } from "@/components/education-timeline";
+import { EducationTimelineExperienceStyle } from "@/components/education-timeline-experience-style";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -36,7 +36,7 @@ export default function EducationPage() {
         </header>
 
         <EducationFeatured featured={educationPageData.featured} />
-        <EducationTimeline items={educationPageData.timeline} />
+        <EducationTimelineExperienceStyle items={educationPageData.timeline} />
 
         {educationPageData.certifications && educationPageData.certifications.length > 0 && (
           <section className="px-6 md:px-10 py-12 md:py-16 border-t border-black/5 dark:border-white/5">

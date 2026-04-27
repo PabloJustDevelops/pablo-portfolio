@@ -78,23 +78,6 @@ export const educationPageData: EducationPageData = {
   },
   timeline: [
     {
-      id: "dam-2024-2026",
-      title: "Grado Superior — Desarrollo de Aplicaciones Multiplataforma (DAM)",
-      center: "IES Leonardo Da Vinci",
-      location: "Albacete, España",
-      period: "2024 — 2026",
-      summary:
-        "Base sólida de desarrollo full-stack y multiplataforma, con foco en prácticas de calidad y entrega.",
-      highlights: [
-        "POO con Java y fundamentos de estructuras de datos.",
-        "BBDD relacional, SQL y acceso a datos (JDBC/JPA/Hibernate).",
-        "APIs REST y consumo de servicios.",
-        "Android (Kotlin/Java) y UI responsive.",
-        "Git, testing, Docker y Agile.",
-      ],
-      tags: ["Java", "SQL", "REST", "Android", "Git", "Testing"],
-    },
-    {
       id: "smr-2022-2024",
       title: "FP Grado Medio — Sistemas Microinformáticos y Redes (SMR)",
       center: "IES Leonardo Da Vinci",
@@ -111,6 +94,22 @@ export const educationPageData: EducationPageData = {
       ],
       tags: ["Redes", "Windows", "Linux", "Soporte IT", "Seguridad"],
     },
+    {
+      id: "dam-2024-2026",
+      title: "Grado Superior — Desarrollo de Aplicaciones Multiplataforma (DAM)",
+      center: "IES Leonardo Da Vinci",
+      location: "Albacete, España",
+      period: "2024 — 2026",
+      summary:
+        "Base sólida de desarrollo full-stack y multiplataforma, con foco en prácticas de calidad y entrega.",
+      highlights: [
+        "POO con Java y fundamentos de estructuras de datos.",
+        "BBDD relacional, SQL y acceso a datos (JDBC/JPA/Hibernate).",
+        "APIs REST y consumo de servicios.",
+        "Android (Kotlin/Java) y UI responsive.",
+        "Git, testing, Docker y Agile.",
+      ],
+      tags: ["Java", "SQL", "REST", "Android", "Git", "Testing"],
+    },
   ],
 };
-
