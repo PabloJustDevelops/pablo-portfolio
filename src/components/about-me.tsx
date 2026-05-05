@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Github, Linkedin, Twitter, GraduationCap } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Twitter } from "lucide-react";
 import Link from "next/link";
 import { profile } from "@/data/profile";
 import { Logo } from "@/components/logo";
@@ -132,24 +132,11 @@ export function AboutMe() {
 
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <Link
-                href="/experience"
+                href="/about"
                 className="group flex items-center justify-between sm:justify-start gap-3 px-5 py-2.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-medium text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all duration-300 uppercase tracking-widest"
               >
-                <span>Work Experience</span>
+                <span>About Me</span>
                 <div className="w-6 h-6 rounded-full bg-black/10 dark:bg-white/10 flex items-center justify-center group-hover:bg-black/20 dark:group-hover:bg-white/20 transition-colors">
-                  <ArrowRight size={12} className="-rotate-45 group-hover:rotate-0 transition-transform duration-300" />
-                </div>
-              </Link>
-
-              <Link
-                href="/education"
-                className="group flex items-center justify-between sm:justify-start gap-3 px-5 py-2.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-medium text-indigo-200 hover:bg-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300 uppercase tracking-widest"
-              >
-                <span className="flex items-center gap-2">
-                  <GraduationCap size={14} className="text-indigo-400" />
-                  Education
-                </span>
-                <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center group-hover:bg-indigo-500/40 transition-colors">
                   <ArrowRight size={12} className="-rotate-45 group-hover:rotate-0 transition-transform duration-300" />
                 </div>
               </Link>

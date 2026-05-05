@@ -11,7 +11,7 @@ import { ContactModal } from "./contact-modal";
 
 const navItems = [
   { name: "Home", href: "/" },
-  { name: "About", href: "/#about" },
+  { name: "About", href: "/about" },
   { name: "Work", href: "/#work" },
 ];
 
@@ -21,8 +21,18 @@ export function Navbar() {
   const [pillStyle, setPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
   const [modalState, setModalState] = useState<"closed" | "contact" | "navigation">("closed");
   const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const moreMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Sync hash on mount and hash changes
   useEffect(() => {
@@ -122,7 +132,17 @@ export function Navbar() {
   }, [pathname, activeHash]);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 px-6 py-4 flex items-center justify-between pointer-events-none">
+    <header className="fixed top-0 inset-x-0 z-50 pointer-events-none">
+      <div className={cn(
+        "px-6 py-4 flex items-center justify-between transition-all duration-700",
+        scrolled ? "backdrop-blur-[2px]" : ""
+      )}>
+        <div className={cn(
+          "absolute inset-0 transition-opacity duration-700 pointer-events-none",
+          scrolled ? "opacity-100" : "opacity-0"
+        )}>
+          <div className="absolute inset-0 bg-gradient-to-b from-neutral-50/80 via-neutral-50/40 to-transparent dark:from-[#0a0a0a]/80 dark:via-[#0a0a0a]/40 dark:to-transparent" />
+        </div>
       {/* Left: Logo */}
       <div className="flex-1 flex items-center pointer-events-auto">
         <Link href="/" className="hover:opacity-80 transition-opacity">
@@ -131,7 +151,12 @@ export function Navbar() {
       </div>
 
       {/* Center: Pill Navigation */}
-      <div ref={moreMenuRef} className="relative flex items-center gap-1 p-1.5 rounded-full bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-2xl pointer-events-auto">
+      <div ref={moreMenuRef} className={cn(
+        "relative flex items-center gap-1 p-1.5 rounded-full border shadow-2xl pointer-events-auto transition-all duration-500",
+        scrolled
+          ? "bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border-black/10 dark:border-white/10"
+          : "bg-white/40 dark:bg-neutral-900/40 backdrop-blur-sm border-black/5 dark:border-white/5"
+      )}>
         <nav ref={navRef} className="relative flex items-center gap-1">
           {/* Animated Background Pill */}
           <div
@@ -205,7 +230,7 @@ export function Navbar() {
           <div className="absolute top-[calc(100%+16px)] left-1/2 -translate-x-1/2 w-[340px] sm:w-[500px] bg-white dark:bg-[#1a1a1c] border border-black/10 dark:border-white/10 rounded-[2rem] shadow-2xl p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 animate-in fade-in slide-in-from-top-4 duration-300 z-50 pointer-events-auto">
             
             {/* Bucket List Card */}
-            <Link href="#" onClick={() => setIsMoreOpen(false)} className="group relative h-48 sm:h-full rounded-[1.5rem] overflow-hidden block border border-black/5 dark:border-white/5 bg-neutral-900">
+            <Link href="/bucket-list" onClick={() => setIsMoreOpen(false)} className="group relative h-48 sm:h-full rounded-[1.5rem] overflow-hidden block border border-black/5 dark:border-white/5 bg-neutral-900">
               <Image 
                 src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80" 
                 alt="Florida Summer Beach" 
@@ -222,7 +247,7 @@ export function Navbar() {
 
             {/* Links List */}
             <div className="flex flex-col gap-2">
-              <Link href="#" onClick={() => setIsMoreOpen(false)} className="flex items-center gap-4 p-3 rounded-[1.25rem] border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors">
+              <Link href="/links" onClick={() => setIsMoreOpen(false)} className="flex items-center gap-4 p-3 rounded-[1.25rem] border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors">
                 <div className="w-10 h-10 rounded-[0.85rem] bg-black/5 dark:bg-white/10 flex items-center justify-center shrink-0 border border-black/5 dark:border-white/5">
                   <LinkIcon size={18} className="text-neutral-600 dark:text-neutral-400" />
                 </div>
@@ -272,6 +297,7 @@ export function Navbar() {
         initialView={modalState === "closed" ? "contact" : modalState}
         onClose={() => setModalState("closed")} 
       />
+      </div>
     </header>
   );
 }

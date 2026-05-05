@@ -8,7 +8,8 @@ import { sendEmail } from "@/app/actions/send-email";
 import { 
   ArrowRight, Mail, ChevronLeft, Linkedin, Twitter, Github, 
   Search, Sun, Moon, Home, Folder, Book, Phone, Trophy, User, 
-  FileText, List, Laptop, Link as LinkIcon, ArrowUpRight, Loader2 
+  FileText, List, Laptop, Link as LinkIcon, ArrowUpRight, Loader2,
+  Briefcase, GraduationCap
 } from "lucide-react";
 import { profile } from "@/data/profile";
 import Link from "next/link";
@@ -184,8 +185,8 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                       <button className="text-xs text-neutral-500 dark:text-neutral-500 hover:text-black dark:hover:text-white transition-colors">Clear</button>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="px-3 py-1.5 text-xs text-neutral-500 dark:text-neutral-400 border border-black/10 dark:border-white/10 rounded-full border-dashed cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">Bucket List</span>
-                      <span className="px-3 py-1.5 text-xs text-neutral-500 dark:text-neutral-400 border border-black/10 dark:border-white/10 rounded-full border-dashed cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">Privacy Policy</span>
+                      <Link href="/bucket-list" onClick={onClose} className="px-3 py-1.5 text-xs text-neutral-500 dark:text-neutral-400 border border-black/10 dark:border-white/10 rounded-full border-dashed hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">Bucket List</Link>
+                      <Link href="/experience" onClick={onClose} className="px-3 py-1.5 text-xs text-neutral-500 dark:text-neutral-400 border border-black/10 dark:border-white/10 rounded-full border-dashed hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">Experience</Link>
                     </div>
                   </div>
 
@@ -213,13 +214,19 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                         <span className="text-sm font-medium truncate">Projects</span>
                       </Link>
                       
-                      <Link href="#" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
-                        <Book size={16} className="opacity-70" />
-                        <span className="text-sm font-medium truncate">Guestbook</span>
-                      </Link>
-                      <Link href="#" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
+                      <Link href="/bucket-list" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
                         <List size={16} className="opacity-70" />
                         <span className="text-sm font-medium truncate">Bucket List</span>
+                      </Link>
+                      
+                      <Link href="/experience" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
+                        <Briefcase size={16} className="opacity-70" />
+                        <span className="text-sm font-medium truncate">Experience</span>
+                      </Link>
+                      
+                      <Link href="/education" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
+                        <GraduationCap size={16} className="opacity-70" />
+                        <span className="text-sm font-medium truncate">Education</span>
                       </Link>
                       
                       <button onClick={() => switchView("contact")} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors w-full text-left">
@@ -235,7 +242,7 @@ export function ContactModal({ isOpen, onClose, initialView = "contact" }: Conta
                         <Trophy size={16} className="opacity-70" />
                         <span className="text-sm font-medium truncate">Attribution</span>
                       </Link>
-                      <Link href="#" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
+                      <Link href="/links" onClick={onClose} className="flex items-center gap-3 min-w-0 flex-1 p-2.5 rounded-xl text-neutral-500 dark:text-neutral-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors">
                         <LinkIcon size={16} className="opacity-70" />
                         <span className="text-sm font-medium truncate">Links</span>
                       </Link>

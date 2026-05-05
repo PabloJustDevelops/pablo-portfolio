@@ -33,7 +33,7 @@ export function ContactForm() {
 
   async function onSubmit(data: ContactFormValues) {
     setIsPending(true);
-    
+
     try {
       const result = await sendEmail(data);
 
@@ -66,12 +66,12 @@ export function ContactForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-neutral-300">Nombre</FormLabel>
+                <FormLabel className="text-neutral-700 dark:text-neutral-300">Nombre</FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder="Tu nombre" 
-                    {...field} 
-                    className="bg-neutral-900/50 border-neutral-800 text-neutral-800 dark:text-neutral-200 placeholder:text-neutral-600 focus:border-blue-500/50 focus:ring-blue-500/20"
+                  <Input
+                    placeholder="Tu nombre"
+                    {...field}
+                    className="bg-white/60 dark:bg-white/[0.03] border-black/10 dark:border-white/10 text-black dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus:border-blue-500/50 focus:ring-blue-500/20"
                   />
                 </FormControl>
                 <FormMessage />
@@ -83,12 +83,12 @@ export function ContactForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-neutral-300">Email</FormLabel>
+                <FormLabel className="text-neutral-700 dark:text-neutral-300">Email</FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder="tu@email.com" 
-                    {...field} 
-                    className="bg-neutral-900/50 border-neutral-800 text-neutral-800 dark:text-neutral-200 placeholder:text-neutral-600 focus:border-blue-500/50 focus:ring-blue-500/20"
+                  <Input
+                    placeholder="tu@email.com"
+                    {...field}
+                    className="bg-white/60 dark:bg-white/[0.03] border-black/10 dark:border-white/10 text-black dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus:border-blue-500/50 focus:ring-blue-500/20"
                   />
                 </FormControl>
                 <FormMessage />
@@ -101,22 +101,22 @@ export function ContactForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-neutral-300">Mensaje</FormLabel>
+              <FormLabel className="text-neutral-700 dark:text-neutral-300">Mensaje</FormLabel>
               <FormControl>
-                <Textarea 
-                  placeholder="Cuéntame sobre tu proyecto..." 
-                  className="min-h-[120px] bg-neutral-900/50 border-neutral-800 text-neutral-800 dark:text-neutral-200 placeholder:text-neutral-600 focus:border-blue-500/50 focus:ring-blue-500/20 resize-none"
-                  {...field} 
+                <Textarea
+                  placeholder="Cuéntame sobre tu proyecto..."
+                  className="min-h-[120px] bg-white/60 dark:bg-white/[0.03] border-black/10 dark:border-white/10 text-black dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus:border-blue-500/50 focus:ring-blue-500/20 resize-none"
+                  {...field}
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button 
-          type="submit" 
+        <Button
+          type="submit"
           disabled={isPending}
-          className="w-full md:w-auto bg-white text-black hover:bg-neutral-200 transition-colors"
+          className="w-full md:w-auto bg-black dark:bg-white text-white dark:text-black hover:opacity-90 transition-opacity"
         >
           {isPending ? (
             <>
